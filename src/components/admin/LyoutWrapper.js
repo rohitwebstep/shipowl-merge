@@ -16,10 +16,16 @@ import { HashLoader } from "react-spinners";
 import { ImageURLProvider } from "../ImageURLContext";
 function LayoutWrapperInner({ children }) {
   const pathname = usePathname();
-  const isAuthPage =
-    pathname === '/admin/auth/login/' ||
-    pathname === '/admin/auth/password/forget/' ||
-    pathname === '/admin/auth/password/reset/';
+  const authPages = [
+    '/admin/auth/login/',
+    '/admin/auth/login',
+    '/admin/auth/password/forget/',
+    '/admin/auth/password/forget',
+    '/admin/auth/password/reset/',
+    '/admin/auth/password/reset'
+  ];
+
+  const isAuthPage = authPages.includes(pathname);
 
   return (
     <div className="main">

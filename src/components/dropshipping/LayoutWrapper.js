@@ -12,7 +12,22 @@ import { ImageURLProvider } from "../ImageURLContext";
 
 function LayoutWrapperInner({ children }) {
     const pathname = usePathname();
-    const isAuthPage = pathname == "/dropshipping/shopify/success/" || pathname == "/dropshipping/shopify/connecting/" || pathname == "/dropshipping/shopify/failed/" || pathname === '/dropshipping/auth/login/' || pathname === '/dropshipping/auth/password/forget/' || pathname === '/dropshipping/auth/password/reset/' || pathname === '/dropshipping/auth/register/' || pathname === '/dropshipping/auth/register/verify/';
+    const normalizedPath = pathname.endsWith('/') && pathname !== '/'
+        ? pathname.slice(0, -1)
+        : pathname;
+
+    const authPages = [
+        '/dropshipping/shopify/success',
+        '/dropshipping/shopify/connecting',
+        '/dropshipping/shopify/failed',
+        '/dropshipping/auth/login',
+        '/dropshipping/auth/password/forget',
+        '/dropshipping/auth/password/reset',
+        '/dropshipping/auth/register',
+        '/dropshipping/auth/register/verify'
+    ];
+
+    const isAuthPage = authPages.includes(normalizedPath);
 
     return (
         <div className="main">

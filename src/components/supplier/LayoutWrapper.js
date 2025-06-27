@@ -16,15 +16,30 @@ import { ImageURLProvider } from "../ImageURLContext";
 
 function LayoutWrapperInner({ children }) {
   const pathname = usePathname();
-  const isAuthPage =
-    pathname.includes('/admin') ||
-    pathname.includes('/dropshipping') ||
-    pathname.includes('/supplier/auth/login') ||
-    pathname.includes('/supplier/auth/password/forget/') ||
-    pathname.includes('/supplier/auth/password/reset/') ||
-    pathname.includes('/supplier/auth/register/verify/') ||
-    pathname.includes('/supplier/auth/register/') ||
-    pathname === "/";
+  const normalizedPath = pathname.endsWith('/') && pathname !== '/'
+    ? pathname.slice(0, -1)
+    : pathname;
+
+  const authPages = [
+    '/',
+    '/supplier/auth/login',
+    '/supplier/auth/password/forget',
+    '/supplier/auth/password/reset',
+    '/supplier/auth/register',
+    '/supplier/auth/register/verify',
+    '/admin/auth/login',
+    '/dropshipping/auth/login',
+    '/dropshipping/shopify/success',
+    '/dropshipping/shopify/failed',
+    '/dropshipping/shopify/connecting',
+    '/dropshipping/auth/password/forget',
+    '/dropshipping/auth/password/reset',
+    '/dropshipping/auth/register',
+    '/dropshipping/auth/register/verify'
+  ];
+
+  const isAuthPage = authPages.includes(normalizedPath);
+
 
   return (
     <div className="main">
