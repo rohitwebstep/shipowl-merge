@@ -43,7 +43,7 @@ const ProfileEdit = () => {
 
     try {
       setCityLoading(true);
-      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/state/${id}/cities`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/state/${id}/cities`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

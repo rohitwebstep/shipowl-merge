@@ -32,7 +32,7 @@ export default function ProfileView() {
 
         try {
             setLoading(true);
-            const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/supplier/${id}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/supplier/${id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

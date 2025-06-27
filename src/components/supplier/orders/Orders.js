@@ -242,7 +242,7 @@ export default function Orders() {
 
     try {
       setLoading(true);
-      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/order/${id}/shipping`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/order/${id}/shipping`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -263,7 +263,7 @@ export default function Orders() {
           }).then(async (result) => {
             if (result.isConfirmed) {
               try {
-                const confirmResponse = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/order/${id}/shipping/confirm`, {
+                const confirmResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/order/${id}/shipping/confirm`, {
                   method: 'POST',
                   headers: { Authorization: `Bearer ${suppliertoken}` },
                 });
@@ -300,7 +300,7 @@ export default function Orders() {
 
     try {
       setLoading(true);
-      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/order/${id}/shipping/cancel`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/order/${id}/shipping/cancel`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -330,7 +330,7 @@ export default function Orders() {
 
     try {
       setLoading(true);
-      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/order/${id}/shipping/status`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/order/${id}/shipping/status`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

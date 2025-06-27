@@ -55,12 +55,13 @@ export default function Login() {
         });
 
         try {
-            const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/auth/login`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/auth/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
             });
 
+            console.log(`response - `, response);
             const result = await response.json();
 
             if (!response.ok) {

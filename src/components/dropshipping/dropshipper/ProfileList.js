@@ -33,7 +33,7 @@ const ProfileList = () => {
 
         try {
             setLoading(true);
-            const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dropshipper/profile`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dropshipper/profile`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

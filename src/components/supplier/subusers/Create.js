@@ -123,7 +123,7 @@ export default function Create() {
 
 
     try {
-      const res = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/staff`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/staff`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

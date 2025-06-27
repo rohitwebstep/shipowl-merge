@@ -312,7 +312,7 @@ const fetchProducts = useCallback(async () => {
 
         try {
             setLoading(true);
-            const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/category`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/category`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

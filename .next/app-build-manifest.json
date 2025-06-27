@@ -6,6 +6,11 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
     "/admin/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -22,21 +27,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/admin/auth/login/page.js"
     ],
-    "/dropshipping/layout": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/dropshipping/layout.css",
-      "static/chunks/app/dropshipping/layout.js"
-    ],
-    "/dropshipping/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dropshipping/page.js"
-    ],
-    "/dropshipping/auth/login/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dropshipping/auth/login/page.js"
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

@@ -1,5 +1,7 @@
 {
-  "/admin/auth/login/page": "app/admin/auth/login/page.js",
-  "/dropshipping/page": "app/dropshipping/page.js",
-  "/dropshipping/auth/login/page": "app/dropshipping/auth/login/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/page": "app/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/admin/auth/login/page": "app/admin/auth/login/page.js"
 }

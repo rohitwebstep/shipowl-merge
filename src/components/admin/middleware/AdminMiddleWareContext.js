@@ -64,7 +64,7 @@ export default function AdminMiddleWareProvider({ children }) {
         if (!admin_token) return; // Early exit if no token
 
         try {
-            const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/auth/verify`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/auth/verify`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -115,7 +115,7 @@ export default function AdminMiddleWareProvider({ children }) {
 
         try {
             setLoading(true);
-            const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/supplier`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/supplier`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

@@ -251,7 +251,7 @@ const ProductDetails = () => {
 
     try {
       setLoading(true);
-      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/product/inventory?category=${catid}&type=${tab}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/product/inventory?category=${catid}&type=${tab}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

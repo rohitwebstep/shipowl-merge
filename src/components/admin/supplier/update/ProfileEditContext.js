@@ -86,7 +86,7 @@ const ProfileEditProvider = ({ children }) => {
 
     try {
       setLoading(true);
-      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/country`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/country`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

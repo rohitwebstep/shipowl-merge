@@ -59,7 +59,7 @@ export default function NewProducts() {
 
     try {
       setLoading(true);
-      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/product/inventory?type=notmy`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/product/inventory?type=notmy`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

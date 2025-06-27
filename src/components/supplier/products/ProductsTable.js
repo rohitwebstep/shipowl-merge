@@ -77,7 +77,7 @@ const ProductTable = () => {
 
         try {
             setLoading(true);
-            const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/product/my-inventory?type=${type}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/product/my-inventory?type=${type}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -124,7 +124,7 @@ const ProductTable = () => {
 
         try {
             setLoading(true);
-            const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/product/my-inventory/trashed`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/product/my-inventory/trashed`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

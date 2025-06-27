@@ -19,7 +19,7 @@ export default function ForgotPassword() {
 
     setLoading(true);
     try {
-      const res = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/auth/password/forget`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/auth/password/forget`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
