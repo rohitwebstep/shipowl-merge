@@ -110,7 +110,7 @@ export default function Register() {
 
 
     try {
-      const res = await fetch(`https://shipowl-kd06.onrender.com/api/dropshipper/auth/registration`, {
+      const res = await fetch(`/api/dropshipper/auth/registration`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -175,7 +175,7 @@ export default function Register() {
 
   const fetchCountryAndState = useCallback(() => {
     fetchProtected(
-      "https://shipowl-kd06.onrender.com/api/location/country",
+      "/api/location/country",
       setCountryData,
       "countries",
       setLoadingCountries
@@ -184,7 +184,7 @@ export default function Register() {
 
   const fetchStateList = useCallback((countryId) => {
     fetchProtected(
-      `https://shipowl-kd06.onrender.com/api/location/country/${countryId}/states`,
+      `/api/location/country/${countryId}/states`,
       setStateData,
       "states",
       setLoadingStates
@@ -193,7 +193,7 @@ export default function Register() {
 
   const fetchCity = useCallback((stateId) => {
     fetchProtected(
-      `https://shipowl-kd06.onrender.com/api/location/state/${stateId}/cities`,
+      `/api/location/state/${stateId}/cities`,
       setCityData,
       "cities",
       setLoadingCities

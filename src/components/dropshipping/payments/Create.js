@@ -74,7 +74,7 @@ export default function Create() {
       formdata.append("amount", formData.amount);
       formdata.append("status", formData.status);
 
-      const res = await fetch("https://shipowl-kd06.onrender.com/api/payment", {
+      const res = await fetch("/api/payment", {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formdata,

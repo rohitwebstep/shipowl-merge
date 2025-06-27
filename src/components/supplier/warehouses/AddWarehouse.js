@@ -41,7 +41,7 @@ export default function AddWarehouse() {
 
     try {
       const response = await fetch(
-        `https://shipowl-kd06.onrender.com/api/location/state/${id}/cities`,
+        `/api/location/state/${id}/cities`,
         {
           method: "GET",
           headers: {
@@ -86,7 +86,7 @@ export default function AddWarehouse() {
 
     try {
       const response = await fetch(
-        `https://shipowl-kd06.onrender.com/api/location/country/${value}/states`,
+        `/api/location/country/${value}/states`,
         {
           method: "GET",
           headers: {
@@ -139,7 +139,7 @@ export default function AddWarehouse() {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://shipowl-kd06.onrender.com/api/location/country`,
+        `/api/location/country`,
         {
           method: "GET",
           headers: {
@@ -256,7 +256,7 @@ export default function AddWarehouse() {
         }
       });
 
-      const url = "https://shipowl-kd06.onrender.com/api/warehouse";
+      const url = "/api/warehouse";
 
       const form = new FormData();
       for (const key in formData) {

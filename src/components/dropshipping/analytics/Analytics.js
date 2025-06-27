@@ -57,7 +57,7 @@ export default function Analytics() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/dropshipper/order/report?from=${fromDate}&to=${toDate}`,
+                `/api/dropshipper/order/report?from=${fromDate}&to=${toDate}`,
                 {
                     method: "GET",
                     headers: {

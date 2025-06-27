@@ -92,7 +92,7 @@ export default function OtherDetails() {
         didOpen: () => Swal.showLoading(),
       });
 
-      const url = "https://shipowl-kd06.onrender.com/api/supplier/product";
+      const url = "/api/supplier/product";
       const form = new FormData();
 
       for (const key in formData) {

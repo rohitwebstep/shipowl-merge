@@ -45,7 +45,7 @@ export default function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/country`,
+                `/api/location/country`,
                 {
                     method: "GET",
                     headers: {
@@ -99,7 +99,7 @@ export default function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/country/trashed`,
+                `/api/location/country/trashed`,
                 {
                     method: "GET",
                     headers: {
@@ -233,7 +233,7 @@ export default function List() {
             setLoading(true);
 
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/country/${item.id}`,
+                `/api/location/country/${item.id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -304,7 +304,7 @@ export default function List() {
 
             const results = await Promise.all(
                 selected.map(id =>
-                    fetch(`https://shipowl-kd06.onrender.com/api/location/country/${id}`, {
+                    fetch(`/api/location/country/${id}`, {
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json",
@@ -349,7 +349,7 @@ export default function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/country/${item?.id}/restore`,
+                `/api/location/country/${item?.id}/restore`,
                 {
                     method: "PATCH",
                     headers: {
@@ -428,7 +428,7 @@ export default function List() {
             setLoading(true);
 
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/country/${item.id}/destroy`,
+                `/api/location/country/${item.id}/destroy`,
                 {
                     method: "DELETE",
                     headers: {

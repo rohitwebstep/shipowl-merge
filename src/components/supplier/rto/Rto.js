@@ -163,7 +163,7 @@ export default function RTO() {
       setLoading(true);
 
       const response = await fetch(
-        `https://shipowl-kd06.onrender.com/api/supplier/order/warehouse-collected`,
+        `/api/supplier/order/warehouse-collected`,
         {
           method: "POST",
           headers: {
@@ -221,7 +221,7 @@ export default function RTO() {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://shipowl-kd06.onrender.com/api/supplier/order/${activeTab}?from=${formatDate(
+        `/api/supplier/order/${activeTab}?from=${formatDate(
           fromDate
         )}&to=${formatDate(toDate)}`,
         {
@@ -284,7 +284,7 @@ export default function RTO() {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://shipowl-kd06.onrender.com/api/supplier/order/need-to-raise/${id}/dispute-1`,
+        `/api/supplier/order/need-to-raise/${id}/dispute-1`,
         {
           method: "POST",
           headers: {
@@ -421,7 +421,7 @@ export default function RTO() {
       const formdata = new FormData();
       formdata.append('orders', Array.isArray(selected) ? selected.join(',') : selected);
 
-      const url = `https://shipowl-kd06.onrender.com/api/supplier/order/need-to-raise/dispute-1`;
+      const url = `/api/supplier/order/need-to-raise/dispute-1`;
 
       const response = await fetch(url, {
         method: "POST",
@@ -513,7 +513,7 @@ export default function RTO() {
       formdata.append("status", status);
 
 
-      const url = `https://shipowl-kd06.onrender.com/api/supplier/order/need-to-raise/${disputeCase2}/dispute-2`;
+      const url = `/api/supplier/order/need-to-raise/${disputeCase2}/dispute-2`;
 
       const response = await fetch(url, {
         method: "POST",

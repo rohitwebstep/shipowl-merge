@@ -59,7 +59,7 @@ export default function ShippingDetails() {
         }
       });
 
-      const url = `https://shipowl-kd06.onrender.com/api/admin/product/${id}/image/${index}?type=${type}`;
+      const url = `/api/admin/product/${id}/image/${index}?type=${type}`;
 
       const response = await fetch(url, {
         method: "DELETE",

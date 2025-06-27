@@ -51,7 +51,7 @@ const ProductList = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://shipowl-kd06.onrender.com/api/dropshipper/product/inventory?type=all`,
+        `/api/dropshipper/product/inventory?type=all`,
         {
           method: "GET",
           headers: {
@@ -136,7 +136,7 @@ const ProductList = () => {
       form.append('variants', JSON.stringify(simplifiedVariants));
 
 
-      const url = "https://shipowl-kd06.onrender.com/api/dropshipper/product/my-inventory";
+      const url = "/api/dropshipper/product/my-inventory";
 
       const response = await fetch(url, {
         method: "POST",

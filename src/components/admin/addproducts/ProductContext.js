@@ -74,7 +74,7 @@ const ProductProvider = ({ children }) => {
     }
 
     try {
-      const response = await fetch('https://shipowl-kd06.onrender.com/api/admin/category', {
+      const response = await fetch('/api/admin/category', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ const ProductProvider = ({ children }) => {
     }
 
     try {
-      const response = await fetch('https://shipowl-kd06.onrender.com/api/admin/brand', {
+      const response = await fetch('/api/admin/brand', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -172,7 +172,7 @@ const ProductProvider = ({ children }) => {
 
     try {
       setLoading(true);
-      const response = await fetch('https://shipowl-kd06.onrender.com/api/location/country', {
+      const response = await fetch('/api/location/country', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

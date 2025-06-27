@@ -60,7 +60,7 @@ function Permission() {
 
   const fetchPermission = useCallback(() => {
     fetchProtected(
-      "https://shipowl-kd06.onrender.com/api/admin/permission",
+      "/api/admin/permission",
       setPermission,
       "permissions",
       setLoading
@@ -104,7 +104,7 @@ function Permission() {
         redirect: "follow"
       };
 
-      const res = await fetch("https://shipowl-kd06.onrender.com/api/admin/permission", requestOptions);
+      const res = await fetch("/api/admin/permission", requestOptions);
 
       const result = await res.json();
 

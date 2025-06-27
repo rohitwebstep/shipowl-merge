@@ -37,7 +37,7 @@ export default function Success() {
       const form = new FormData();
       form.append("shop", shop);
 
-      const url = `https://shipowl-kd06.onrender.com/api/dropshipper/shopify/callback?code=${code}&hmac=${hmac}&host=${host}&shop=${shop}&timestamp=${timestamp}`;
+      const url = `/api/dropshipper/shopify/callback?code=${code}&hmac=${hmac}&host=${host}&shop=${shop}&timestamp=${timestamp}`;
 
       const response = await fetch(url, {
         method: "GET",

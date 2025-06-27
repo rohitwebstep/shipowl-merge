@@ -53,7 +53,7 @@ export default function Update() {
         try {
             setLoadingCity(true)
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/state/${id}/cities`,
+                `/api/location/state/${id}/cities`,
                 {
                     method: "GET",
                     headers: {
@@ -100,7 +100,7 @@ export default function Update() {
         try {
             setLoadingState(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/country/${value}/states`,
+                `/api/location/country/${value}/states`,
                 {
                     method: "GET",
                     headers: {
@@ -154,7 +154,7 @@ export default function Update() {
         try {
             setLoadingCountry(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/country`,
+                `/api/location/country`,
                 {
                     method: "GET",
                     headers: {
@@ -247,7 +247,7 @@ export default function Update() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/warehouse/${id}`,
+                `/api/warehouse/${id}`,
                 {
                     method: "GET",
                     headers: {
@@ -333,7 +333,7 @@ export default function Update() {
                 }
             });
 
-            const url = `https://shipowl-kd06.onrender.com/api/warehouse/${id}`;
+            const url = `/api/warehouse/${id}`;
             const form = new FormData();
             for (const key in formData) {
                 if (formData[key]) {

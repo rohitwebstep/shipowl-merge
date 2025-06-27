@@ -53,7 +53,7 @@ export default function Login() {
         });
     
         try {
-            const response = await fetch(`https://shipowl-kd06.onrender.com/api/dropshipper/auth/login`, {
+            const response = await fetch(`/api/dropshipper/auth/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),

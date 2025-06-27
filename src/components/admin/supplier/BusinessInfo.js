@@ -74,7 +74,7 @@ const BusinessInfo = () => {
     try {
       setStateLoading(true);
       const response = await fetch(
-        `https://shipowl-kd06.onrender.com/api/location/country/${id}/states`,
+        `/api/location/country/${id}/states`,
         {
           method: "GET",
           headers: {
@@ -119,7 +119,7 @@ const BusinessInfo = () => {
 
     try {
       setCityLoading(true);
-      const response = await fetch(`https://shipowl-kd06.onrender.com/api/location/state/${id}/cities`, {
+      const response = await fetch(`/api/location/state/${id}/cities`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -174,7 +174,7 @@ const BusinessInfo = () => {
         didOpen: () => Swal.showLoading()
       });
 
-      const url = "https://shipowl-kd06.onrender.com/api/admin/supplier";
+      const url = "/api/admin/supplier";
       const form = new FormData();
 
       for (const key in formData) {

@@ -72,7 +72,7 @@ export default function Update() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/courier-company/${id}`,
+                `/api/courier-company/${id}`,
                 {
                     method: "GET",
                     headers: {
@@ -162,7 +162,7 @@ export default function Update() {
                 }
             });
 
-            const url = `https://shipowl-kd06.onrender.com/api/courier-company/${id}`;
+            const url = `/api/courier-company/${id}`;
             const form = new FormData();
             for (const key in formData) {
                 if (formData[key]) {

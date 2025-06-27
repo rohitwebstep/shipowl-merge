@@ -76,7 +76,7 @@ export default function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/admin/emails`,
+                `/api/admin/emails`,
                 {
                     method: "GET",
                     headers: {

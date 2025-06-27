@@ -41,7 +41,7 @@ const CategorySection = () => {
 
     try {
       setLoading(true);
-      const response = await fetch('https://shipowl-kd06.onrender.com/api/dropshipper/category', {
+      const response = await fetch('/api/dropshipper/category', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

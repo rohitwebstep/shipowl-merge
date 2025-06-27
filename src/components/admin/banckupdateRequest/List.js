@@ -43,7 +43,7 @@ function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/admin/supplier/bank-account/change-request`,
+                `/api/admin/supplier/bank-account/change-request`,
                 {
                     method: "GET",
                     headers: {
@@ -89,7 +89,7 @@ function List() {
 
         try {
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/admin/supplier/bank-account/change-request/${requestId}/review`,
+                `/api/admin/supplier/bank-account/change-request/${requestId}/review`,
                 {
                     method: "POST",
                     headers: {

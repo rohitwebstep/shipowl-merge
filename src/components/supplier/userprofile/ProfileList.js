@@ -38,7 +38,7 @@ const ProfileList = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`https://shipowl-kd06.onrender.com/api/supplier/profile`, {
+            const response = await fetch(`/api/supplier/profile`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -84,7 +84,7 @@ const ProfileList = () => {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/city`,
+                `/api/location/city`,
                 {
                     method: "GET",
                     headers: {
@@ -131,7 +131,7 @@ const ProfileList = () => {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/state`,
+                `/api/location/state`,
                 {
                     method: "GET",
                     headers: {

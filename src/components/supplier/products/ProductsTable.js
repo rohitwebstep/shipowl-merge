@@ -77,7 +77,7 @@ const ProductTable = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory?type=${type}`, {
+            const response = await fetch(`/api/supplier/product/my-inventory?type=${type}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -124,7 +124,7 @@ const ProductTable = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory/trashed`, {
+            const response = await fetch(`/api/supplier/product/my-inventory/trashed`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -170,7 +170,7 @@ const ProductTable = () => {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/supplier/category`,
+                `/api/supplier/category`,
                 {
                     method: "GET",
                     headers: {
@@ -242,7 +242,7 @@ const ProductTable = () => {
             setLoading(true);
 
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory/${item.id}`,
+                `/api/supplier/product/my-inventory/${item.id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -324,7 +324,7 @@ const ProductTable = () => {
             setLoading(true);
 
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory/${item.id}/destroy`,
+                `/api/supplier/product/my-inventory/${item.id}/destroy`,
                 {
                     method: "DELETE",
                     headers: {
@@ -386,7 +386,7 @@ const ProductTable = () => {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory/${item?.id}/restore`,
+                `/api/supplier/product/my-inventory/${item?.id}/restore`,
                 {
                     method: "PATCH",
                     headers: {
@@ -495,7 +495,7 @@ const ProductTable = () => {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory/${item.id}`,
+                `/api/supplier/product/my-inventory/${item.id}`,
                 {
                     method: "GET",
                     headers: {
@@ -584,7 +584,7 @@ const ProductTable = () => {
 
 
 
-            const url = isEdit ? `https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory/${inventoryData.id}` : "https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory";
+            const url = isEdit ? `/api/supplier/product/my-inventory/${inventoryData.id}` : "/api/supplier/product/my-inventory";
 
             const response = await fetch(url, {
                 method: isEdit ? 'PUT' : "POST",

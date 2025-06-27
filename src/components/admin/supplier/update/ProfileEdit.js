@@ -29,7 +29,7 @@ const ProfileEdit = () => {
 
     try {
       setLoading(true);
-      const response = await fetch(`https://shipowl-kd06.onrender.com/api/location/state/${formData?.permanentState || id}/cities`, {
+      const response = await fetch(`/api/location/state/${formData?.permanentState || id}/cities`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const ProfileEdit = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://shipowl-kd06.onrender.com/api/location/country/${formData?.permanentCountry || id}/states`,
+        `/api/location/country/${formData?.permanentCountry || id}/states`,
         {
           method: "GET",
           headers: {

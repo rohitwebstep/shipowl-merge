@@ -34,7 +34,7 @@ export default function Profile() {
 
     try {
       setLoading(true);
-      const response = await fetch(`https://shipowl-kd06.onrender.com/api/admin/supplier/${id}`, {
+      const response = await fetch(`/api/admin/supplier/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -136,7 +136,7 @@ export default function Profile() {
 
     try {
       setLoading(true);
-      const response = await fetch(`https://shipowl-kd06.onrender.com/api/location/state/${formData?.permanentState || id}/cities`, {
+      const response = await fetch(`/api/location/state/${formData?.permanentState || id}/cities`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -180,7 +180,7 @@ export default function Profile() {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://shipowl-kd06.onrender.com/api/location/country/${formData?.permanentCountry || id}/states`,
+        `/api/location/country/${formData?.permanentCountry || id}/states`,
         {
           method: "GET",
           headers: {

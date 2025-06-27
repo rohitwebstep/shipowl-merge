@@ -37,7 +37,7 @@ export default function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/supplier/staff`,
+                `/api/supplier/staff`,
                 {
                     method: "GET",
                     headers: {
@@ -84,7 +84,7 @@ export default function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/supplier/staff/trashed`,
+                `/api/supplier/staff/trashed`,
                 {
                     method: "GET",
                     headers: {
@@ -210,7 +210,7 @@ export default function List() {
             setLoading(true);
 
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/supplier/staff/${item.id}`,
+                `/api/supplier/staff/${item.id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -271,7 +271,7 @@ export default function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/supplier/staff/${item?.id}/restore`,
+                `/api/supplier/staff/${item?.id}/restore`,
                 {
                     method: "PATCH",
                     headers: {
@@ -350,7 +350,7 @@ export default function List() {
             setLoading(true);
 
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/supplier/staff/${item.id}/destroy`,
+                `/api/supplier/staff/${item.id}/destroy`,
                 {
                     method: "DELETE",
                     headers: {

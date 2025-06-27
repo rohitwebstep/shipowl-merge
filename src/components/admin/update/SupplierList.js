@@ -36,7 +36,7 @@ const SupplierList = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`https://shipowl-kd06.onrender.com/api/admin/supplier`, {
+            const response = await fetch(`/api/admin/supplier`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const SupplierList = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`https://shipowl-kd06.onrender.com/api/admin/supplier/trashed`, {
+            const response = await fetch(`/api/admin/supplier/trashed`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -193,7 +193,7 @@ const SupplierList = () => {
             setLoading(true);
 
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/admin/supplier/${item.id}`,
+                `/api/admin/supplier/${item.id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -275,7 +275,7 @@ const SupplierList = () => {
             setLoading(true);
 
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/admin/supplier/${item.id}/destroy`,
+                `/api/admin/supplier/${item.id}/destroy`,
                 {
                     method: "DELETE",
                     headers: {
@@ -337,7 +337,7 @@ const SupplierList = () => {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/admin/supplier/${item?.id}/restore`,
+                `/api/admin/supplier/${item?.id}/restore`,
                 {
                     method: "PATCH",
                     headers: {

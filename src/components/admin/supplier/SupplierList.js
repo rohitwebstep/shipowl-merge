@@ -189,7 +189,7 @@ const SupplierList = () => {
                 redirect: "follow"
             };
 
-            const url = `https://shipowl-kd06.onrender.com/api/admin/supplier/${expandPassModal}/password/reset`;
+            const url = `/api/admin/supplier/${expandPassModal}/password/reset`;
 
             const response = await fetch(url, requestOptions);
 

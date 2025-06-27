@@ -63,7 +63,7 @@ export default function Create() {
           try {
               setLoading(true);
               const response = await fetch(
-                  `https://shipowl-kd06.onrender.com/api/location/country`,
+                  `/api/location/country`,
                   {
                       method: "GET",
                       headers: {
@@ -148,7 +148,7 @@ export default function Create() {
         form.append("image", file);
       });
 
-      const response = await fetch("https://shipowl-kd06.onrender.com/api/location/state", {
+      const response = await fetch("/api/location/state", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

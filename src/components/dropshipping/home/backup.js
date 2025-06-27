@@ -58,7 +58,7 @@ const NewlyLaunched = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`https://shipowl-kd06.onrender.com/api/dropshipper/product/inventory?type=${type}`, {
+            const response = await fetch(`/api/dropshipper/product/inventory?type=${type}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -431,7 +431,7 @@ const Section = ({ title, showResult, type, setShowResult, products, shopifyStor
 
 
 
-            const url = "https://shipowl-kd06.onrender.com/api/dropshipper/product/my-inventory";
+            const url = "/api/dropshipper/product/my-inventory";
 
             const response = await fetch(url, {
                 method: "POST",

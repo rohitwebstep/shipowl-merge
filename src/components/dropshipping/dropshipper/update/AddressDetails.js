@@ -29,7 +29,7 @@ const AccountDetails = () => {
 
       try {
           setCityLoading(true);
-          const response = await fetch(`https://shipowl-kd06.onrender.com/api/location/state/${id}/cities`, {
+          const response = await fetch(`/api/location/state/${id}/cities`, {
               method: "GET",
               headers: {
                   "Content-Type": "application/json",
@@ -73,7 +73,7 @@ const AccountDetails = () => {
       try {
         setStateLoading(true);
         const response = await fetch(
-          `https://shipowl-kd06.onrender.com/api/location/country/${id}/states`,
+          `/api/location/country/${id}/states`,
           {
             method: "GET",
             headers: {

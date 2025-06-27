@@ -1,6 +1,6 @@
 postman pass:Lu6Y%CBfArhxd?+
-render url:https://shipowl-kd06.onrender.com/
-localhost url: https://shipowl-kd06.onrender.com/
+render url:/
+localhost url: /
 shopify url :webproductstore.myshopify.com:
 
 

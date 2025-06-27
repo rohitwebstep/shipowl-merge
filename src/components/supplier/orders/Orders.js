@@ -196,7 +196,7 @@ export default function Orders() {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://shipowl-kd06.onrender.com/api/supplier/order?from=${formatDate(fromDate)}&to=${formatDate(toDate)}`,
+        `/api/supplier/order?from=${formatDate(fromDate)}&to=${formatDate(toDate)}`,
         {
           method: "GET",
           headers: {
@@ -242,7 +242,7 @@ export default function Orders() {
 
     try {
       setLoading(true);
-      const response = await fetch(`https://shipowl-kd06.onrender.com/api/order/${id}/shipping`, {
+      const response = await fetch(`/api/order/${id}/shipping`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -263,7 +263,7 @@ export default function Orders() {
           }).then(async (result) => {
             if (result.isConfirmed) {
               try {
-                const confirmResponse = await fetch(`https://shipowl-kd06.onrender.com/api/order/${id}/shipping/confirm`, {
+                const confirmResponse = await fetch(`/api/order/${id}/shipping/confirm`, {
                   method: 'POST',
                   headers: { Authorization: `Bearer ${suppliertoken}` },
                 });
@@ -300,7 +300,7 @@ export default function Orders() {
 
     try {
       setLoading(true);
-      const response = await fetch(`https://shipowl-kd06.onrender.com/api/order/${id}/shipping/cancel`, {
+      const response = await fetch(`/api/order/${id}/shipping/cancel`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -330,7 +330,7 @@ export default function Orders() {
 
     try {
       setLoading(true);
-      const response = await fetch(`https://shipowl-kd06.onrender.com/api/order/${id}/shipping/status`, {
+      const response = await fetch(`/api/order/${id}/shipping/status`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

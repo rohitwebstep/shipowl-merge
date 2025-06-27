@@ -67,7 +67,7 @@ export default function Update() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/admin/category/${id}`,
+                `/api/admin/category/${id}`,
                 {
                     method: "GET",
                     headers: {
@@ -143,7 +143,7 @@ export default function Update() {
                 }
             });
 
-            const url = `https://shipowl-kd06.onrender.com/api/admin/category/${id}`;
+            const url = `/api/admin/category/${id}`;
             const form = new FormData();
             form.append('name', formData.name);
             form.append('description', formData.description);
@@ -237,7 +237,7 @@ export default function Update() {
                 }
             });
 
-            const url = `https://shipowl-kd06.onrender.com/api/admin/category/${id}/image/${index}`;
+            const url = `/api/admin/category/${id}/image/${index}`;
 
             const response = await fetch(url, {
                 method: "DELETE",

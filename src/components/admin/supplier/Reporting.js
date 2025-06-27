@@ -54,7 +54,7 @@ function Reporting() {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://shipowl-kd06.onrender.com/api/admin/supplier/${id}/payment-report?from=${formatDate(
+        `/api/admin/supplier/${id}/payment-report?from=${formatDate(
           fromDate
         )}&to=${formatDate(toDate)}`,
         {

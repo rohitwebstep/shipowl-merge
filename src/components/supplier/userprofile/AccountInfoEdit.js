@@ -63,7 +63,7 @@ const AccountInfoEdit = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`https://shipowl-kd06.onrender.com/api/supplier/profile`, {
+            const response = await fetch(`/api/supplier/profile`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -174,7 +174,7 @@ const AccountInfoEdit = () => {
                 didOpen: () => Swal.showLoading(),
             });
 
-            const url = "https://shipowl-kd06.onrender.com/api/supplier/profile/bank-account/change-request";
+            const url = "/api/supplier/profile/bank-account/change-request";
             const form = new FormData();
             // Append all formData key-value pairs
             Object.entries(formData).forEach(([key, value]) => {
@@ -272,7 +272,7 @@ const AccountInfoEdit = () => {
                 }
             });
 
-            const url = `https://shipowl-kd06.onrender.com/api/supplier/${formData.id}/bank-account/image/${index}?type=${type}`;
+            const url = `/api/supplier/${formData.id}/bank-account/image/${index}?type=${type}`;
             const response = await fetch(url, {
                 method: "DELETE",
                 headers: {

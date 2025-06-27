@@ -77,7 +77,7 @@ const AccountInfo = () => {
         }
       });
 
-      const url = `https://shipowl-kd06.onrender.com/api/supplier/${formData.id}/bank-account/${id}/image/${index}?type=${type}`;
+      const url = `/api/supplier/${formData.id}/bank-account/${id}/image/${index}?type=${type}`;
       const response = await fetch(url, {
         method: "DELETE",
         headers: {
@@ -193,7 +193,7 @@ const AccountInfo = () => {
           }
         });
 
-        const url = `https://shipowl-kd06.onrender.com/api/supplier/profile/update`; // Ensure the URL is correct
+        const url = `/api/supplier/profile/update`; // Ensure the URL is correct
         const form = new FormData();
         for (const key in files) {
           const value = files[key];

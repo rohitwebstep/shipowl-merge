@@ -136,7 +136,7 @@ export default function VariantDetails() {
     try {
 
 
-      const url = `https://shipowl-kd06.onrender.com/api/admin/product/${variantId}/image/${index}?type=${type}`;
+      const url = `/api/admin/product/${variantId}/image/${index}?type=${type}`;
 
       const response = await fetch(url, {
         method: "DELETE",

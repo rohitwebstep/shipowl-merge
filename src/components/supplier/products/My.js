@@ -49,7 +49,7 @@ export default function My() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/supplier/product/inventory?type=my`,
+                `/api/supplier/product/inventory?type=my`,
                 {
                     method: "GET",
                     headers: {
@@ -123,7 +123,7 @@ export default function My() {
 
         try {
             setLoading(true);
-            const response = await fetch(`https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory/trashed`, {
+            const response = await fetch(`/api/supplier/product/my-inventory/trashed`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -193,7 +193,7 @@ export default function My() {
             form.append('variants', JSON.stringify(simplifiedVariants));
 
 
-            const url = `https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory/${inventoryData.id}`;
+            const url = `/api/supplier/product/my-inventory/${inventoryData.id}`;
 
             const response = await fetch(url, {
                 method: 'PUT',
@@ -291,7 +291,7 @@ export default function My() {
             setLoading(true);
 
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory/${item.id}`,
+                `/api/supplier/product/my-inventory/${item.id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -373,7 +373,7 @@ export default function My() {
             setLoading(true);
 
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory/${item.id}/destroy`,
+                `/api/supplier/product/my-inventory/${item.id}/destroy`,
                 {
                     method: "DELETE",
                     headers: {
@@ -435,7 +435,7 @@ export default function My() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory/${item?.id}/restore`,
+                `/api/supplier/product/my-inventory/${item?.id}/restore`,
                 {
                     method: "PATCH",
                     headers: {
@@ -494,7 +494,7 @@ export default function My() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory/${item.id}`,
+                `/api/supplier/product/my-inventory/${item.id}`,
                 {
                     method: "GET",
                     headers: {

@@ -83,7 +83,7 @@ export default function Create() {
         form.append(key, formData[key]);
       }
 
-      const url = "https://shipowl-kd06.onrender.com/api/location/country";
+      const url = "/api/location/country";
 
       const response = await fetch(url, {
         method: "POST",

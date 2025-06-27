@@ -91,7 +91,7 @@ export default function Create() {
   
      
   
-      const url = "https://shipowl-kd06.onrender.com/api/courier-company";
+      const url = "/api/courier-company";
   
       const response = await fetch(url, {
         method: "POST",

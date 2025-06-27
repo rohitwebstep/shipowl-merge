@@ -49,7 +49,7 @@ function Reporting() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/admin/dropshipper/${id}/payment-report?from=${formatDate(
+                `/api/admin/dropshipper/${id}/payment-report?from=${formatDate(
                     fromDate
                 )}&to=${formatDate(toDate)}`,
                 {

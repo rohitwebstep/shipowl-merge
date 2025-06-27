@@ -62,7 +62,7 @@ const handleChange = (e) => {
         didOpen: () => Swal.showLoading(),
       });
 
-      const url = `https://shipowl-kd06.onrender.com/api/admin/dropshipper`;
+      const url = `/api/admin/dropshipper`;
       const form = new FormData();
 
       // Append formData

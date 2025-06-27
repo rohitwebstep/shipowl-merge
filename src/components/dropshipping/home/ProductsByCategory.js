@@ -177,7 +177,7 @@ function ProductsByCategory() {
 
 
 
-      const url = "https://shipowl-kd06.onrender.com/api/dropshipper/product/my-inventory";
+      const url = "/api/dropshipper/product/my-inventory";
 
       const response = await fetch(url, {
         method: "POST",
@@ -256,7 +256,7 @@ function ProductsByCategory() {
 
     try {
       setLoading(true);
-      const response = await fetch(`https://shipowl-kd06.onrender.com/api/dropshipper/product/inventory?category=${id}&type=${tab}`, {
+      const response = await fetch(`/api/dropshipper/product/inventory?category=${id}&type=${tab}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

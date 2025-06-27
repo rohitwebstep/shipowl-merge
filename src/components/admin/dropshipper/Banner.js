@@ -96,7 +96,7 @@ export default function Banner() {
                 });
             }
 
-            const url = "https://shipowl-kd06.onrender.com/api/admin/Banner";
+            const url = "/api/admin/Banner";
 
             const response = await fetch(url, {
                 method: "POST",

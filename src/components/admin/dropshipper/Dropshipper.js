@@ -134,7 +134,7 @@ const Dropshipper = () => {
 
 
 
-            const url = `https://shipowl-kd06.onrender.com/api/admin/dropshipper/${expandPassModal}/password/reset`;
+            const url = `/api/admin/dropshipper/${expandPassModal}/password/reset`;
 
             const response = await fetch(url, requestOptions);
 

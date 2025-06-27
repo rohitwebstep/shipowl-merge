@@ -34,7 +34,7 @@ const BrandProvider = ({ children }) => {
 
         try {
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/admin/brand`,
+                `/api/admin/brand`,
                 {
                     method: "GET",
                     headers: {

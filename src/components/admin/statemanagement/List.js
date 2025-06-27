@@ -40,7 +40,7 @@ export default function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/state`,
+                `/api/location/state`,
                 {
                     method: "GET",
                     headers: {
@@ -95,7 +95,7 @@ export default function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/state/trashed`,
+                `/api/location/state/trashed`,
                 {
                     method: "GET",
                     headers: {
@@ -279,7 +279,7 @@ export default function List() {
             setLoading(true);
 
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/state/${item.id}`,
+                `/api/location/state/${item.id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -350,7 +350,7 @@ export default function List() {
 
             const results = await Promise.all(
                 selected.map(id =>
-                    fetch(`https://shipowl-kd06.onrender.com/api/location/state/${id}`, {
+                    fetch(`/api/location/state/${id}`, {
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json",
@@ -395,7 +395,7 @@ export default function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/state/${item?.id}/restore`,
+                `/api/location/state/${item?.id}/restore`,
                 {
                     method: "PATCH",
                     headers: {
@@ -474,7 +474,7 @@ export default function List() {
             setLoading(true);
 
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/state/${item.id}/destroy`,
+                `/api/location/state/${item.id}/destroy`,
                 {
                     method: "DELETE",
                     headers: {

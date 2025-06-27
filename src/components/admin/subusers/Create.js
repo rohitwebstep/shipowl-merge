@@ -126,7 +126,7 @@ export default function Create() {
     });
 
     try {
-      const res = await fetch(`https://shipowl-kd06.onrender.com/api/admin/staff`, {
+      const res = await fetch(`/api/admin/staff`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -189,7 +189,7 @@ export default function Create() {
   }, [router]);
   const fetchPermission = useCallback(() => {
     fetchProtected(
-      "https://shipowl-kd06.onrender.com/api/admin/staff/meta",
+      "/api/admin/staff/meta",
       setPermission,
       "staffPermissions",
       setLoadingPermission
@@ -198,7 +198,7 @@ export default function Create() {
 
   const fetchCountryAndState = useCallback(() => {
     fetchProtected(
-      "https://shipowl-kd06.onrender.com/api/location/country",
+      "/api/location/country",
       setCountryData,
       "countries",
       setLoadingCountries
@@ -207,7 +207,7 @@ export default function Create() {
 
   const fetchStateList = useCallback((countryId) => {
     fetchProtected(
-      `https://shipowl-kd06.onrender.com/api/location/country/${countryId}/states`,
+      `/api/location/country/${countryId}/states`,
       setStateData,
       "states",
       setLoadingStates
@@ -216,7 +216,7 @@ export default function Create() {
 
   const fetchCity = useCallback((stateId) => {
     fetchProtected(
-      `https://shipowl-kd06.onrender.com/api/location/state/${stateId}/cities`,
+      `/api/location/state/${stateId}/cities`,
       setCityData,
       "cities",
       setLoadingCities

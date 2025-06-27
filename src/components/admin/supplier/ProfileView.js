@@ -32,7 +32,7 @@ export default function ProfileView() {
 
         try {
             setLoading(true);
-            const response = await fetch(`https://shipowl-kd06.onrender.com/api/admin/supplier/${id}`, {
+            const response = await fetch(`/api/admin/supplier/${id}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

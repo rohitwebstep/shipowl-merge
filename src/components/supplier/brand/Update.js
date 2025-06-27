@@ -81,7 +81,7 @@ export default function Update() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/admin/brand/${id}`,
+                `/api/admin/brand/${id}`,
                 {
                     method: "GET",
                     headers: {
@@ -178,7 +178,7 @@ export default function Update() {
                 });
             }
 
-            const url = `https://shipowl-kd06.onrender.com/api/admin/brand/${id}`;
+            const url = `/api/admin/brand/${id}`;
 
             const response = await fetch(url, {
                 method: "PUT",
@@ -256,7 +256,7 @@ export default function Update() {
                 }
             });
 
-            const url = `https://shipowl-kd06.onrender.com/api/admin/brand/${id}/image/${index}`;
+            const url = `/api/admin/brand/${id}/image/${index}`;
 
             const response = await fetch(url, {
                 method: "DELETE",

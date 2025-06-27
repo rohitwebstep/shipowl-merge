@@ -79,7 +79,7 @@ export default function List() {
 
     const fetchCity = useCallback(async () => {
         try {
-            const response = await fetch("https://shipowl-kd06.onrender.com/api/location/city");
+            const response = await fetch("/api/location/city");
             const result = await response.json();
             setCityData(result?.cities || []);
         } catch (error) {
@@ -90,7 +90,7 @@ export default function List() {
 
     const fetchState = useCallback(async () => {
         try {
-            const response = await fetch("https://shipowl-kd06.onrender.com/api/location/state");
+            const response = await fetch("/api/location/state");
             const result = await response.json();
             setStateData(result?.states || []);
         } catch (error) {
@@ -100,7 +100,7 @@ export default function List() {
 
     const fetchCountry = useCallback(async () => {
         try {
-            const response = await fetch("https://shipowl-kd06.onrender.com/api/location/country");
+            const response = await fetch("/api/location/country");
             const result = await response.json();
             setCountryData(result?.countries || []);
         } catch (error) {

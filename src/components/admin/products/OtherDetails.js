@@ -62,7 +62,7 @@ export default function OtherDetails() {
         },
       });
 
-      const url = `https://shipowl-kd06.onrender.com/api/admin/product/${id}`;
+      const url = `/api/admin/product/${id}`;
       const form = new FormData();
 
       const combinedData = { ...formData, ...files };

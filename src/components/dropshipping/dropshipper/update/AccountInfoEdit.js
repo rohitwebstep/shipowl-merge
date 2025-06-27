@@ -45,7 +45,7 @@ const AccountInfoEdit = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`https://shipowl-kd06.onrender.com/api/dropshipper/profile`, {
+            const response = await fetch(`/api/dropshipper/profile`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -142,7 +142,7 @@ const AccountInfoEdit = () => {
                 didOpen: () => Swal.showLoading(),
             });
 
-            const url = "https://shipowl-kd06.onrender.com/api/dropshipper/profile/bank-account/change-request";
+            const url = "/api/dropshipper/profile/bank-account/change-request";
             const form = new FormData();
             // Append all formData key-value pairs
             Object.entries(formData).forEach(([key, value]) => {

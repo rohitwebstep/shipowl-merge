@@ -32,7 +32,7 @@ export default function UnverifiedSupplier() {
       router.push("/admin/auth/login");
       return;
     }
-    const url = `https://shipowl-kd06.onrender.com/api/admin/supplier?type=notVerified`;
+    const url = `/api/admin/supplier?type=notVerified`;
     try {
       const response = await fetch(url, {
         method: "GET",
@@ -145,7 +145,7 @@ export default function UnverifiedSupplier() {
     }
 
 
-    const url = `https://shipowl-kd06.onrender.com/api/admin/supplier/${id}/verify?status=true`;
+    const url = `/api/admin/supplier/${id}/verify?status=true`;
 
     try {
       // Show loading modal

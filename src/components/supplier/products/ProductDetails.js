@@ -166,9 +166,9 @@ const ProductDetails = () => {
       setLoading(true);
       let url;
       if (type === "notmy") {
-        url = `https://shipowl-kd06.onrender.com/api/supplier/product/inventory/${id}`;
+        url = `/api/supplier/product/inventory/${id}`;
       } else {
-        url = `https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory/${id}`;
+        url = `/api/supplier/product/my-inventory/${id}`;
 
       }
       const response = await fetch(url, {
@@ -251,7 +251,7 @@ const ProductDetails = () => {
 
     try {
       setLoading(true);
-      const response = await fetch(`https://shipowl-kd06.onrender.com/api/supplier/product/inventory?category=${catid}&type=${tab}`, {
+      const response = await fetch(`/api/supplier/product/inventory?category=${catid}&type=${tab}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -331,7 +331,7 @@ const ProductDetails = () => {
 
 
 
-      const url = isEdit ? `https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory/${id}` : "https://shipowl-kd06.onrender.com/api/supplier/product/my-inventory";
+      const url = isEdit ? `/api/supplier/product/my-inventory/${id}` : "/api/supplier/product/my-inventory";
 
       const response = await fetch(url, {
         method: isEdit ? "PUT" : "POST",

@@ -52,7 +52,7 @@ export default function Update() {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://shipowl-kd06.onrender.com/api/good-pincode/${id}`,
+        `/api/good-pincode/${id}`,
         {
           method: "GET",
           headers: {
@@ -122,7 +122,7 @@ export default function Update() {
       const formdata = new FormData();
       formdata.append("pincode", formData.pincode);
 
-      const res = await fetch(`https://shipowl-kd06.onrender.com/api/good-pincode/${id}`, {
+      const res = await fetch(`/api/good-pincode/${id}`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
         body: formdata,

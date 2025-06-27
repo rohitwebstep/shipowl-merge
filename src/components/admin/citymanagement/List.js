@@ -48,7 +48,7 @@ export default function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/city`,
+                `/api/location/city`,
                 {
                     method: "GET",
                     headers: {
@@ -97,7 +97,7 @@ export default function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/city/trashed`,
+                `/api/location/city/trashed`,
                 {
                     method: "GET",
                     headers: {
@@ -223,7 +223,7 @@ export default function List() {
             setLoading(true);
 
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/city/${item.id}`,
+                `/api/location/city/${item.id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -284,7 +284,7 @@ export default function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/city/${item?.id}/restore`,
+                `/api/location/city/${item?.id}/restore`,
                 {
                     method: "PATCH",
                     headers: {
@@ -363,7 +363,7 @@ export default function List() {
             setLoading(true);
 
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/location/city/${item.id}/destroy`,
+                `/api/location/city/${item.id}/destroy`,
                 {
                     method: "DELETE",
                     headers: {
@@ -434,7 +434,7 @@ export default function List() {
 
             const results = await Promise.all(
                 selected.map(id =>
-                    fetch(`https://shipowl-kd06.onrender.com/api/location/city/${id}`, {
+                    fetch(`/api/location/city/${id}`, {
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json",

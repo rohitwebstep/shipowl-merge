@@ -38,7 +38,7 @@ export default function Allroducts() {
 
         try {
             setLoading(true);
-            const response = await fetch(`https://shipowl-kd06.onrender.com/api/dropshipper/product/inventory?type='my'`, {
+            const response = await fetch(`/api/dropshipper/product/inventory?type='my'`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

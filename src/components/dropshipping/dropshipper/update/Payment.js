@@ -67,7 +67,7 @@ const Payment = () => {
         }
       });
 
-      const url = `https://shipowl-kd06.onrender.com/api/dropshipper/${formData.id}/company/${formData.companyid}/image/${index}?type=${type}`;
+      const url = `/api/dropshipper/${formData.id}/company/${formData.companyid}/image/${index}?type=${type}`;
       const response = await fetch(url, {
         method: "DELETE",
         headers: {
@@ -151,7 +151,7 @@ const Payment = () => {
         didOpen: () => Swal.showLoading(),
       });
 
-      const url = `https://shipowl-kd06.onrender.com/api/dropshipper/profile/update`;
+      const url = `/api/dropshipper/profile/update`;
       const form = new FormData();
 
       // Append uploaded files (new)

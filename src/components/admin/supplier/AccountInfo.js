@@ -74,7 +74,7 @@ const handleChange = (e) => {
       didOpen: () => Swal.showLoading(),
     });
 
-    const url = "https://shipowl-kd06.onrender.com/api/supplier/profile/bank-account/change-request";
+    const url = "/api/supplier/profile/bank-account/change-request";
     const form = new FormData();
 
     for (const key in formData) {

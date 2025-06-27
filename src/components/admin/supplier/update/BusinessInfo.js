@@ -66,7 +66,7 @@ const BusinessInfo = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://shipowl-kd06.onrender.com/api/location/country/${id}/states`,
+        `/api/location/country/${id}/states`,
         {
           method: "GET",
           headers: {
@@ -111,7 +111,7 @@ const BusinessInfo = () => {
 
     try {
       setLoading(true);
-      const response = await fetch(`https://shipowl-kd06.onrender.com/api/location/state/${id}/cities`, {
+      const response = await fetch(`/api/location/state/${id}/cities`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -167,7 +167,7 @@ const BusinessInfo = () => {
         }
       });
 
-      const url = `https://shipowl-kd06.onrender.com/api/admin/supplier/${formData.id}/company/${formData.companyid}/image/${index}?type=${type}`;
+      const url = `/api/admin/supplier/${formData.id}/company/${formData.companyid}/image/${index}?type=${type}`;
       const response = await fetch(url, {
         method: "DELETE",
         headers: {
@@ -239,7 +239,7 @@ const handleSubmit = async (e) => {
       didOpen: () => Swal.showLoading()
     });
 
-    const url = `https://shipowl-kd06.onrender.com/api/admin/supplier/${id}`;
+    const url = `/api/admin/supplier/${id}`;
     const form = new FormData();
 
     // Append all basic formData (excluding files)

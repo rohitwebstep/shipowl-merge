@@ -86,7 +86,7 @@ export default function Create() {
         formdata.append("country", formData.countryId);
         formdata.append("state", formData.stateId);
   
-        const url = "https://shipowl-kd06.onrender.com/api/location/city";
+        const url = "/api/location/city";
   
         const response = await fetch(url, {
           method: "POST",
@@ -155,7 +155,7 @@ export default function Create() {
     try {
         setLoading(true);
         const response = await fetch(
-            `https://shipowl-kd06.onrender.com/api/location/country`,
+            `/api/location/country`,
             {
                 method: "GET",
                 headers: {
@@ -211,7 +211,7 @@ const fetchStateList = useCallback(async (id) => {
   try {
       setLoading(true);
       const response = await fetch(
-          `https://shipowl-kd06.onrender.com/api/location/country/${id}/states`,
+          `/api/location/country/${id}/states`,
           {
               method: "GET",
               headers: {

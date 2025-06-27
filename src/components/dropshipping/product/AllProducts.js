@@ -97,7 +97,7 @@ export default function Allroducts() {
 
 
 
-            const url = "https://shipowl-kd06.onrender.com/api/dropshipper/product/my-inventory";
+            const url = "/api/dropshipper/product/my-inventory";
 
             const response = await fetch(url, {
                 method: "POST",
@@ -171,7 +171,7 @@ export default function Allroducts() {
 
         try {
             setLoading(true);
-            const response = await fetch(`https://shipowl-kd06.onrender.com/api/dropshipper/product/inventory?type='notmy'`, {
+            const response = await fetch(`/api/dropshipper/product/inventory?type='notmy'`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

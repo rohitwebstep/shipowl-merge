@@ -30,7 +30,7 @@ export default function Connecting() {
       const form = new FormData();
       form.append("shop", shop);
 
-      const url = "https://shipowl-kd06.onrender.com/api/dropshipper/shopify/connect";
+      const url = "/api/dropshipper/shopify/connect";
 
       const response = await fetch(url, {
         method: "POST",

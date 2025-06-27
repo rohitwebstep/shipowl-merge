@@ -81,7 +81,7 @@ const ProductTable = () => {
         try {
             setLoading(true);
             const response = await fetch(
-                `https://shipowl-kd06.onrender.com/api/admin/category`,
+                `/api/admin/category`,
                 {
                     method: "GET",
                     headers: {

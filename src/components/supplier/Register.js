@@ -136,7 +136,7 @@ export default function Register() {
     }
 
     try {
-      const res = await fetch(`https://shipowl-kd06.onrender.com/api/supplier/auth/registration`, {
+      const res = await fetch(`/api/supplier/auth/registration`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -207,7 +207,7 @@ export default function Register() {
 
   const fetchCountryAndState = useCallback(() => {
     fetchProtected(
-      "https://shipowl-kd06.onrender.com/api/location/country",
+      "/api/location/country",
       setCountryData,
       "countries",             // ✅ make sure backend response uses this key
       setLoadingCountries
@@ -216,7 +216,7 @@ export default function Register() {
 
   const fetchState = useCallback((countryId) => {
     fetchProtected(
-      `https://shipowl-kd06.onrender.com/api/location/country/${countryId}/states`,
+      `/api/location/country/${countryId}/states`,
       setStates,
       "states",         // ⚠️ verify that your API returns a `billingstates` key
       setBillingStateLoading
@@ -225,7 +225,7 @@ export default function Register() {
 
   const fetchStateList = useCallback((countryId) => {
     fetchProtected(
-      `https://shipowl-kd06.onrender.com/api/location/country/${countryId}/states`,
+      `/api/location/country/${countryId}/states`,
       setStateData,
       "states",
       setLoadingStates
@@ -234,7 +234,7 @@ export default function Register() {
 
   const fetchCity = useCallback((stateId) => {
     fetchProtected(
-      `https://shipowl-kd06.onrender.com/api/location/state/${stateId}/cities`,
+      `/api/location/state/${stateId}/cities`,
       setCityData,
       "cities",
       setLoadingCities
@@ -243,7 +243,7 @@ export default function Register() {
 
   const fetchCity2 = useCallback((stateId) => {
     fetchProtected(
-      `https://shipowl-kd06.onrender.com/api/location/state/${stateId}/cities`,
+      `/api/location/state/${stateId}/cities`,
       setCity,
       "cities",               // ⚠️ This key must match your API response structure
       setBillingCityLoading
@@ -251,7 +251,7 @@ export default function Register() {
   }, [fetchProtected]);
   const fetchContry2 = useCallback(() => {
     fetchProtected(
-      `https://shipowl-kd06.onrender.com/api/location/country`,
+      `/api/location/country`,
       setCountry,
       "countries",               // ⚠️ This key must match your API response structure
       setBillingCountryLoading

@@ -96,7 +96,7 @@ export default function Create() {
                 });
             }
     
-            const url = "https://shipowl-kd06.onrender.com/api/admin/category";
+            const url = "/api/admin/category";
     
             const response = await fetch(url, {
                 method: "POST",

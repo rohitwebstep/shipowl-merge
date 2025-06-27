@@ -32,7 +32,7 @@ export default function ResetPassword() {
 
     setLoading(true);
     try {
-      const res = await fetch('https://shipowl-kd06.onrender.com/api/dropshipper/auth/password/reset', {
+      const res = await fetch('/api/dropshipper/auth/password/reset', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token, password }),

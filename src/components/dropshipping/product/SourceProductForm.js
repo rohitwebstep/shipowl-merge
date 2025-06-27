@@ -72,7 +72,7 @@ const SourceProductForm = () => {
                 form.append('image', file);
             });
 
-            const url = "https://shipowl-kd06.onrender.com/api/product/request";
+            const url = "/api/product/request";
 
             const response = await fetch(url, {
                 method: "POST",
@@ -175,7 +175,7 @@ const SourceProductForm = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`https://shipowl-kd06.onrender.com/api/admin/category`, {
+            const response = await fetch(`/api/admin/category`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
