@@ -7,7 +7,7 @@ export default function Verify() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
+  useEffect( async () => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
 
