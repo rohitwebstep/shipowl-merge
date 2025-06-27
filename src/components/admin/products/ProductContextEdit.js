@@ -76,7 +76,7 @@ const ProductProviderEdit = ({ children }) => {
     }
 
     try {
-      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/category', {
+      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/category`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ const ProductProviderEdit = ({ children }) => {
     }
 
     try {
-      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/brand', {
+      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/brand`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -175,7 +175,7 @@ const ProductProviderEdit = ({ children }) => {
 
     try {
       setLoading(true);
-      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/country', {
+      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/country`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
