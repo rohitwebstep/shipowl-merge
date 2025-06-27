@@ -1,0 +1,51 @@
+{
+  "name": "shippingowl",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@pathofdev/react-tag-input": "^1.0.7",
+    "@react-pdf/renderer": "^4.3.0",
+    "@tinymce/tinymce-react": "^6.2.1",
+    "datatables.net": "^2.2.2",
+    "datatables.net-buttons": "^3.2.2",
+    "datatables.net-buttons-dt": "^3.2.2",
+    "datatables.net-dt": "^2.2.2",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^12.16.0",
+    "jquery": "^3.7.1",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
+    "jszip": "^3.10.1",
+    "lightningcss": "^1.30.1",
+    "lucide-react": "^0.483.0",
+    "next": "^15.3.1",
+    "pdf-lib": "^1.17.1",
+    "react": "^19.0.0",
+    "react-barcode": "^1.6.1",
+    "react-date-range": "^2.0.1",
+    "react-datepicker": "^8.4.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-qr-barcode-scanner": "^2.1.6",
+    "react-select": "^5.10.1",
+    "react-spinners": "^0.15.0",
+    "react-tag-input": "^6.10.6",
+    "recharts": "^2.15.4",
+    "sweetalert2": "^11.17.2",
+    "swiper": "^11.2.6",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "15.2.3",
+    "tailwindcss": "^4"
+  }
+}
