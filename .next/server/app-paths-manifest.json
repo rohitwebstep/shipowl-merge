@@ -1,0 +1,6 @@
+{
+  "/api/admin/auth/verify/route": "app/api/admin/auth/verify/route.js",
+  "/admin/page": "app/admin/page.js",
+  "/admin/auth/login/page": "app/admin/auth/login/page.js",
+  "/admin/category/list/page": "app/admin/category/list/page.js"
+}
