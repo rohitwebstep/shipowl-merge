@@ -148,7 +148,7 @@ export default function Create() {
         form.append("image", file);
       });
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/state", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/state`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

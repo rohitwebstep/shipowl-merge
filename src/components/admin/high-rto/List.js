@@ -79,7 +79,7 @@ export default function List() {
 
     const fetchCity = useCallback(async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/city");
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/city`);
             const result = await response.json();
             setCityData(result?.cities || []);
         } catch (error) {
@@ -90,7 +90,7 @@ export default function List() {
 
     const fetchState = useCallback(async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/state");
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/state`);
             const result = await response.json();
             setStateData(result?.states || []);
         } catch (error) {
@@ -100,7 +100,7 @@ export default function List() {
 
     const fetchCountry = useCallback(async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/country");
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/country`);
             const result = await response.json();
             setCountryData(result?.countries || []);
         } catch (error) {
