@@ -62,7 +62,7 @@ export default function SupplierMiddleWareProvider({ children }) {
         };
 
         try {
-            const response = await fetch(`/api/supplier/auth/verify`, {
+            const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/auth/verify`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

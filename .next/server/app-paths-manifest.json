@@ -1,1 +1,5 @@
-{}
+{
+  "/dropshipping/auth/login/page": "app/dropshipping/auth/login/page.js",
+  "/dropshipping/page": "app/dropshipping/page.js",
+  "/admin/auth/login/page": "app/admin/auth/login/page.js"
+}

@@ -38,7 +38,7 @@ export default function Allroducts() {
 
         try {
             setLoading(true);
-            const response = await fetch(`/api/dropshipper/product/inventory?type='my'`, {
+            const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dropshipper/product/inventory?type='my'`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

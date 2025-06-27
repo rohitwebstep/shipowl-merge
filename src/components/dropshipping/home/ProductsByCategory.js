@@ -256,7 +256,7 @@ function ProductsByCategory() {
 
     try {
       setLoading(true);
-      const response = await fetch(`/api/dropshipper/product/inventory?category=${id}&type=${tab}`, {
+      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dropshipper/product/inventory?category=${id}&type=${tab}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

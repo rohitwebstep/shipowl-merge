@@ -136,7 +136,7 @@ export default function Register() {
     }
 
     try {
-      const res = await fetch(`/api/supplier/auth/registration`, {
+      const res = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/auth/registration`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

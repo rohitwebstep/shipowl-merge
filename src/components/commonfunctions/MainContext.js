@@ -1,10 +1,13 @@
 // contexts/AdminActionContext.js
+import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useCallback } from "react";
 import Swal from "sweetalert2";
+
 
 export const AdminActionContext = createContext();
 
 export const AdminActionProvider = ({ children }) => {
+  const router = useRouter();
   const getAuthToken = () => {
     const adminData = JSON.parse(localStorage.getItem('shippingData'));
     if (adminData?.project?.active_panel !== 'admin') {
@@ -40,7 +43,7 @@ export const useAdminActions = (baseEndpoint, resultKey = "data") => {
 
     try {
       setLoading(true);
-      const response = await fetch(`/api/${baseEndpoint}`, {
+      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/${baseEndpoint}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -62,7 +65,7 @@ export const useAdminActions = (baseEndpoint, resultKey = "data") => {
 
     try {
       setLoading(true);
-      const response = await fetch(`/api/${baseEndpoint}/trashed`, {
+      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/${baseEndpoint}/trashed`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -97,7 +100,7 @@ export const useAdminActions = (baseEndpoint, resultKey = "data") => {
 
     try {
       Swal.showLoading();
-      const res = await fetch(`/api/${baseEndpoint}/${id}`, {
+      const res = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/${baseEndpoint}/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -113,45 +116,45 @@ export const useAdminActions = (baseEndpoint, resultKey = "data") => {
     }
   }, [baseEndpoint, getAuthToken]);
 
- const restore = useCallback(async (id, refetchFn) => {
-  const token = getAuthToken();
-  if (!token) return;
+  const restore = useCallback(async (id, refetchFn) => {
+    const token = getAuthToken();
+    if (!token) return;
 
-  try {
-    // Show loading alert
-    Swal.fire({
-      title: "Restoring...",
-      text: "Please wait while the item is being restored.",
-      allowOutsideClick: false,
-      allowEscapeKey: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
+    try {
+      // Show loading alert
+      Swal.fire({
+        title: "Restoring...",
+        text: "Please wait while the item is being restored.",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
 
-    const res = await fetch(`/api/${baseEndpoint}/${id}/restore`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      const res = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/${baseEndpoint}/${id}/restore`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    const result = await res.json();
-    if (!res.ok) throw new Error(result.message || result.error);
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.message || result.error);
 
-    Swal.close(); // Close the loading alert
+      Swal.close(); // Close the loading alert
 
-    // Show success message
-    Swal.fire("Restored!", "Item restored successfully.", "success");
+      // Show success message
+      Swal.fire("Restored!", "Item restored successfully.", "success");
 
-    if (refetchFn) await refetchFn();
+      if (refetchFn) await refetchFn();
 
-  } catch (error) {
-    Swal.close(); // Ensure loading is closed on error
-    Swal.fire("Error", error.message, "error");
-  }
-}, [baseEndpoint, getAuthToken]);
+    } catch (error) {
+      Swal.close(); // Ensure loading is closed on error
+      Swal.fire("Error", error.message, "error");
+    }
+  }, [baseEndpoint, getAuthToken]);
 
   const destroy = useCallback(async (id, refetchFn) => {
     const token = getAuthToken();
@@ -176,7 +179,7 @@ export const useAdminActions = (baseEndpoint, resultKey = "data") => {
     });
 
     try {
-      const response = await fetch(`/api/${baseEndpoint}/${id}/destroy`, {
+      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/${baseEndpoint}/${id}/destroy`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

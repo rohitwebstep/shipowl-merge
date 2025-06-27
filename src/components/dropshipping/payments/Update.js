@@ -68,7 +68,7 @@ export default function Update() {
             formdata.append("amount", formData.amount);
             formdata.append("status", formData.status);
 
-            const res = await fetch(`/api/payment/${id}`, {
+            const res = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/payment/${id}`, {
                 method: "PUT",
                 headers: { Authorization: `Bearer ${token}` },
                 body: formdata,

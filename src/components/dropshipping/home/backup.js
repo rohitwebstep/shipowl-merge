@@ -58,7 +58,7 @@ const NewlyLaunched = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`/api/dropshipper/product/inventory?type=${type}`, {
+            const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dropshipper/product/inventory?type=${type}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

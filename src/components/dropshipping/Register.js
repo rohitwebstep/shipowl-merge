@@ -110,7 +110,7 @@ export default function Register() {
 
 
     try {
-      const res = await fetch(`/api/dropshipper/auth/registration`, {
+      const res = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dropshipper/auth/registration`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

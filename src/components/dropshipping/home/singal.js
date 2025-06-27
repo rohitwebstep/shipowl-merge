@@ -219,7 +219,7 @@ export default function ProductDetails() {
 
     try {
       setLoading(true);
-      const response = await fetch(`/api/dropshipper/product/inventory?category=${catid}&type=${tab}`, {
+      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dropshipper/product/inventory?category=${catid}&type=${tab}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

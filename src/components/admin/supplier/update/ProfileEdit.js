@@ -29,7 +29,7 @@ const ProfileEdit = () => {
 
     try {
       setLoading(true);
-      const response = await fetch(`/api/location/state/${formData?.permanentState || id}/cities`, {
+      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/state/${formData?.permanentState || id}/cities`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

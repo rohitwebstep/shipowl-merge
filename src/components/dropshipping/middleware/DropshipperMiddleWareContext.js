@@ -78,7 +78,7 @@ export default function DropshipperMiddleWareProvider({ children }) {
         }
 
         try {
-            const response = await fetch(`/api/dropshipper/auth/verify`, {
+            const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dropshipper/auth/verify`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

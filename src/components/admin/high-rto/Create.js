@@ -55,7 +55,7 @@ export default function Create() {
 
     try {
       setCityLoading(true);
-      const res = await fetch(`/api/location/state/${id}/cities`, {
+      const res = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/state/${id}/cities`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -85,7 +85,7 @@ export default function Create() {
 
     try {
       setStateLoading(true);
-      const res = await fetch(`/api/location/country/${id}/states`, {
+      const res = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/country/${id}/states`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -115,7 +115,7 @@ export default function Create() {
 
     try {
       setLoading(true);
-      const res = await fetch(`/api/location/country`, {
+      const res = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/country`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -180,7 +180,7 @@ const handleSubmit = async (e) => {
     formdata.append("state", formData.state);
     formdata.append("pincode", formData.pincode);
 
-    const res = await fetch("/api/high-rto", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/high-rto", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`

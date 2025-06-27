@@ -153,7 +153,7 @@ export default function Update() {
         console.log("data", Object.fromEntries(data.entries())); // Optional debug
 
         try {
-            const res = await fetch(`/api/admin/email/${id}`, {
+            const res = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/email/${id}`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,

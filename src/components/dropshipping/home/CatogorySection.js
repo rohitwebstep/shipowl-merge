@@ -41,7 +41,7 @@ const CategorySection = () => {
 
     try {
       setLoading(true);
-      const response = await fetch('/api/dropshipper/category', {
+      const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dropshipper/category', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

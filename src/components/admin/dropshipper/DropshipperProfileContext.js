@@ -72,7 +72,7 @@ const DropshipperProfileProvider = ({ children }) => {
   
       try {
         setLoading(true);
-        const response = await fetch(`/api/admin/dropshipper/${id}`, {
+        const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/dropshipper/${id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -162,7 +162,7 @@ const DropshipperProfileProvider = ({ children }) => {
   
           try {
               setLoading(true);
-              const response = await fetch(`/api/location/state/${id}/cities`, {
+              const response = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/state/${id}/cities`, {
                   method: "GET",
                   headers: {
                       "Content-Type": "application/json",

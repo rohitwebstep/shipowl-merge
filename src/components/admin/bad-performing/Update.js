@@ -120,7 +120,7 @@ export default function Update() {
       const formdata = new FormData();
       formdata.append("pincode", formData.pincode);
 
-      const res = await fetch(`/api/bad-pincode/${id}`, {
+      const res = fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/bad-pincode/${id}`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
         body: formdata,
