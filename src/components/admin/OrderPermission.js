@@ -95,7 +95,7 @@ function OrderPermission() {
                 redirect: "follow"
             };
 
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/supplier/order/permission", requestOptions);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/supplier/order/permission`, requestOptions);
 
             const result = await res.json();
 

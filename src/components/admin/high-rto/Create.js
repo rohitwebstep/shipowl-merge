@@ -180,7 +180,7 @@ const handleSubmit = async (e) => {
     formdata.append("state", formData.state);
     formdata.append("pincode", formData.pincode);
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/high-rto", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/high-rto`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`
