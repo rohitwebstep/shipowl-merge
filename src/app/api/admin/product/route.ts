@@ -397,10 +397,13 @@ export async function POST(req: NextRequest) {
       { status: false, error: productCreateResult?.message || 'Product creation failed' },
       { status: 500 }
     );
-  } catch (err: unknown) {
-    const error = err instanceof Error ? err.message : 'Internal Server Error';
+  } catch (error) {
+    // Log and handle any unexpected errors
     logMessage('error', 'Product Creation Error:', error);
-    return NextResponse.json({ status: false, error }, { status: 500 });
+    return NextResponse.json(
+      { status: false, error, message: 'Internal Server Error' },
+      { status: 500 }
+    );
   }
 }
 
@@ -489,7 +492,7 @@ export async function GET(req: NextRequest) {
     // Log and handle any unexpected errors
     logMessage('error', 'Error while fetching products', { error });
     return NextResponse.json(
-      { status: false, error: 'Failed to fetch products due to an internal error' },
+      { status: false, error, message: 'Failed to fetch products due to an internal error' },
       { status: 500 }
     );
   }

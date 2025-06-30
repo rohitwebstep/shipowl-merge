@@ -119,7 +119,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ status: false, message: 'Product not found' }, { status: 404 });
   } catch (error) {
     logMessage('error', '❌ Error fetching single product:', error);
-    return NextResponse.json({ status: false, error: 'Server error' }, { status: 500 });
+    return NextResponse.json({ status: false, error, message: 'Server error' }, { status: 500 });
   }
 }
 
@@ -473,10 +473,13 @@ export async function PUT(req: NextRequest) {
       { status: false, error: productCreateResult?.message || 'Product creation failed' },
       { status: 500 }
     );
-  } catch (err: unknown) {
-    const error = err instanceof Error ? err.message : 'Internal Server Error';
+  } catch (error) {
+    // Log and handle any unexpected errors
     logMessage('error', 'Product Updation Error:', error);
-    return NextResponse.json({ status: false, error }, { status: 500 });
+    return NextResponse.json(
+      { status: false, error, message: 'Product Updation Error' },
+      { status: 500 }
+    );
   }
 }
 
@@ -556,7 +559,7 @@ export async function PATCH(req: NextRequest) {
 
   } catch (error) {
     logMessage('error', '❌ Product restore error:', error);
-    return NextResponse.json({ status: false, error: 'Server error' }, { status: 500 });
+    return NextResponse.json({ status: false, error, message: 'Server error' }, { status: 500 });
   }
 }
 
@@ -632,7 +635,7 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ status: false, message: 'Product not found or deletion failed' }, { status: 404 });
   } catch (error) {
     logMessage('error', 'Error during product deletion', { error });
-    return NextResponse.json({ status: false, error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ status: false, error, message: 'Internal server error' }, { status: 500 });
   }
 }
 
