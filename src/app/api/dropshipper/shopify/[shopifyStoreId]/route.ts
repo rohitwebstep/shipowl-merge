@@ -4,7 +4,7 @@ import { logMessage } from "@/utils/commonUtils";
 import { isUserExist } from "@/utils/auth/authUtils";
 import { validateFormData } from '@/utils/validateFormData';
 import { saveFilesFromFormData, deleteFile } from '@/utils/saveFiles';
-import { getShopifyStoreByIdForDropshipper, updateDropshipperShopifyStore } from '@/app/models/dropshipper/shopify';
+import { deleteShopifyStoreById, getShopifyStoreByIdForDropshipper, updateDropshipperShopifyStore } from '@/app/models/dropshipper/shopify';
 import { checkStaffPermissionStatus } from '@/app/models/staffPermission';
 
 interface MainAdmin {
@@ -168,8 +168,79 @@ export async function PUT(req: NextRequest) {
     }
 }
 
+export async function DELETE(req: NextRequest) {
+    try {
+        // Extract supplierProductId directly from the URL path
+        const parts = req.nextUrl.pathname.split('/');
+        const shopifyStoreId = Number(parts.at(-2)); // Second last segment
+
+        if (isNaN(shopifyStoreId)) {
+            logMessage('warn', 'Invalid Shopify store ID format', { shopifyStoreId });
+            return NextResponse.json({ status: false, error: 'Invalid Shopify store ID' }, { status: 400 });
+        }
+
+        const dropshipperIdHeader = req.headers.get("x-dropshipper-id");
+        const dropshipperRole = req.headers.get("x-dropshipper-role");
+
+        const dropshipperId = Number(dropshipperIdHeader);
+        if (!dropshipperIdHeader || isNaN(dropshipperId)) {
+            return NextResponse.json({ error: "User ID is missing or invalid" }, { status: 400 });
+        }
+
+        // Validate user
+        let mainDropshipperId = dropshipperId;
+        const userCheck: UserCheckResult = await isUserExist(dropshipperId, String(dropshipperRole));
+        if (!userCheck.status) {
+            return NextResponse.json({ error: `User Not Found: ${userCheck.message}` }, { status: 404 });
+        }
+
+        const isStaff = !['admin', 'dropshipper', 'supplier'].includes(String(dropshipperRole));
+        if (isStaff) {
+            mainDropshipperId = userCheck.admin?.admin?.id ?? dropshipperId;
+
+            const permissionCheck = await checkStaffPermissionStatus({
+                panel: 'dropshipper',
+                module: 'Shopify',
+                action: 'Update',
+            }, dropshipperId);
+
+            if (!permissionCheck.status) {
+                return NextResponse.json(
+                    { status: false, message: permissionCheck.message || "Permission denied." },
+                    { status: 403 }
+                );
+            }
+        }
+
+        const shopifyStoreIdNum = Number(shopifyStoreId);
+        if (isNaN(shopifyStoreIdNum)) {
+            return NextResponse.json({ error: 'Invalid ShopifyStore ID' }, { status: 400 });
+        }
+
+        const shopifyStoreResult = await getShopifyStoreByIdForDropshipper(shopifyStoreIdNum, mainDropshipperId);
+        if (!shopifyStoreResult?.status || !shopifyStoreResult.shopifyStore) {
+            return NextResponse.json({ status: false, message: 'ShopifyStore not found' }, { status: 404 });
+        }
+
+        const shopifyStore = shopifyStoreResult.shopifyStore;
+
+        const deleteShopifyStoreResult = await deleteShopifyStoreById(shopifyStoreId);
+
+        if (!deleteShopifyStoreResult.status) {
+            logMessage('error', 'Error during shopify store deletion', { message: deleteShopifyStoreResult.message });
+            return NextResponse.json({ status: false, error: deleteShopifyStoreResult.message }, { status: 500 });
+        }
+
+        return NextResponse.json({ status: true, error: deleteShopifyStoreResult.message }, { status: 500 });
+
+    } catch (error) {
+        logMessage('error', 'Error during product deletion', { error });
+        return NextResponse.json({ status: false, error: 'Internal server error' }, { status: 500 });
+    }
+}
+
 export const config = {
-  api: {
-    bodyParser: false,
-  },
+    api: {
+        bodyParser: false,
+    },
 };

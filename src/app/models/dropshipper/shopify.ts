@@ -206,6 +206,36 @@ export async function verifyDropshipperShopifyStore(dropshipperId: number, drops
     }
 }
 
+export async function getShopifyStoreById(storeId: number) {
+    try {
+        const store = await prisma.shopifyStore.findUnique({
+            where: { id: storeId },
+            include: { admin: true }
+        });
+
+        if (!store) {
+            return {
+                status: false,
+                message: 'Shopify store not found.',
+                shopifyStore: null
+            };
+        }
+
+        return {
+            status: true,
+            message: 'Shopify store found.',
+            shopifyStore: serializeBigInt(store)
+        };
+    } catch (error) {
+        console.error(`Error fetching Shopify store by ID:`, error);
+        return {
+            status: false,
+            message: 'Internal Server Error',
+            shopifyStore: null
+        };
+    }
+}
+
 export async function updateDropshipperShopifyStore(dropshipperId: number, dropshipperRole: string, shopifyStoreId: number, dropshipperShopifyStore: {
     name: string;
     logo: string;
@@ -377,3 +407,40 @@ export async function getShopifyStoreByIdForDropshipper(storeId: number, dropshi
         };
     }
 }
+
+export async function deleteShopifyStoreById(storeId: number) {
+    try {
+        console.log(`storeId -`, storeId);
+
+        // Check if the store exists
+        const shopifyStoreResult = await getShopifyStoreById(storeId);
+
+        if (!shopifyStoreResult.status || !shopifyStoreResult.shopifyStore) {
+            return {
+                status: false,
+                message: shopifyStoreResult.message || 'Shopify store not found.',
+                shopifyStore: null
+            };
+        }
+
+        // Delete the Shopify store
+        await prisma.shopifyStore.delete({
+            where: { id: storeId }
+        });
+
+        return {
+            status: true,
+            message: 'Shopify store deleted.',
+            shopifyStore: shopifyStoreResult.shopifyStore
+        };
+
+    } catch (error) {
+        console.error(`Error deleting Shopify store by ID:`, error);
+        return {
+            status: false,
+            shopifyStore: null,
+            message: 'Internal Server Error'
+        };
+    }
+}
+

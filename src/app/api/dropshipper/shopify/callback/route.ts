@@ -43,6 +43,7 @@ export async function GET(req: NextRequest) {
             SHOPIFY_SCOPES: process.env.SHOPIFY_SCOPES,
             SHOPIFY_REDIRECT_URL: process.env.SHOPIFY_REDIRECT_URL,
             SHOPIFY_API_VERSION: process.env.SHOPIFY_API_VERSION,
+            APP_HOST: process.env.APP_HOST,
         };
 
         // Identify missing or empty env variables
@@ -71,6 +72,8 @@ export async function GET(req: NextRequest) {
         const apiSecret = requiredEnvVars.SHOPIFY_API_SECRET!;
         const apiKey = requiredEnvVars.SHOPIFY_API_KEY!;
         const apiVersion = requiredEnvVars.SHOPIFY_API_VERSION!;
+        const appHost = requiredEnvVars.APP_HOST!;
+
         /*
         const scopes = requiredEnvVars.SHOPIFY_SCOPES!;
         */
@@ -132,6 +135,31 @@ export async function GET(req: NextRequest) {
         console.log('Step 20: Received shop info:', shopInfoRes.data.shop);
 
         const shopData = shopInfoRes.data.shop;
+
+        await axios.post(`https://${shop}/admin/api/${apiVersion}/graphql.json`, {
+            query: `mutation {
+                webhookSubscriptionCreate(
+                  topic: APP_UNINSTALLED,
+                  webhookSubscription: {
+                    callbackUrl: "${appHost}/webhooks/app-uninstalled",
+                    format: JSON
+                  }
+                ) {
+                  webhookSubscription {
+                    id
+                  }
+                  userErrors {
+                    field
+                    message
+                  }
+                }
+              }`
+        }, {
+            headers: {
+                'X-Shopify-Access-Token': accessToken,
+                'Content-Type': 'application/json'
+            }
+        });
 
         const payload = {
             admin: {
