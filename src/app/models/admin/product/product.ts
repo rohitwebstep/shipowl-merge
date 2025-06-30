@@ -374,7 +374,9 @@ export async function createProduct(adminId: number, adminRole: string, product:
                 name: variant.name ?? '',
                 color: variant.color ?? '',
                 sku: variant.sku ?? '',
-                suggested_price: variant.suggested_price ?? 0,
+                suggested_price: typeof variant.suggested_price === 'string'
+                    ? parseFloat(variant.suggested_price)
+                    : variant.suggested_price ?? 0,
                 image: variant.images ?? '',
                 product_link: variant.product_link ?? '',
                 productId: productWithStringBigInts.id,
@@ -949,7 +951,9 @@ export const updateProduct = async (
                     name: variant.name ?? '',
                     color: variant.color ?? '',
                     sku: variant.sku ?? '',
-                    suggested_price: variant.suggested_price ?? 0,
+                    suggested_price: typeof variant.suggested_price === 'string'
+                        ? parseFloat(variant.suggested_price)
+                        : variant.suggested_price ?? 0,
                     product_link: variant.product_link ?? '',
                     image: mergedVariantImages ?? '',
                     model: variant.model ?? '',

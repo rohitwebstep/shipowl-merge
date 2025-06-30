@@ -389,7 +389,9 @@ export async function POST(req: NextRequest) {
               return {
                 variantId: variant.id,
                 stock: match?.qty ?? 0,
-                price: variant.suggested_price ?? 0, // fallback to 0 if null or undefined
+                price: typeof variant.suggested_price === 'string'
+                  ? parseFloat(variant.suggested_price)
+                  : variant.suggested_price ?? 0,
                 status: true
               };
             });
