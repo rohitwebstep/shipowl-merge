@@ -660,6 +660,8 @@ exports.Prisma.CourierCompanyScalarFieldEnum = {
   website: 'website',
   email: 'email',
   phoneNumber: 'phoneNumber',
+  flatShippingRate: 'flatShippingRate',
+  rtoCharges: 'rtoCharges',
   status: 'status',
   createdAt: 'createdAt',
   createdBy: 'createdBy',

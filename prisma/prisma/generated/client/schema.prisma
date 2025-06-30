@@ -705,23 +705,25 @@ model productSupplierVisibility {
 }
 
 model courierCompany {
-  id            Int       @id @default(autoincrement())
-  name          String
-  slug          String    @unique
-  code          String?   @unique
-  website       String?   @db.LongText
-  email         String
-  phoneNumber   String?
-  status        Boolean   @default(true)
-  createdAt     DateTime  @default(now())
-  createdBy     Int?
-  createdByRole String?
-  updatedAt     DateTime  @updatedAt
-  updatedBy     Int?
-  updatedByRole String?
-  deletedAt     DateTime?
-  deletedBy     Int?
-  deletedByRole String?
+  id               Int       @id @default(autoincrement())
+  name             String
+  slug             String    @unique
+  code             String?   @unique
+  website          String?   @db.LongText
+  email            String
+  phoneNumber      String?
+  flatShippingRate Int?
+  rtoCharges       Int?
+  status           Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  createdBy        Int?
+  createdByRole    String?
+  updatedAt        DateTime  @updatedAt
+  updatedBy        Int?
+  updatedByRole    String?
+  deletedAt        DateTime?
+  deletedBy        Int?
+  deletedByRole    String?
 }
 
 model highRto {

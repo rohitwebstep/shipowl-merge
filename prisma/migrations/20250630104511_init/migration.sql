@@ -680,6 +680,8 @@ CREATE TABLE `courierCompany` (
     `website` LONGTEXT NULL,
     `email` VARCHAR(191) NOT NULL,
     `phoneNumber` VARCHAR(191) NULL,
+    `flatShippingRate` INTEGER NULL,
+    `rtoCharges` INTEGER NULL,
     `status` BOOLEAN NOT NULL DEFAULT true,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `createdBy` INTEGER NULL,

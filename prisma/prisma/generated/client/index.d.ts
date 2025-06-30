@@ -32655,6 +32655,8 @@ export namespace Prisma {
 
   export type CourierCompanyAvgAggregateOutputType = {
     id: number | null
+    flatShippingRate: number | null
+    rtoCharges: number | null
     createdBy: number | null
     updatedBy: number | null
     deletedBy: number | null
@@ -32662,6 +32664,8 @@ export namespace Prisma {
 
   export type CourierCompanySumAggregateOutputType = {
     id: number | null
+    flatShippingRate: number | null
+    rtoCharges: number | null
     createdBy: number | null
     updatedBy: number | null
     deletedBy: number | null
@@ -32675,6 +32679,8 @@ export namespace Prisma {
     website: string | null
     email: string | null
     phoneNumber: string | null
+    flatShippingRate: number | null
+    rtoCharges: number | null
     status: boolean | null
     createdAt: Date | null
     createdBy: number | null
@@ -32695,6 +32701,8 @@ export namespace Prisma {
     website: string | null
     email: string | null
     phoneNumber: string | null
+    flatShippingRate: number | null
+    rtoCharges: number | null
     status: boolean | null
     createdAt: Date | null
     createdBy: number | null
@@ -32715,6 +32723,8 @@ export namespace Prisma {
     website: number
     email: number
     phoneNumber: number
+    flatShippingRate: number
+    rtoCharges: number
     status: number
     createdAt: number
     createdBy: number
@@ -32731,6 +32741,8 @@ export namespace Prisma {
 
   export type CourierCompanyAvgAggregateInputType = {
     id?: true
+    flatShippingRate?: true
+    rtoCharges?: true
     createdBy?: true
     updatedBy?: true
     deletedBy?: true
@@ -32738,6 +32750,8 @@ export namespace Prisma {
 
   export type CourierCompanySumAggregateInputType = {
     id?: true
+    flatShippingRate?: true
+    rtoCharges?: true
     createdBy?: true
     updatedBy?: true
     deletedBy?: true
@@ -32751,6 +32765,8 @@ export namespace Prisma {
     website?: true
     email?: true
     phoneNumber?: true
+    flatShippingRate?: true
+    rtoCharges?: true
     status?: true
     createdAt?: true
     createdBy?: true
@@ -32771,6 +32787,8 @@ export namespace Prisma {
     website?: true
     email?: true
     phoneNumber?: true
+    flatShippingRate?: true
+    rtoCharges?: true
     status?: true
     createdAt?: true
     createdBy?: true
@@ -32791,6 +32809,8 @@ export namespace Prisma {
     website?: true
     email?: true
     phoneNumber?: true
+    flatShippingRate?: true
+    rtoCharges?: true
     status?: true
     createdAt?: true
     createdBy?: true
@@ -32898,6 +32918,8 @@ export namespace Prisma {
     website: string | null
     email: string
     phoneNumber: string | null
+    flatShippingRate: number | null
+    rtoCharges: number | null
     status: boolean
     createdAt: Date
     createdBy: number | null
@@ -32937,6 +32959,8 @@ export namespace Prisma {
     website?: boolean
     email?: boolean
     phoneNumber?: boolean
+    flatShippingRate?: boolean
+    rtoCharges?: boolean
     status?: boolean
     createdAt?: boolean
     createdBy?: boolean
@@ -32959,6 +32983,8 @@ export namespace Prisma {
     website?: boolean
     email?: boolean
     phoneNumber?: boolean
+    flatShippingRate?: boolean
+    rtoCharges?: boolean
     status?: boolean
     createdAt?: boolean
     createdBy?: boolean
@@ -32971,7 +32997,7 @@ export namespace Prisma {
     deletedByRole?: boolean
   }
 
-  export type courierCompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "code" | "website" | "email" | "phoneNumber" | "status" | "createdAt" | "createdBy" | "createdByRole" | "updatedAt" | "updatedBy" | "updatedByRole" | "deletedAt" | "deletedBy" | "deletedByRole", ExtArgs["result"]["courierCompany"]>
+  export type courierCompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "code" | "website" | "email" | "phoneNumber" | "flatShippingRate" | "rtoCharges" | "status" | "createdAt" | "createdBy" | "createdByRole" | "updatedAt" | "updatedBy" | "updatedByRole" | "deletedAt" | "deletedBy" | "deletedByRole", ExtArgs["result"]["courierCompany"]>
 
   export type $courierCompanyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "courierCompany"
@@ -32984,6 +33010,8 @@ export namespace Prisma {
       website: string | null
       email: string
       phoneNumber: string | null
+      flatShippingRate: number | null
+      rtoCharges: number | null
       status: boolean
       createdAt: Date
       createdBy: number | null
@@ -33370,6 +33398,8 @@ export namespace Prisma {
     readonly website: FieldRef<"courierCompany", 'String'>
     readonly email: FieldRef<"courierCompany", 'String'>
     readonly phoneNumber: FieldRef<"courierCompany", 'String'>
+    readonly flatShippingRate: FieldRef<"courierCompany", 'Int'>
+    readonly rtoCharges: FieldRef<"courierCompany", 'Int'>
     readonly status: FieldRef<"courierCompany", 'Boolean'>
     readonly createdAt: FieldRef<"courierCompany", 'DateTime'>
     readonly createdBy: FieldRef<"courierCompany", 'Int'>
@@ -48681,6 +48711,8 @@ export namespace Prisma {
     website: 'website',
     email: 'email',
     phoneNumber: 'phoneNumber',
+    flatShippingRate: 'flatShippingRate',
+    rtoCharges: 'rtoCharges',
     status: 'status',
     createdAt: 'createdAt',
     createdBy: 'createdBy',
@@ -52863,6 +52895,8 @@ export namespace Prisma {
     website?: StringNullableFilter<"courierCompany"> | string | null
     email?: StringFilter<"courierCompany"> | string
     phoneNumber?: StringNullableFilter<"courierCompany"> | string | null
+    flatShippingRate?: IntNullableFilter<"courierCompany"> | number | null
+    rtoCharges?: IntNullableFilter<"courierCompany"> | number | null
     status?: BoolFilter<"courierCompany"> | boolean
     createdAt?: DateTimeFilter<"courierCompany"> | Date | string
     createdBy?: IntNullableFilter<"courierCompany"> | number | null
@@ -52883,6 +52917,8 @@ export namespace Prisma {
     website?: SortOrderInput | SortOrder
     email?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
+    flatShippingRate?: SortOrderInput | SortOrder
+    rtoCharges?: SortOrderInput | SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrderInput | SortOrder
@@ -52907,6 +52943,8 @@ export namespace Prisma {
     website?: StringNullableFilter<"courierCompany"> | string | null
     email?: StringFilter<"courierCompany"> | string
     phoneNumber?: StringNullableFilter<"courierCompany"> | string | null
+    flatShippingRate?: IntNullableFilter<"courierCompany"> | number | null
+    rtoCharges?: IntNullableFilter<"courierCompany"> | number | null
     status?: BoolFilter<"courierCompany"> | boolean
     createdAt?: DateTimeFilter<"courierCompany"> | Date | string
     createdBy?: IntNullableFilter<"courierCompany"> | number | null
@@ -52927,6 +52965,8 @@ export namespace Prisma {
     website?: SortOrderInput | SortOrder
     email?: SortOrder
     phoneNumber?: SortOrderInput | SortOrder
+    flatShippingRate?: SortOrderInput | SortOrder
+    rtoCharges?: SortOrderInput | SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrderInput | SortOrder
@@ -52955,6 +52995,8 @@ export namespace Prisma {
     website?: StringNullableWithAggregatesFilter<"courierCompany"> | string | null
     email?: StringWithAggregatesFilter<"courierCompany"> | string
     phoneNumber?: StringNullableWithAggregatesFilter<"courierCompany"> | string | null
+    flatShippingRate?: IntNullableWithAggregatesFilter<"courierCompany"> | number | null
+    rtoCharges?: IntNullableWithAggregatesFilter<"courierCompany"> | number | null
     status?: BoolWithAggregatesFilter<"courierCompany"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"courierCompany"> | Date | string
     createdBy?: IntNullableWithAggregatesFilter<"courierCompany"> | number | null
@@ -58439,6 +58481,8 @@ export namespace Prisma {
     website?: string | null
     email: string
     phoneNumber?: string | null
+    flatShippingRate?: number | null
+    rtoCharges?: number | null
     status?: boolean
     createdAt?: Date | string
     createdBy?: number | null
@@ -58459,6 +58503,8 @@ export namespace Prisma {
     website?: string | null
     email: string
     phoneNumber?: string | null
+    flatShippingRate?: number | null
+    rtoCharges?: number | null
     status?: boolean
     createdAt?: Date | string
     createdBy?: number | null
@@ -58478,6 +58524,8 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    flatShippingRate?: NullableIntFieldUpdateOperationsInput | number | null
+    rtoCharges?: NullableIntFieldUpdateOperationsInput | number | null
     status?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: NullableIntFieldUpdateOperationsInput | number | null
@@ -58498,6 +58546,8 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    flatShippingRate?: NullableIntFieldUpdateOperationsInput | number | null
+    rtoCharges?: NullableIntFieldUpdateOperationsInput | number | null
     status?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: NullableIntFieldUpdateOperationsInput | number | null
@@ -58518,6 +58568,8 @@ export namespace Prisma {
     website?: string | null
     email: string
     phoneNumber?: string | null
+    flatShippingRate?: number | null
+    rtoCharges?: number | null
     status?: boolean
     createdAt?: Date | string
     createdBy?: number | null
@@ -58537,6 +58589,8 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    flatShippingRate?: NullableIntFieldUpdateOperationsInput | number | null
+    rtoCharges?: NullableIntFieldUpdateOperationsInput | number | null
     status?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: NullableIntFieldUpdateOperationsInput | number | null
@@ -58557,6 +58611,8 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    flatShippingRate?: NullableIntFieldUpdateOperationsInput | number | null
+    rtoCharges?: NullableIntFieldUpdateOperationsInput | number | null
     status?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: NullableIntFieldUpdateOperationsInput | number | null
@@ -63091,6 +63147,8 @@ export namespace Prisma {
     website?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    flatShippingRate?: SortOrder
+    rtoCharges?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -63105,6 +63163,8 @@ export namespace Prisma {
 
   export type courierCompanyAvgOrderByAggregateInput = {
     id?: SortOrder
+    flatShippingRate?: SortOrder
+    rtoCharges?: SortOrder
     createdBy?: SortOrder
     updatedBy?: SortOrder
     deletedBy?: SortOrder
@@ -63118,6 +63178,8 @@ export namespace Prisma {
     website?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    flatShippingRate?: SortOrder
+    rtoCharges?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -63138,6 +63200,8 @@ export namespace Prisma {
     website?: SortOrder
     email?: SortOrder
     phoneNumber?: SortOrder
+    flatShippingRate?: SortOrder
+    rtoCharges?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
@@ -63152,6 +63216,8 @@ export namespace Prisma {
 
   export type courierCompanySumOrderByAggregateInput = {
     id?: SortOrder
+    flatShippingRate?: SortOrder
+    rtoCharges?: SortOrder
     createdBy?: SortOrder
     updatedBy?: SortOrder
     deletedBy?: SortOrder
