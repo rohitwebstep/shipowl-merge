@@ -401,7 +401,7 @@ export async function POST(req: NextRequest) {
     // Log and handle any unexpected errors
     logMessage('error', 'Product Creation Error:', error);
     return NextResponse.json(
-      { status: false, error, message: 'Internal Server Error' },
+      { status: false, error, message: 'Internal Server Error (P1)' },
       { status: 500 }
     );
   }
