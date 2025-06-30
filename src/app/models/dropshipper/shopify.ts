@@ -236,6 +236,36 @@ export async function getShopifyStoreById(storeId: number) {
     }
 }
 
+export async function getShopifyStoreByStore(shop: string) {
+    try {
+        const store = await prisma.shopifyStore.findUnique({
+            where: { shop },
+            include: { admin: true }
+        });
+
+        if (!store) {
+            return {
+                status: false,
+                message: 'Shopify store not found.',
+                shopifyStore: null
+            };
+        }
+
+        return {
+            status: true,
+            message: 'Shopify store found.',
+            shopifyStore: serializeBigInt(store)
+        };
+    } catch (error) {
+        console.error(`Error fetching Shopify store by ID:`, error);
+        return {
+            status: false,
+            message: 'Internal Server Error',
+            shopifyStore: null
+        };
+    }
+}
+
 export async function updateDropshipperShopifyStore(dropshipperId: number, dropshipperRole: string, shopifyStoreId: number, dropshipperShopifyStore: {
     name: string;
     logo: string;
