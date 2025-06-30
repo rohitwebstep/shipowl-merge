@@ -70,6 +70,7 @@ export function middleware(req: NextRequest) {
                 "/api/dropshipper/auth/password/forget",
                 "/api/dropshipper/auth/password/reset",
                 "/api/dropshipper/auth/registration",
+                "/api/dropshipper/shopify/registration/custom-privacy/",
                 "/api/supplier/auth/login",
                 "/api/supplier/auth/password/forget",
                 "/api/supplier/auth/password/reset",
