@@ -192,10 +192,13 @@ export async function POST(req: NextRequest) {
       { status: true, error: adminCreateResult?.message || 'Admin created Successfuly' },
       { status: 200 }
     );
-  } catch (err: unknown) {
-    const error = err instanceof Error ? err.message : 'Internal Server Error';
+  } catch (error) {
+    // Log and handle any unexpected errors
     logMessage('error', 'Admin Creation Error:', error);
-    return NextResponse.json({ status: false, error }, { status: 500 });
+    return NextResponse.json(
+      { status: false, error, message: 'Internal Server Error 1' },
+      { status: 500 }
+    );
   }
 }
 

@@ -245,10 +245,13 @@ export async function PUT(req: NextRequest) {
       { status: false, error: brandCreateResult?.message || 'Brand creation failed' },
       { status: 500 }
     );
-  } catch (err: unknown) {
-    const error = err instanceof Error ? err.message : 'Internal Server Error';
+  } catch (error) {
+    // Log and handle any unexpected errors
     logMessage('error', '❌ Brand Updation Error:', error);
-    return NextResponse.json({ status: false, error }, { status: 500 });
+    return NextResponse.json(
+      { status: false, error, message: 'Internal Server Error 6' },
+      { status: 500 }
+    );
   }
 }
 
@@ -404,7 +407,7 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ status: false, message: 'Brand not found or deletion failed' }, { status: 404 });
   } catch (error) {
     logMessage('error', 'Error during brand deletion', { error });
-    return NextResponse.json({ status: false, error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ status: false, error, message: 'Internal server error 7' }, { status: 500 });
   }
 }
 

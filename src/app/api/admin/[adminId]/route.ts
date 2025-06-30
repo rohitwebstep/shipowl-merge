@@ -225,10 +225,13 @@ export async function PUT(req: NextRequest) {
       { status: true, error: adminCreateResult?.message || 'Admin updated Successfuly' },
       { status: 200 }
     );
-  } catch (err: unknown) {
-    const error = err instanceof Error ? err.message : 'Internal Server Error';
+  } catch (error) {
+    // Log and handle any unexpected errors
     logMessage('error', 'Admin Creation Error:', error);
-    return NextResponse.json({ status: false, error }, { status: 500 });
+    return NextResponse.json(
+      { status: false, error, message: 'Internal Server Error 2' },
+      { status: 500 }
+    );
   }
 
 }
@@ -319,7 +322,7 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ status: false, message: 'Admin not found or deletion failed' }, { status: 404 });
   } catch (error) {
     logMessage('error', 'Error during admin deletion', { error });
-    return NextResponse.json({ status: false, error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ status: false, error, messsage: 'Internal server error 3' }, { status: 500 });
   }
 }
 

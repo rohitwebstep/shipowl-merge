@@ -190,10 +190,13 @@ export async function POST(req: NextRequest) {
       { status: false, error: brandCreateResult?.message || 'Brand creation failed' },
       { status: 500 }
     );
-  } catch (err: unknown) {
-    const error = err instanceof Error ? err.message : 'Internal Server Error';
+  } catch (error) {
+    // Log and handle any unexpected errors
     logMessage('error', 'Brand Creation Error:', error);
-    return NextResponse.json({ status: false, error }, { status: 500 });
+    return NextResponse.json(
+      { status: false, error, message: 'Internal Server Error 5' },
+      { status: 500 }
+    );
   }
 }
 

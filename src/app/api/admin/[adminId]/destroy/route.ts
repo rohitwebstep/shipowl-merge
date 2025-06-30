@@ -55,7 +55,7 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ status: false, message: 'Admin not found or deletion failed' }, { status: 404 });
   } catch (error) {
     logMessage('error', 'Error during admin deletion', { error });
-    return NextResponse.json({ status: false, error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ status: false, error, message: 'Internal server error 4' }, { status: 500 });
   }
 }
 
