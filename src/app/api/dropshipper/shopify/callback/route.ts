@@ -161,6 +161,49 @@ export async function GET(req: NextRequest) {
             }
         });
 
+        const privacyTopics = [
+            {
+                topic: 'CUSTOMERS_DATA_REQUEST',
+                callback: `${appHost}/api/dropshipper/shopify/callback`,
+            },
+            {
+                topic: 'CUSTOMERS_REDACT',
+                callback: `${appHost}/api/dropshipper/shopify/callback`,
+            },
+            {
+                topic: 'SHOP_REDACT',
+                callback: `${appHost}/api/dropshipper/shopify/callback`,
+            }
+        ];
+
+        for (const { topic, callback } of privacyTopics) {
+            await axios.post(`https://${shop}/admin/api/${apiVersion}/graphql.json`, {
+                query: `mutation {
+                                    webhookSubscriptionCreate(
+                                        topic: ${topic},
+                                        webhookSubscription: {
+                                        callbackUrl: "${callback}",
+                                        format: JSON
+                                        }
+                                    ) {
+                                        webhookSubscription {
+                                        id
+                                        }
+                                        userErrors {
+                                        field
+                                        message
+                                        }
+                                    }
+                                }`
+            }, {
+                headers: {
+                    'X-Shopify-Access-Token': accessToken,
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+
         const payload = {
             admin: {
                 connect: {
