@@ -186,11 +186,11 @@ export async function POST(req: NextRequest) {
     }
 
     const main_sku = extractString('main_sku') || '';
-    const { status: checkMainSKUAvailabilityResult, message: checkMainSKUAvailabilityMessage } = await checkMainSKUAvailability(main_sku);
-
-    if (!checkMainSKUAvailabilityResult) {
-      logMessage('warn', `SKU availability check failed: ${checkMainSKUAvailabilityMessage}`);
-      return NextResponse.json({ status: false, error: checkMainSKUAvailabilityMessage }, { status: 400 });
+    const checkMainSKUAvailabilityResult = await checkMainSKUAvailability(main_sku);
+    logMessage(`log`, `checkMainSKUAvailabilityResult: `, checkMainSKUAvailabilityResult);
+    if (!checkMainSKUAvailabilityResult.status) {
+      logMessage('warn', `SKU availability check failed: ${checkMainSKUAvailabilityResult.message}`);
+      return NextResponse.json({ status: false, error: checkMainSKUAvailabilityResult.message }, { status: 400 });
     }
 
     const rawVariants = extractJSON('variants');

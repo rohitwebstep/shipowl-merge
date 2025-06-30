@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/api/admin/product/route": [
+    "/api/admin/product/[productId]/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/product/route.js"
+      "static/chunks/app/api/admin/product/[productId]/route.js"
     ]
   }
 }
