@@ -1,3 +1,6 @@
 {
-  "/api/admin/product/[productId]/route": "app/api/admin/product/[productId]/route.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/admin/auth/login/page": "app/admin/auth/login/page.js",
+  "/admin/products/list/page": "app/admin/products/list/page.js"
 }
