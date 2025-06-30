@@ -177,32 +177,44 @@ export async function GET(req: NextRequest) {
         ];
 
         for (const { topic, callback } of privacyTopics) {
-            await axios.post(`https://${shop}/admin/api/${apiVersion}/graphql.json`, {
-                query: `mutation {
-                                    webhookSubscriptionCreate(
-                                        topic: ${topic},
-                                        webhookSubscription: {
-                                        callbackUrl: "${callback}",
-                                        format: JSON
-                                        }
-                                    ) {
-                                        webhookSubscription {
-                                        id
-                                        }
-                                        userErrors {
-                                        field
-                                        message
-                                        }
-                                    }
-                                }`
-            }, {
-                headers: {
-                    'X-Shopify-Access-Token': accessToken,
-                    'Content-Type': 'application/json'
+            const query = `
+        mutation {
+            webhookSubscriptionCreate(
+                topic: ${topic},
+                webhookSubscription: {
+                    callbackUrl: "${callback}",
+                    format: JSON
                 }
-            });
+            ) {
+                webhookSubscription {
+                    id
+                }
+                userErrors {
+                    field
+                    message
+                }
+            }
         }
+    `;
 
+            const res = await axios.post(
+                `https://${shop}/admin/api/${apiVersion}/graphql.json`,
+                { query },
+                {
+                    headers: {
+                        'X-Shopify-Access-Token': accessToken,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            const errors = res.data?.data?.webhookSubscriptionCreate?.userErrors;
+            if (errors?.length) {
+                console.error(`❌ Failed to register ${topic}`, errors);
+            } else {
+                console.log(`✅ Webhook registered for topic: ${topic}`);
+            }
+        }
 
         const payload = {
             admin: {
