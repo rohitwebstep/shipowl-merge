@@ -5,34 +5,42 @@ import Image from 'next/image';
 import { Pencil } from 'lucide-react';
 import { DropshipperProfileContext } from '../DropshipperProfileContext';
 const AccountDetails = () => {
-  const { formData, setFormData, errors, setErrors, validate, setActiveTab } = useContext(DropshipperProfileContext);
+  const { formData, setFormData, setFiles, errors, setErrors, validate, setActiveTab } = useContext(DropshipperProfileContext);
   const [previewUrl, setPreviewUrl] = useState(null);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     let updatedFormData = { ...formData };
 
-    if (files?.length) {
+    if (files && files.length > 0) {
       const file = files[0];
       const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
+      setPreviewUrl(url); // Set preview
 
-      updatedFormData[name] = file; // Set the file in formData
+      setFiles((prev) => ({
+        ...prev,
+        [name]: Array.from(files), // Store all files for the given field
+      }));
+
+      updatedFormData[name] = file; // Save the file to formData
     } else {
       updatedFormData[name] = value;
+
       if (name === "profilePicture") {
-        setPreviewUrl(null); // Remove preview if profilePicture is not selected
+        setPreviewUrl(null); // Clear preview if profilePicture is cleared
       }
     }
 
-    setFormData(updatedFormData); // Update the form data with the new file or value
-
-
+    setFormData(updatedFormData); // Update main form data
 
     if (errors[name]) {
-      setErrors({ ...errors, [name]: '' });
+      setErrors((prev) => ({
+        ...prev,
+        [name]: '', // Clear error if fixed
+      }));
     }
   };
+
   const handleSubmit = () => {
     if (validate()) {
       setActiveTab('address_details');
@@ -58,7 +66,8 @@ const AccountDetails = () => {
           <Image
             src={previewUrl || profileImg}
             alt="Profile image"
-
+            height={100}
+            width={100}
             className="w-full h-full object-cover rounded-full p-3"
           />
 

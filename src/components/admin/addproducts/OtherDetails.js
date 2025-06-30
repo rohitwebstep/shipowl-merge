@@ -192,7 +192,7 @@ export default function OtherDetails() {
 
           <div>
             <label htmlFor="hsn_code" className="font-bold block uppercase">
-              HSN Code <span className="text-red-500">*</span>
+              HSN Code 
             </label>
             <input
               type="text"

@@ -49,7 +49,11 @@ function Permission() {
 
       const result = await res.json();
       if (!res.ok) throw new Error(result.message || result.error || `Failed to fetch ${key}`);
+      console.log(`result - `, result);
+
       setter(result[key] || []);
+      console.log(`setter(result[key] || []) - `, result[key]);
+
     } catch (err) {
       Swal.fire("Error", err.message, "error");
     } finally {
@@ -60,7 +64,7 @@ function Permission() {
 
   const fetchPermission = useCallback(() => {
     fetchProtected(
-      "/api/admin/permission",
+      "/api/admin/global-permission",
       setPermission,
       "permissions",
       setLoading
@@ -104,7 +108,7 @@ function Permission() {
         redirect: "follow"
       };
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/admin/permission`, requestOptions);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/admin/global-permission`, requestOptions);
 
       const result = await res.json();
 
@@ -120,7 +124,7 @@ function Permission() {
     }
   };
 
-
+console.log(`permissions`, permissions);
 
   return (
     <div>
@@ -130,7 +134,7 @@ function Permission() {
         </div>
       ) : (
         <div className=" bg-white p-4 rounded-md max-w-3xl mx-auto mt-6">
-          {permissions.lenght > 0 ? (
+          {permissions.length > 0 ? (
             <div>
               <h2 className="text-xl font-semibold mb-4 text-center">Panel List</h2>
               <table className="w-full border border-[#E0E5F2]">
@@ -182,7 +186,7 @@ function Permission() {
                               <td className=" border border-[#E0E5F2] px-2 py-1 text-center">
                                 <input
                                   type="checkbox"
-                                  disabled={canEdit}
+                                  disabled={!canEdit}
                                   checked={item.status === true}
                                   onChange={(e) => {
                                     const updatedPermissions = permissions.map((perm) =>

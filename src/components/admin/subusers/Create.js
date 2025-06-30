@@ -182,7 +182,7 @@ export default function Create() {
       if (!res.ok) throw new Error(result.message || result.error || `Failed to fetch ${key}`);
       setter(result[key] || []);
     } catch (err) {
-      Swal.fire("Error", err.message, "error");
+      Swal.fire("Error", err.message || err.error, "error");
     } finally {
       if (setLoading) setLoading(false);
     }

@@ -1,7 +1,7 @@
 import { DM_Sans } from "next/font/google";
 import '@/app/globals.css';
 
-import LayoutWrapper from "@/components/admin/LyoutWrapper";
+import LayoutWrapper from "@/components/admin/LayoutWrapper";
 
 const dmSans = DM_Sans({
     subsets: ["latin"],

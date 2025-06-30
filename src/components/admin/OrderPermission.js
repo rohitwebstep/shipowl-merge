@@ -139,7 +139,7 @@ function OrderPermission() {
                                                     <td className="border border-[#E0E5F2] px-4 py-2 text-center">
                                                         <input
                                                             type="checkbox"
-                                                            disabled={canEdit}
+                                                            disabled={!canEdit}
                                                             checked={value === true}
                                                             onChange={(e) => {
                                                                 // Update only the changed permission field for this permission object

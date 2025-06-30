@@ -6,13 +6,14 @@ const ImageURLContext = createContext();
 
 export const ImageURLProvider = ({ children }) => {
   function fetchImages(url) {
-
     if (!url || typeof url !== 'string') {
+      console.log(`url (1) - `, url);
       return 'https://placehold.co/400';
     }
     if (url.includes('www.')) {
       return url;
-    }else{
+    } else {
+      console.log(`url (2) - `, url);
       return 'https://placehold.co/400';
     }
 

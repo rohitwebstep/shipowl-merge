@@ -70,7 +70,12 @@ export default function ProfileView() {
     return (
         <>
             <div className="bg-white p-5 rounded-md profilePage">
-                <h2 className='text-center py-3 font-bold text-2xl'>{dropshippers?.name} Profile</h2>
+                <div className="flex justify-center items-center gap-5 mb-4">
+                    <h2 className='text-center py-3 font-bold text-2xl'>{dropshippers?.name} Profile</h2>
+                    <button
+                        className='bg-green-500 p-3 rounded-md  text-white'
+                        onClick={() => { router.push(`/admin/dropshipper/update?id=${dropshippers.id}`) }}>Update Profile</button>
+                </div>
                 <div className="flex gap-10">
                     <div className="md:w-4/12 col border border-gray-300 p-5 rounded-md">
                         <div className=" border border-gray-300 p-3 rounded col">

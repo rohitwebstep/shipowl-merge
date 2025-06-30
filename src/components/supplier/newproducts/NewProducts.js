@@ -266,14 +266,10 @@ export default function NewProducts() {
                 );
               };
 
-
-
-
-
               return (
                 <div
                   key={product.id}
-                  className="group flex flex-col justify-between bg-white p-4 overflow-hidden  shadow-sm hover:shadow-md  transition-all duration-300 relative"
+                  className="group flex flex-col rounded justify-between bg-white p-4 overflow-hidden  shadow-sm hover:shadow-md  transition-all duration-300 relative"
                 >
                   {/* Flip Image Section */}
                   <div className="relative h-[200px] perspective">

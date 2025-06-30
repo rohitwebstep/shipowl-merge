@@ -34,7 +34,7 @@ export async function handleLogin(req: NextRequest, adminRole: string, adminStaf
             adminResponse = await adminByUsernameRole(email, adminStaffRole);
             type = 'sub';
             if (!adminResponse.status || !adminResponse.admin) {
-                return NextResponse.json({ message: adminResponse.message || "Invalid email or password", status: false }, { status: 401 });
+                return NextResponse.json({ message: adminResponse.message || "Invalid email or password", type, status: false }, { status: 401 });
             }
         }
 
@@ -53,7 +53,7 @@ export async function handleLogin(req: NextRequest, adminRole: string, adminStaf
         // Compare the provided password with the stored hash
         const isPasswordValid = await comparePassword(password, admin.password);
         if (!isPasswordValid) {
-            return NextResponse.json({ message: 'Invalid email or password', status: false }, { status: 401 });
+            return NextResponse.json({ message: 'Invalid email or password 2', status: false }, { status: 401 });
         }
 
         // Email & account verification checks for supplier
@@ -125,7 +125,7 @@ export async function handleVerifyLogin(req: NextRequest, adminRole: string, adm
         const { status, message, admin } = await adminByToken(token, adminRole, adminStaffRole);
 
         if (!status) {
-            return NextResponse.json({ message: message || "Invalid email or password", status: false }, { status: 401 });
+            return NextResponse.json({ message: message || "Invalid email or password 3", status: false }, { status: 401 });
         }
 
         return NextResponse.json({ message: "Token is valid", admin, status: true });

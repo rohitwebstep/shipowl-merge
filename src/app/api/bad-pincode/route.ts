@@ -96,8 +96,8 @@ export async function POST(req: NextRequest) {
     const pincode = extractString('pincode');
 
     const getBadPincodeByPincodeResult = await getBadPincodeByPincode(pincode || '');
-
-    if (!getBadPincodeByPincodeResult?.status) {
+    logMessage(`log`, `getBadPincodeByPincodeResult: `, getBadPincodeByPincodeResult);
+    if (getBadPincodeByPincodeResult?.status) {
       logMessage('warn', 'BadPincode already exists:', getBadPincodeByPincodeResult?.message || 'Unknown error');
       return NextResponse.json(
         { status: false, error: getBadPincodeByPincodeResult?.message || 'BadPincode already exists' },

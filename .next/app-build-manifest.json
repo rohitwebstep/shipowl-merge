@@ -1,89 +1,31 @@
 {
   "pages": {
+    "/api/supplier/auth/login/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/supplier/auth/login/route.js"
+    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/admin/layout": [
+    "/supplier/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/admin/layout.css",
-      "static/chunks/app/admin/layout.js"
+      "static/css/app/supplier/layout.css",
+      "static/chunks/app/supplier/layout.js"
     ],
-    "/admin/auth/login/page": [
+    "/supplier/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/admin/auth/login/page.js"
+      "static/chunks/app/supplier/page.js"
     ],
-    "/api/admin/auth/login/route": [
+    "/api/supplier/auth/verify/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/auth/login/route.js"
-    ],
-    "/admin/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/admin/page.js"
-    ],
-    "/api/admin/auth/verify/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/auth/verify/route.js"
-    ],
-    "/admin/products/list/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/admin/products/list/page.css",
-      "static/chunks/app/admin/products/list/page.js"
-    ],
-    "/api/admin/product/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/product/route.js"
-    ],
-    "/api/admin/category/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/category/route.js"
-    ],
-    "/admin/products/create/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/admin/products/create/page.css",
-      "static/chunks/app/admin/products/create/page.js"
-    ],
-    "/api/location/country/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/location/country/route.js"
-    ],
-    "/api/admin/brand/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/brand/route.js"
-    ],
-    "/api/admin/supplier/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/supplier/route.js"
-    ],
-    "/admin/products/update/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/admin/products/update/page.css",
-      "static/chunks/app/admin/products/update/page.js"
-    ],
-    "/api/admin/product/[productId]/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/product/[productId]/route.js"
-    ],
-    "/api/admin/product/[productId]/image/[imageIndex]/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/product/[productId]/image/[imageIndex]/route.js"
+      "static/chunks/app/api/supplier/auth/verify/route.js"
     ]
   }
 }

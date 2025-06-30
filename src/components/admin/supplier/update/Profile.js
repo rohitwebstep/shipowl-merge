@@ -6,6 +6,7 @@ import BusinessInfo from './BusinessInfo';
 import { ProfileEditContext } from "./ProfileEditContext";
 import { useRouter, useSearchParams } from 'next/navigation';
 import { HashLoader } from 'react-spinners';
+import Swal from "sweetalert2";
 export default function Profile() {
 
   const { activeTab, validateBusiness, validate, fetchCountry, formData, setActiveTab, setFormData, setCityData, setStateData } = useContext(ProfileEditContext);

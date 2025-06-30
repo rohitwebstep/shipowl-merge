@@ -587,7 +587,7 @@ export default function My() {
                 <>
 
 
-                    <div className="grid lg:grid-cols-4 xl:grid-cols-5 md:grid-cols-2 gap-2">
+                    <div className="grid lg:grid-cols-4 xl:grid-cols-5 md:grid-cols-2 gap-3">
                         {products.map((product) => {
                             const variantsImage = product?.variants || [];
                             const imageString = variantsImage[0]?.variant?.image || "";
@@ -647,7 +647,7 @@ export default function My() {
                             return (
                                 <div
                                     key={product.id}
-                                    className="group flex flex-col justify-between bg-white p-4 overflow-hidden  shadow-sm hover:shadow-md  transition-all duration-300 relative"
+                                    className="group flex flex-col rounded justify-between bg-white p-4 overflow-hidden  shadow-sm hover:shadow-md  transition-all duration-300 relative"
                                 >
                                     {/* FLIPPING IMAGE */}
                                     <div className="relative h-[200px] perspective">
@@ -704,28 +704,31 @@ export default function My() {
                                                         View Description
                                                     </button>
                                                     {openDescriptionId === product.id && (
-                                                        <div className="fixed p-4 inset-0 z-50 m-auto  flex items-center justify-center bg-black/50">
-                                                            <div className="bg-white w-4xl max-h-[90vh] overflow-y-auto rounded-xl p-6 relative shadow-lg popup-boxes">
+                                                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                                                            <div className="bg-white max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-xl p-6 relative shadow-lg">
+
                                                                 {/* Close Button */}
                                                                 <button
                                                                     onClick={() => setOpenDescriptionId(null)}
                                                                     className="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-xl"
+                                                                    aria-label="Close"
                                                                 >
                                                                     &times;
                                                                 </button>
 
                                                                 {/* HTML Description Content */}
-                                                                {product?.description ? (
+                                                                {product?.product?.description &&product?.product?.description.trim() !== "" ? (
                                                                     <div
-                                                                        className="max-w-none prose [&_iframe]:h-[200px] [&_iframe]:max-h-[200px] [&_iframe]:w-full [&_iframe]:aspect-video"
-                                                                        dangerouslySetInnerHTML={{ __html: product.description }}
+                                                                        className="prose max-w-none [&_iframe]:h-[200px] [&_iframe]:max-h-[200px] [&_iframe]:w-full [&_iframe]:aspect-video"
+                                                                        dangerouslySetInnerHTML={{ __html: product?.product?.description }}
                                                                     />
                                                                 ) : (
-                                                                    <p className="text-gray-500">{product.description}</p>
+                                                                    <p className="text-gray-500">NIL</p>
                                                                 )}
                                                             </div>
                                                         </div>
                                                     )}
+
                                                 </span>
                                             </div>
                                             <div className="flex items-center gap-2">
@@ -913,7 +916,7 @@ export default function My() {
                                                                         className="px-3 w-full pt-2 text-sm"
                                                                         value={variant.stock || ""}
                                                                         onChange={(e) =>
-                                                                            handleVariantChange(variant.id, "stock", e.target.value)
+                                                                            handleVariantChange(variant.variantId, "stock", e.target.value)
                                                                         }
                                                                     />
                                                                 </div>
@@ -925,7 +928,7 @@ export default function My() {
                                                                         className="px-3 w-full pt-2 text-sm"
                                                                         value={variant.price || ""}
                                                                         onChange={(e) =>
-                                                                            handleVariantChange(variant.id, "price", e.target.value)
+                                                                            handleVariantChange(variant.variantId, "price", e.target.value)
                                                                         }
                                                                     />
                                                                 </div>
@@ -939,7 +942,7 @@ export default function My() {
                                                                         type="checkbox"
                                                                         checked={variant.status || false}
                                                                         onChange={(e) =>
-                                                                            handleVariantChange(variant.id, "status", e.target.checked)
+                                                                            handleVariantChange(variant.variantId, "status", e.target.checked)
                                                                         }
                                                                         className="sr-only peer"
                                                                     />
@@ -1031,7 +1034,7 @@ export default function My() {
                                                         />
                                                     )}
                                                 </div>
-                                                <div className="absolute top-0 left-0 w-full text-center bg-orange-500 p-2 text-white ">Suggested Price :{variant.suggested_price}</div>
+                                                <div className="absolute top-0 left-0 w-full text-center bg-orange-500 p-2 text-white ">Suggested Price :{v.price}</div>
 
 
                                             </div>

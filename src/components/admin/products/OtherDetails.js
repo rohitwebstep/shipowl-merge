@@ -145,7 +145,7 @@ export default function OtherDetails() {
         <div className="grid md:grid-cols-2 gap-4 mb-4">
           <div>
             <label htmlFor="hsn_code" className="font-bold block uppercase">
-              HSN Code <span className="text-red-500">*</span>
+              HSN Code
             </label>
             <input
               type="text"

@@ -72,7 +72,12 @@ export default function ProfileView() {
     return (
         <>
             <div className="bg-white p-5 rounded-md profilePage">
-                <h2 className='text-center py-3 font-bold text-2xl'>{suppliers?.name} Profile</h2>
+                <div className="flex justify-center items-center gap-5 mb-4">
+                    <h2 className='text-center py-3 font-bold text-2xl'>{suppliers?.name} Profile</h2>
+                    <button
+                        className='bg-green-500 p-3 rounded-md  text-white'
+                        onClick={() => { router.push(`/admin/supplier/update?id=${suppliers.id}`) }}>Update Profile</button>
+                </div>
                 <div className="flex gap-10">
                     <div className="col md:w-3/12 border border-gray-300 p-5 rounded-md">
                         <div className="img">

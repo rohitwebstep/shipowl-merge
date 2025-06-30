@@ -2,7 +2,7 @@
 import 'datatables.net-dt/css/dataTables.dataTables.css';
 import { useRouter } from "next/navigation";
 import HashLoader from "react-spinners/HashLoader";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { FaCheck } from "react-icons/fa";
@@ -13,6 +13,8 @@ import { useAdminActions } from '@/components/commonfunctions/MainContext';
 import { ProfileContext } from './ProfileContext';
 import Swal from 'sweetalert2';
 const SupplierList = () => {
+    const [currentTab, setCurrentTab] = useState('active');
+
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [suppliers, setSuppliers] = useState([]);
     const [isTrashed, setIsTrashed] = useState(false);
@@ -215,7 +217,7 @@ const SupplierList = () => {
                 }).then((res) => {
                     if (res.isConfirmed) {
                         setExpandPassModal('');
-                       fetchAll(setSuppliers, setLoading)
+                        fetchAll(setSuppliers, setLoading)
                     }
                 });
             }
@@ -233,6 +235,67 @@ const SupplierList = () => {
             setLoading(false);
         }
     };
+
+    const filteredSuppliers = suppliers.filter((supplier) => {
+        const status = supplier.status?.toLowerCase?.().trim?.() || '';
+        return (
+            (currentTab === 'active' && status === 'active') ||
+            (currentTab === 'inactive' && status === 'inactive')
+        );
+    });
+
+
+    const fetchSupplierStatus = useCallback(async (id, item) => {
+        const adminData = JSON.parse(localStorage.getItem("shippingData"));
+
+        if (adminData?.project?.active_panel !== "admin") {
+            localStorage.removeItem("shippingData");
+            router.push("/admin/auth/login");
+            return;
+        }
+
+        const admintoken = adminData?.security?.token;
+        if (!admintoken) {
+            router.push("/admin/auth/login");
+            return;
+        }
+
+        try {
+            setLoading(true);
+            const response = await fetch(`https://shipowl-kd06.onrender.com/api/admin/supplier/${id}/status?status=${item}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${admintoken}`,
+                },
+            });
+
+            if (!response.ok) {
+                const errorMessage = await response.json();
+                Swal.fire({
+                    icon: "error",
+                    title: "Something Wrong!",
+                    text: errorMessage.error || errorMessage.message || "Your session has expired. Please log in again.",
+                });
+                throw new Error(errorMessage.message || errorMessage.error || "Something Wrong!");
+            }
+
+            const result = await response.json();
+            await fetchAll(setSuppliers, setLoading);
+
+
+        } catch (error) {
+            console.error("Error fetching categories:", error);
+        } finally {
+            setLoading(false);
+        }
+    }, [router]);
+      const inactiveSuppliers = suppliers.filter((supplier) => {
+        const status = supplier.status?.toLowerCase?.().trim?.() || '';
+        return status === 'inactive';
+    });
+
+    const isDisabled = !inactiveSuppliers || inactiveSuppliers.length === 0;
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-[300px]">
@@ -279,8 +342,46 @@ const SupplierList = () => {
                 </div>
             </div>
 
+            <div className="flex space-x-4 border-b border-gray-200 mb-6">
 
-            {suppliers.length > 0 ? (
+                <button
+                    onClick={() => setCurrentTab('active')}
+                    className={`px-4 py-2 font-medium border-b-2 transition-all duration-200
+            ${currentTab === 'active'
+                            ? "border-orange-500 text-orange-600"
+                            : "border-transparent text-gray-500 hover:text-orange-600"
+                        }`}
+                >
+                    Active Suppliers
+                </button>
+
+
+                <div className="relative group inline-block">
+                    <button
+                        disabled={isDisabled}
+                        onClick={() => setCurrentTab('inactive')}
+                        className={`px-4 py-2 font-medium border-b-2 transition-all duration-200 relative
+      ${currentTab === 'inactive'
+                                ? "border-orange-500 text-orange-600"
+                                : "border-transparent text-gray-500 hover:text-orange-600"
+                            }
+      ${isDisabled ? 'cursor-not-allowed' : ''}
+    `}
+                    >
+                        Inactive Suppliers
+                    </button>
+
+                    {isDisabled && (
+                        <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10 whitespace-nowrap">
+                            No inactive supplier available
+                            <div className="absolute bottom-[-4px] left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gray-800 rotate-45"></div>
+                        </div>
+                    )}
+                </div>
+
+
+            </div>
+            {filteredSuppliers.length > 0 ? (
                 <div className="overflow-x-auto w-full relative main-outer-wrapper">
                     <table className="display main-tables w-full" id="supplierTable">
                         <thead>
@@ -291,13 +392,14 @@ const SupplierList = () => {
                                 <th className="p-3 text-left uppercase whitespace-nowrap">Permanent Address</th>
                                 <th className="p-3 text-left uppercase whitespace-nowrap">View More</th>
                                 <th className="p-3 text-left uppercase whitespace-nowrap">View Profile</th>
+                                <th className="p-3 text-left uppercase whitespace-nowrap">Status</th>
                                 <th className="p-3 text-left uppercase whitespace-nowrap">Check Reporting</th>
                                 <th className="p-3 text-left uppercase whitespace-nowrap">Update Password</th>
                                 <th className="p-3 text-left uppercase whitespace-nowrap">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {suppliers.map((item, index) => {
+                            {filteredSuppliers.map((item, index) => {
                                 return (
                                     <React.Fragment key={item.id}>
                                         <tr className="bg-transparent border-b border-[#E9EDF7] text-[#2B3674] font-semibold">
@@ -342,6 +444,22 @@ const SupplierList = () => {
                                                     onClick={() => viewProfile(item.id)}
                                                 >
                                                     View Profile
+                                                </button>
+                                            </td>
+                                            <td className="p-3 px-4 text-left whitespace-nowrap">
+                                                <button
+                                                    onClick={() =>
+                                                        fetchSupplierStatus(item.id, item.status?.toLowerCase() === 'active' ? 'inactive' : 'active')
+                                                    }
+
+                                                    className={`p-2 cursor-pointer capitalize rounded-md px-3 text-left whitespace-nowrap text-white ${item.status?.toLowerCase() === 'inactive'
+                                                        ? 'bg-green-500'
+                                                        : item.status?.toLowerCase() === 'active'
+                                                            ? 'bg-red-500'
+                                                            : 'bg-gray-300'
+                                                        }`}
+                                                >
+                                                    {item.status?.toLowerCase() === 'active' ? 'inactive' : 'active' || '-'}
                                                 </button>
                                             </td>
                                             <td className="p-3 text-left whitespace-nowrap">

@@ -12,7 +12,7 @@ import 'swiper/css/navigation';
 import Select from 'react-select';
 import { useImageURL } from "@/components/ImageURLContext";
 const BusinessInfo = () => {
-  const { formData, businessErrors, validateBusiness, setBusinessErrors, setFiles,files, setFormData, stateData, cityData, setCityData, setStateData, setActiveTab, countryData } = useContext(ProfileEditContext);
+  const { formData, businessErrors, validateBusiness, setBusinessErrors, setFiles, files, setFormData, stateData, cityData, setCityData, setStateData, setActiveTab, countryData } = useContext(ProfileEditContext);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { fetchImages } = useImageURL();
@@ -193,13 +193,15 @@ const BusinessInfo = () => {
         Swal.fire({
           icon: "success",
           title: "Image Deleted",
-          text: `The image has been deleted successfully!`,
+          text: "The image has been deleted successfully!",
           showConfirmButton: true,
         }).then((res) => {
           if (res.isConfirmed) {
+            window.location.reload(); // 🔄 Refresh the page
           }
         });
       }
+
     } catch (error) {
       console.error("Error:", error);
       Swal.close();
@@ -213,42 +215,62 @@ const BusinessInfo = () => {
     }
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (!validateBusiness()) return;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateBusiness()) return;
 
-  setLoading(true);
-  const adminData = JSON.parse(localStorage.getItem("shippingData"));
-  if (!adminData?.project?.active_panel === "admin") {
-    localStorage.clear("shippingData");
-    router.push("/admin/auth/login");
-    return;
-  }
+    setLoading(true);
+    const adminData = JSON.parse(localStorage.getItem("shippingData"));
+    if (!adminData?.project?.active_panel === "admin") {
+      localStorage.clear("shippingData");
+      router.push("/admin/auth/login");
+      return;
+    }
 
-  const token = adminData?.security?.token;
-  if (!token) {
-    router.push("/admin/auth/login");
-    return;
-  }
+    const token = adminData?.security?.token;
+    if (!token) {
+      router.push("/admin/auth/login");
+      return;
+    }
 
-  try {
-    Swal.fire({
-      title: 'Updating Supplier...',
-      text: 'Please wait while we save your Supplier.',
-      allowOutsideClick: false,
-      didOpen: () => Swal.showLoading()
-    });
+    try {
+      Swal.fire({
+        title: 'Updating Supplier...',
+        text: 'Please wait while we save your Supplier.',
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+      });
 
-    const url = `/api/admin/supplier/${id}`;
-    const form = new FormData();
+      const url = `/api/admin/supplier/${id}`;
+      const form = new FormData();
 
-    // Append all basic formData (excluding files)
-    for (const key in formData) {
-      const value = formData[key];
+      // Append all basic formData (excluding files)
+      for (const key in formData) {
+        const value = formData[key];
 
-      if (value === null || value === undefined || value === '') continue;
+        if (value === null || value === undefined || value === '') continue;
 
-      const isFileKey = [
+        const isFileKey = [
+          'panCardImage',
+          'companyPanCardImage',
+          'gstDocument',
+          'additionalDocumentUpload',
+          'documentImage',
+          'aadharCardImage',
+          'profilePicture'
+        ].includes(key);
+
+        if (!isFileKey) {
+          if (Array.isArray(value) || typeof value === 'object') {
+            form.append(key, JSON.stringify(value));
+          } else {
+            form.append(key, value);
+          }
+        }
+      }
+
+      // Append files from the files object
+      const fileKeys = [
         'panCardImage',
         'companyPanCardImage',
         'gstDocument',
@@ -256,110 +278,90 @@ const handleSubmit = async (e) => {
         'documentImage',
         'aadharCardImage',
         'profilePicture'
-      ].includes(key);
+      ];
 
-      if (!isFileKey) {
-        if (Array.isArray(value) || typeof value === 'object') {
-          form.append(key, JSON.stringify(value));
-        } else {
-          form.append(key, value);
+      fileKeys.forEach((key) => {
+        if (files[key] && Array.isArray(files[key])) {
+          files[key].forEach(file => {
+            form.append(key, file, file.name);
+          });
         }
-      }
-    }
+      });
 
-    // Append files from the files object
-    const fileKeys = [
-      'panCardImage',
-      'companyPanCardImage',
-      'gstDocument',
-      'additionalDocumentUpload',
-      'documentImage',
-      'aadharCardImage',
-      'profilePicture'
-    ];
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        },
+        body: form,
+      });
 
-    fileKeys.forEach((key) => {
-      if (files[key] && Array.isArray(files[key])) {
-        files[key].forEach(file => {
-          form.append(key, file, file.name);
+      const result = await response.json();
+
+      if (!response.ok) {
+        Swal.close();
+        Swal.fire({
+          icon: "error",
+          title: "Update Failed",
+          text: result.message || result.error || "An error occurred",
         });
+
+        if (result.error && typeof result.error === 'object') {
+          const entries = Object.entries(result.error);
+          let focused = false;
+
+          entries.forEach(([key, message]) => {
+            setErrors((prev) => ({
+              ...prev,
+              [key]: message,
+            }));
+
+            if (!focused) {
+              const tab = getTabByFieldName(key);
+              if (tab) setActiveTab(tab);
+
+              setTimeout(() => {
+                const input = document.querySelector(`[name="${key}"]`);
+                if (input) input.focus();
+              }, 300);
+
+              focused = true;
+            }
+          });
+        }
+
+        throw new Error(result.message || result.error || "Submission failed");
       }
-    });
 
-    const response = await fetch(url, {
-      method: "PUT",
-      headers: {
-        "Authorization": `Bearer ${token}`
-      },
-      body: form,
-    });
+      Swal.close();
 
-    const result = await response.json();
+      Swal.fire({
+        icon: "success",
+        title: "Supplier updated",
+        text: `The supplier has been updated successfully!`,
+        showConfirmButton: true,
+      }).then((res) => {
+        if (res.isConfirmed) {
+          setFormData({});
+          setActiveTab("profile-edit")
+          router.push("/admin/supplier/list");
 
-    if (!response.ok) {
+        }
+      });
+
+    } catch (error) {
+      console.error("Error:", error);
       Swal.close();
       Swal.fire({
         icon: "error",
-        title: "Update Failed",
-        text: result.message || result.error || "An error occurred",
+        title: "Submission Error",
+        text: error.message || "Something went wrong. Please try again.",
       });
-
-      if (result.error && typeof result.error === 'object') {
-        const entries = Object.entries(result.error);
-        let focused = false;
-
-        entries.forEach(([key, message]) => {
-          setErrors((prev) => ({
-            ...prev,
-            [key]: message,
-          }));
-
-          if (!focused) {
-            const tab = getTabByFieldName(key);
-            if (tab) setActiveTab(tab);
-
-            setTimeout(() => {
-              const input = document.querySelector(`[name="${key}"]`);
-              if (input) input.focus();
-            }, 300);
-
-            focused = true;
-          }
-        });
-      }
-
-      throw new Error(result.message || result.error || "Submission failed");
+      setAccountErrors({});
+    } finally {
+      setLoading(false);
     }
-
-    Swal.close();
-
-    Swal.fire({
-      icon: "success",
-      title: "Supplier updated",
-      text: `The supplier has been updated successfully!`,
-      showConfirmButton: true,
-    }).then((res) => {
-      if (res.isConfirmed) {
-        setFormData({});
-        setActiveTab("profile-edit")
-        router.push("/admin/supplier/list");
-
-      }
-    });
-
-  } catch (error) {
-    console.error("Error:", error);
-    Swal.close();
-    Swal.fire({
-      icon: "error",
-      title: "Submission Error",
-      text: error.message || "Something went wrong. Please try again.",
-    });
-    setAccountErrors({});
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
 
 

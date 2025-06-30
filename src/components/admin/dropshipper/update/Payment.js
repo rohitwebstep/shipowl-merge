@@ -14,9 +14,9 @@ import 'swiper/css/navigation';
 const Payment = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-  const { formData, setFormData, fetchSupplier, setActiveTab } = useContext(DropshipperProfileContext);
+  const { formData, setFormData, fetchSupplier,files, setFiles, setActiveTab } = useContext(DropshipperProfileContext);
   const [errors, setErrors] = useState({});
-  const [files, setFiles] = useState({});
+ 
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   if (loading) {
@@ -52,10 +52,6 @@ const Payment = () => {
     }
   };
 
-
-
-
-
   const handleImageDelete = async (index, type) => {
     setLoading(true);
 
@@ -82,7 +78,7 @@ const Payment = () => {
         }
       });
 
-      const url = `/api/admin/${formData.id}/company/${formData.companyid}/image/${index}?type=${type}`;
+      const url = `/api/admin/dropshipper/${formData.id}/company/${formData.companyid}/image/${index}?type=${type}`;
       const response = await fetch(url, {
         method: "DELETE",
         headers: {
@@ -114,6 +110,8 @@ const Payment = () => {
           showConfirmButton: true,
         }).then((res) => {
           if (res.isConfirmed) {
+            window.location.reload(); // 🔄 Refresh the page
+
           }
         });
         fetchSupplier();
@@ -130,8 +128,6 @@ const Payment = () => {
       setLoading(false);
     }
   };
-
-
 
   const validate = () => {
     const newErrors = {};
@@ -172,7 +168,7 @@ const Payment = () => {
         didOpen: () => Swal.showLoading(),
       });
 
-      const url = `/api/admin/dropshipper/${formData?.id}/profile/update`;
+      const url = `/api/admin/dropshipper/${id}`;
       const form = new FormData();
 
       // Append uploaded files
@@ -284,7 +280,7 @@ const Payment = () => {
           {/* File Uploads */}
           {['panCardImage', 'aadharCardImage', 'gstDocument'].map((name) => (
             <div key={name} className="mb-6">
-              <label className="block text-[#232323] font-bold mb-1">
+              <label className="block text-[#232323] font-bold mb-1 capitalize">
                 {name.replace(/([A-Z])/g, ' $1')} Upload
               </label>
               <input
@@ -328,7 +324,7 @@ const Payment = () => {
                         ✕
                       </button>
                       <Image
-                        src={`https://placehold.co/600x400?text=${index + 1}` || img.trim()}
+                        src={img.trim()}
                         alt={`Image ${index + 1}`}
                         width={500}
                         height={500}

@@ -17,7 +17,7 @@ export default function List() {
     const [data, setData] = useState([]);
 
     const router = useRouter();
-    const { fetchAll, fetchTrashed, softDelete, restore, destroy } = useAdminActions("bad-pincode", "goodPincodes");
+    const { fetchAll, fetchTrashed, softDelete, restore, destroy } = useAdminActions("bad-pincode", "badPincodes");
 
 
     const { verifyAdminAuth, isAdminStaff, checkAdminRole, extractedPermissions } = useAdmin();

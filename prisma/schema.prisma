@@ -697,6 +697,8 @@ model courierCompany {
   website              String?     @db.LongText
   email                String
   phoneNumber          String?
+  flatShippingRate     Int?
+  rtoCharges           Int?
   status               Boolean     @default(true)
   createdAt            DateTime    @default(now())
   createdBy            Int?
