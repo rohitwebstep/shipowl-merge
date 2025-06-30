@@ -43,7 +43,7 @@ export const useAdminActions = (baseEndpoint, resultKey = "data") => {
 
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/${baseEndpoint}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${baseEndpoint}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -65,7 +65,7 @@ export const useAdminActions = (baseEndpoint, resultKey = "data") => {
 
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/${baseEndpoint}/trashed`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${baseEndpoint}/trashed`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -100,7 +100,7 @@ export const useAdminActions = (baseEndpoint, resultKey = "data") => {
 
     try {
       Swal.showLoading();
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/${baseEndpoint}/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${baseEndpoint}/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -132,7 +132,7 @@ export const useAdminActions = (baseEndpoint, resultKey = "data") => {
         },
       });
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/${baseEndpoint}/${id}/restore`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${baseEndpoint}/${id}/restore`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -179,7 +179,7 @@ export const useAdminActions = (baseEndpoint, resultKey = "data") => {
     });
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/${baseEndpoint}/${id}/destroy`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/${baseEndpoint}/${id}/destroy`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

@@ -115,7 +115,7 @@ export default function Update() {
 
     try {
       setLoading(true);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/state/${id}/cities`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/location/state/${id}/cities`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -145,7 +145,7 @@ export default function Update() {
 
     try {
       setLoading(true);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/country/${id}/states`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/location/country/${id}/states`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -175,7 +175,7 @@ export default function Update() {
 
     try {
       setLoading(true);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/country`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/location/country`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -235,7 +235,7 @@ export default function Update() {
       formdata.append("state", formData.state);
       formdata.append("pincode", formData.pincode);
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/high-rto/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/high-rto/${id}`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
         body: formdata,

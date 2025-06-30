@@ -175,7 +175,7 @@ const SourceAProduct = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/category`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/admin/category`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -212,7 +212,7 @@ const SourceAProduct = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dropshipper`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/dropshipper`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

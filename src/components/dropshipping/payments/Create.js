@@ -74,7 +74,7 @@ export default function Create() {
       formdata.append("amount", formData.amount);
       formdata.append("status", formData.status);
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/payment`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/payment`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formdata,

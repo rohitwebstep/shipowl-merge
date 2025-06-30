@@ -123,7 +123,7 @@ export default function My() {
 
         try {
             setLoading(true);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/product/my-inventory/trashed`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/supplier/product/my-inventory/trashed`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

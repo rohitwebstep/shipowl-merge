@@ -29,7 +29,7 @@ export default function Verify() {
       redirect: "follow",
     };
 
-    await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dropshipper/auth/registration/verify`, requestOptions)
+    await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/dropshipper/auth/registration/verify`, requestOptions)
       .then(async (response) => {
         const text = await response.text();
         setLoading(false);

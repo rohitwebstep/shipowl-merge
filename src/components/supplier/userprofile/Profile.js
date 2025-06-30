@@ -33,7 +33,7 @@ export default function Profile() {
     try {
       setLoading(true);
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/profile`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/supplier/profile`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -150,7 +150,7 @@ export default function Profile() {
 
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/location/state/${formData?.permanentState || id}/cities`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/location/state/${formData?.permanentState || id}/cities`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -36,7 +36,7 @@ const SupplierList = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/supplier`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/admin/supplier`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const SupplierList = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/supplier/trashed`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/admin/supplier/trashed`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

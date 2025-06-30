@@ -194,7 +194,7 @@ export default function Update() {
 
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/staff/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/supplier/staff/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,

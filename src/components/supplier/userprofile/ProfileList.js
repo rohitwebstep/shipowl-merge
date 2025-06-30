@@ -38,7 +38,7 @@ const ProfileList = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/supplier/profile`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/supplier/profile`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

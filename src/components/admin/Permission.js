@@ -104,7 +104,7 @@ function Permission() {
         redirect: "follow"
       };
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/permission`, requestOptions);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/admin/permission`, requestOptions);
 
       const result = await res.json();
 

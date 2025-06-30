@@ -171,7 +171,7 @@ export default function Allroducts() {
 
         try {
             setLoading(true);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dropshipper/product/inventory?type='notmy'`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/dropshipper/product/inventory?type='notmy'`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
