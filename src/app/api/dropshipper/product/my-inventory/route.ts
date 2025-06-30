@@ -301,7 +301,7 @@ export async function POST(req: NextRequest) {
       const shopDomain = shopifyApp.shop;
       const accessToken = shopifyApp.accessToken;
       const SHOPIFY_API_VERSION = process.env.SHOPIFY_API_VERSION;
-      const APP_HOST = process.env.URL || '';
+      const APP_HOST = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
       try {
 
