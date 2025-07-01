@@ -1,31 +1,9 @@
 {
   "pages": {
-    "/api/supplier/auth/login/route": [
+    "/api/dropshipper/shopify/custom-privacy/shop-delete/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/supplier/auth/login/route.js"
-    ],
-    "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
-    ],
-    "/supplier/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/supplier/layout.css",
-      "static/chunks/app/supplier/layout.js"
-    ],
-    "/supplier/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/supplier/page.js"
-    ],
-    "/api/supplier/auth/verify/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/supplier/auth/verify/route.js"
+      "static/chunks/app/api/dropshipper/shopify/custom-privacy/shop-delete/route.js"
     ]
   }
 }

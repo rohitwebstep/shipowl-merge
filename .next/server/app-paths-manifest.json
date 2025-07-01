@@ -1,6 +1,1 @@
-{
-  "/api/supplier/auth/login/route": "app/api/supplier/auth/login/route.js",
-  "/api/supplier/auth/verify/route": "app/api/supplier/auth/verify/route.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/supplier/page": "app/supplier/page.js"
-}
+{}
