@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
       logMessage('info', 'Dropshipper found:', dropshipperStaffResult.dropshipperStaff);
 
       const options = {
-        panel: 'dropshipper',
+        panel: 'Dropshipper',
       };
 
       const staffPermissionsResult = await getStaffPermissions(options);

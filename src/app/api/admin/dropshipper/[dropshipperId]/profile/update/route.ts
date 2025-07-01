@@ -68,7 +68,7 @@ export async function PUT(req: NextRequest) {
 
     if (isStaff) {
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Dropshipper',
         action: 'Update',
       };

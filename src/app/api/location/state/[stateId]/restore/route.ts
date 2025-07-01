@@ -64,7 +64,7 @@ export async function PATCH(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
       
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'State',
         action: 'Restore',
       };

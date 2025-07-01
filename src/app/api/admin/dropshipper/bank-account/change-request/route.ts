@@ -60,7 +60,7 @@ export async function GET(req: NextRequest) {
             //  mainAdminId = userCheck.admin?.admin?.id ?? adminId;
 
             const options = {
-                panel: 'admin',
+                panel: 'Admin',
                 module: 'Dropshipper',
                 action: 'Bank Account Change Request View Listing',
             };

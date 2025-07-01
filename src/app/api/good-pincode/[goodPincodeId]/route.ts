@@ -59,7 +59,7 @@ export async function GET(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
 
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Good Pincode',
         action: 'View',
       };
@@ -133,7 +133,7 @@ export async function PUT(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
 
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Good Pincode',
         action: 'Update',
       };
@@ -265,7 +265,7 @@ export async function PATCH(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
 
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Good Pincode',
         action: 'Restore',
       };
@@ -347,7 +347,7 @@ export async function DELETE(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
 
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Good Pincode',
         action: 'Soft Delete',
       };

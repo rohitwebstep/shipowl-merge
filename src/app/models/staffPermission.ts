@@ -61,7 +61,7 @@ export const checkStaffPermissionStatus = async (filter: StaffPermissionFilter =
             };
         }
 
-        const isValidPanel = ["admin", "supplier", "customer"].includes(filter.panel);
+        const isValidPanel = ["Admin", "Supplier", "Dropshipper"].includes(filter.panel);
         if (!isValidPanel) {
             return {
                 status: false,

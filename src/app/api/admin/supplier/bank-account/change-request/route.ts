@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
 
         if (isStaff) {
             const options = {
-                panel: 'admin',
+                panel: 'Admin',
                 module: 'Supplier',
                 action: 'Bank Account Change Request View Listing',
             };

@@ -62,7 +62,7 @@ export async function PATCH(req: NextRequest) {
     if (isStaffUser) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Sub User',
         action: 'Restore',
       };

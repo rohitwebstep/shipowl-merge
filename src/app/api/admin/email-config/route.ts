@@ -2,37 +2,38 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { logMessage } from "@/utils/commonUtils";
 import { isUserExist } from "@/utils/auth/authUtils";
-import { getBadPincodesByStatus } from '@/app/models/badPincode';
+import { getAllEmailConfig } from '@/app/models/admin/emailConfig';
+import { fetchLogInfo } from '@/utils/commonUtils';
 import { checkStaffPermissionStatus } from '@/app/models/staffPermission';
 
 interface MainAdmin {
-    id: number;
-    name: string;
-    email: string;
-    role: string;
-    // other optional properties if needed
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  // other optional properties if needed
 }
 
-interface SupplierStaff {
-    id: number;
-    name: string;
-    email: string;
-    password: string;
-    role: string;
-    admin?: MainAdmin;
+interface AdminStaff {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  role: string;
+  admin?: MainAdmin;
 }
 
 interface UserCheckResult {
-    status: boolean;
-    message?: string;
-    admin?: SupplierStaff;
+  status: boolean;
+  message?: string;
+  admin?: AdminStaff;
 }
 
 export async function GET(req: NextRequest) {
   try {
-    logMessage('debug', 'GET request received for fetching badPincodes');
+    logMessage('debug', 'GET request received for fetching mails');
 
-    // Retrieve x-admin-id and x-admin-role from request headers
+    // Get headers
     const adminIdHeader = req.headers.get("x-admin-id");
     const adminRole = req.headers.get("x-admin-role");
 
@@ -40,13 +41,13 @@ export async function GET(req: NextRequest) {
     if (!adminIdHeader || isNaN(adminId)) {
       logMessage('warn', `Invalid adminIdHeader: ${adminIdHeader}`);
       return NextResponse.json(
-        { status: false, error: "User ID is missing or invalid in request" },
+        { error: "User ID is missing or invalid in request" },
         { status: 400 }
       );
     }
 
     // Check if admin exists
-    // let mainAdminId = adminId;
+    //  let mainAdminId = adminId;
     const userCheck: UserCheckResult = await isUserExist(adminId, String(adminRole));
     if (!userCheck.status) {
       return NextResponse.json(
@@ -55,15 +56,14 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const isStaffUser = !['admin', 'dropshipper', 'supplier'].includes(String(adminRole));
+    const isStaff = !['admin', 'dropshipper', 'supplier'].includes(String(adminRole));
 
-    if (isStaffUser) {
-      // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
-
+    if (isStaff) {
+      //  mainAdminId = userCheck.admin?.admin?.id ?? adminId;
       const options = {
         panel: 'Admin',
-        module: 'Bad Pincode',
-        action: 'Trash Listing',
+        module: 'Mail',
+        action: 'View Listing',
       };
 
       const staffPermissionsResult = await checkStaffPermissionStatus(options, adminId);
@@ -80,27 +80,35 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    // Fetch all badPincodes
-    const badPincodesResult = await getBadPincodesByStatus("deleted");
+    const fetchLogInfoResult = await fetchLogInfo('mail', 'view', req);
+    logMessage('debug', 'fetchLogInfoResult:', fetchLogInfoResult);
 
-    if (badPincodesResult?.status) {
+    // Fetch all mails
+    const mailsResult = await getAllEmailConfig();
+
+    if (mailsResult?.status) {
       return NextResponse.json(
-        { status: true, badPincodes: badPincodesResult.badPincodes },
+        { status: true, mails: mailsResult.mails },
         { status: 200 }
       );
     }
 
-    logMessage('warn', 'No badPincodes found');
+    logMessage('warn', 'No mails found');
     return NextResponse.json(
-      { status: false, error: "No badPincodes found" },
+      { status: false, error: "No mails found" },
       { status: 404 }
     );
   } catch (error) {
-    logMessage('error', 'Error fetching badPincodes:', error);
+    logMessage('error', 'Error fetching mails:', error);
     return NextResponse.json(
-      { status: false, error: "Failed to fetch badPincodes" },
+      { status: false, error: "Failed to fetch mails" },
       { status: 500 }
     );
   }
 }
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};

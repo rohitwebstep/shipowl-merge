@@ -61,7 +61,7 @@ export async function DELETE(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
 
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Brand',
         action: 'Permanent Delete',
       };

@@ -62,7 +62,7 @@ export async function PUT(req: NextRequest) {
             mainDropshipperId = userCheck.admin?.admin?.id ?? dropshipperId;
 
             const permissionCheck = await checkStaffPermissionStatus({
-                panel: 'dropshipper',
+                panel: 'Dropshipper',
                 module: 'Shopify',
                 action: 'Update',
             }, dropshipperId);
@@ -199,7 +199,7 @@ export async function DELETE(req: NextRequest) {
             mainDropshipperId = userCheck.admin?.admin?.id ?? dropshipperId;
 
             const permissionCheck = await checkStaffPermissionStatus({
-                panel: 'dropshipper',
+                panel: 'Dropshipper',
                 module: 'Shopify',
                 action: 'Update',
             }, dropshipperId);

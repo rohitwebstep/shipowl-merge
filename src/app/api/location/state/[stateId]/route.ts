@@ -62,7 +62,7 @@ export async function GET(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
 
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'State',
         action: 'View',
       };
@@ -152,7 +152,7 @@ export async function PUT(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
 
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'State',
         action: 'Update',
       };
@@ -294,7 +294,7 @@ export async function PATCH(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
 
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'State',
         action: 'Restore',
       };
@@ -376,7 +376,7 @@ export async function DELETE(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
 
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'State',
         action: 'Soft Delete',
       };

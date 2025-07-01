@@ -70,7 +70,7 @@ export async function GET(req: NextRequest) {
 
         if (isStaffUser) {
             const supplierPermissionCheck = await checkStaffPermissionStatus({
-                panel: 'supplier',
+                panel: 'Supplier',
                 module: 'order',
                 action: 'Warehouse Collected',
             }, supplierId);
@@ -85,7 +85,7 @@ export async function GET(req: NextRequest) {
             }
 
             const orderVariablePermissionCheck = await getStaffPermissionsByStaffId({
-                panel: 'supplier',
+                panel: 'Supplier',
                 module: 'Order Variables'
             }, supplierId);
 
@@ -239,7 +239,7 @@ export async function POST(req: NextRequest) {
 
         if (isStaffUser) {
             const supplierPermissionCheck = await checkStaffPermissionStatus({
-                panel: 'supplier',
+                panel: 'Supplier',
                 module: 'order',
                 action: 'Warehouse Collected',
             }, supplierId);

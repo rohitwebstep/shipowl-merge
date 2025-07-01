@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
 
         if (isStaff) {
             const options = {
-                panel: 'admin',
+                panel: 'Admin',
                 module: 'Dropshipper',
                 action: 'View',
             };

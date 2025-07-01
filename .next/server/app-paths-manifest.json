@@ -1,5 +1,3 @@
 {
-  "/supplier/bank/update/page": "app/supplier/bank/update/page.js",
-  "/admin/supplier/bankaccount-update-requests/page": "app/admin/supplier/bankaccount-update-requests/page.js",
-  "/admin/dropshipper/bankaccount-update-requests/page": "app/admin/dropshipper/bankaccount-update-requests/page.js"
+  "/api/admin/email-config/[emailConfigId]/route": "app/api/admin/email-config/[emailConfigId]/route.js"
 }

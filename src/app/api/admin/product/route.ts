@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
 
     if (isStaff) {
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Product',
         action: 'Create',
       };
@@ -445,7 +445,7 @@ export async function GET(req: NextRequest) {
 
     if (isStaff) {
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Product',
         action: 'View Listing',
       };

@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
     }
 
     const options = {
-      panel: 'admin',
+      panel: 'Admin',
     };
 
     const staffPermissionsResult = await getStaffPermissions(options);

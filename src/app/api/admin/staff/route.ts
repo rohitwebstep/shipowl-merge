@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
 
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Sub User',
         action: 'Create',
       };
@@ -266,7 +266,7 @@ export async function GET(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
 
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Sub User',
         action: 'View Listing',
       };

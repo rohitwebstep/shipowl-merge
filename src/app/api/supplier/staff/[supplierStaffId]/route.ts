@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
       logMessage('info', 'Supplier found:', supplierStaffResult.supplierStaff);
 
       const options = {
-        panel: 'supplier',
+        panel: 'Supplier',
       };
 
       const staffPermissionsResult = await getStaffPermissions(options);

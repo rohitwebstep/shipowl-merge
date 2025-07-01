@@ -69,7 +69,7 @@ export async function GET(req: NextRequest) {
       //  mainAdminId = userCheck.admin?.admin?.id ?? adminId;
 
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Brand',
         action: 'Update',
       };
@@ -138,7 +138,7 @@ export async function PUT(req: NextRequest) {
 
     if (isStaff) {
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Brand',
         action: 'Update',
       };
@@ -286,7 +286,7 @@ export async function PATCH(req: NextRequest) {
 
     if (isStaff) {
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Brand',
         action: 'restore',
       };
@@ -363,7 +363,7 @@ export async function DELETE(req: NextRequest) {
 
     if (isStaff) {
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Brand',
         action: 'Soft Delete',
       };

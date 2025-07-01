@@ -30,7 +30,7 @@ export async function DELETE(req: NextRequest) {
     }
 
     const globalOptions = {
-      panel: 'supplier',
+      panel: 'Supplier',
       module: 'Product',
       action: 'Delete',
     };

@@ -56,7 +56,7 @@ export async function DELETE(req: NextRequest) {
 
     if (isStaff) {
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Dropshipper',
         action: 'Permanent Delete',
       };

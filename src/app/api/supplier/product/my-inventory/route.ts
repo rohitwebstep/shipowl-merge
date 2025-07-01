@@ -103,7 +103,7 @@ export async function POST(req: NextRequest) {
     }
 
     const globalOptions = {
-      panel: 'supplier',
+      panel: 'Supplier',
       module: 'Product',
       action: 'Add to List',
     };

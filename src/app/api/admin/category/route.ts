@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
 
     if (isStaff) {
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Category',
         action: 'Create',
       };

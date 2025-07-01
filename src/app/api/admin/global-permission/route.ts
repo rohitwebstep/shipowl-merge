@@ -62,7 +62,7 @@ export async function GET(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
       
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Global Permission',
         action: 'View',
       };
@@ -139,7 +139,7 @@ export async function PUT(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
       
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Global Permission',
         action: 'Update',
       };

@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
     }
 
     const options = {
-      panel: 'supplier',
+      panel: 'Supplier',
     };
 
     const staffPermissionsResult = await getStaffPermissions(options);

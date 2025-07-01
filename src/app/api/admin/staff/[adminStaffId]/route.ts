@@ -68,7 +68,7 @@ export async function GET(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
       
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Sub User',
         action: 'View',
       };
@@ -92,7 +92,7 @@ export async function GET(req: NextRequest) {
       logMessage('info', 'Admin found:', adminStaffResult.adminStaff);
 
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
       };
 
       const staffPermissionsResult = await getStaffPermissions(options);
@@ -140,7 +140,7 @@ export async function PUT(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
       
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Sub User',
         action: 'Update',
       };
@@ -339,7 +339,7 @@ export async function PATCH(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
 
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Sub User',
         action: 'Restore',
       };
@@ -413,7 +413,7 @@ export async function DELETE(req: NextRequest) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
 
       const options = {
-        panel: 'admin',
+        panel: 'Admin',
         module: 'Sub User',
         action: 'Soft Delete',
       };

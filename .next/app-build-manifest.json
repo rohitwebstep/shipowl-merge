@@ -1,65 +1,14 @@
 {
   "pages": {
-    "/layout": [
+    "/api/admin/auth/login/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
+      "static/chunks/app/api/admin/auth/login/route.js"
     ],
-    "/supplier/layout": [
+    "/api/admin/email-config/[emailConfigId]/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/supplier/layout.css",
-      "static/chunks/app/supplier/layout.js"
-    ],
-    "/supplier/bank/update/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/supplier/bank/update/page.css",
-      "static/chunks/app/supplier/bank/update/page.js"
-    ],
-    "/api/supplier/profile/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/supplier/profile/route.js"
-    ],
-    "/api/supplier/profile/bank-account/change-request/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/supplier/profile/bank-account/change-request/route.js"
-    ],
-    "/admin/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/admin/layout.css",
-      "static/chunks/app/admin/layout.js"
-    ],
-    "/admin/supplier/bankaccount-update-requests/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/admin/supplier/bankaccount-update-requests/page.css",
-      "static/chunks/app/admin/supplier/bankaccount-update-requests/page.js"
-    ],
-    "/api/admin/auth/verify/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/auth/verify/route.js"
-    ],
-    "/api/admin/supplier/bank-account/change-request/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/supplier/bank-account/change-request/route.js"
-    ],
-    "/admin/dropshipper/bankaccount-update-requests/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/admin/dropshipper/bankaccount-update-requests/page.css",
-      "static/chunks/app/admin/dropshipper/bankaccount-update-requests/page.js"
-    ],
-    "/api/admin/dropshipper/bank-account/change-request/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/dropshipper/bank-account/change-request/route.js"
+      "static/chunks/app/api/admin/email-config/[emailConfigId]/route.js"
     ]
   }
 }

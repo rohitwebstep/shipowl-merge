@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
         const isStaff = !['admin', 'supplier', 'dropshipper'].includes(String(adminRole));
         if (isStaff) {
             const permissionCheck = await checkStaffPermissionStatus(
-                { panel: 'admin', module: 'Dropshipper', action: 'Password Change' },
+                { panel: 'Admin', module: 'Dropshipper', action: 'Password Change' },
                 adminId
             );
 
