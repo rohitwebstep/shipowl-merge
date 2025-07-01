@@ -1,4 +1,3 @@
 {
-  "/api/admin/auth/login/route": "app/api/admin/auth/login/route.js",
   "/admin/auth/password/reset/page": "app/admin/auth/password/reset/page.js"
 }
