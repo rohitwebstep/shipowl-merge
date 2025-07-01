@@ -988,7 +988,6 @@ export const updateProduct = async (
     }
 };
 
-
 // 🔴 Soft DELETE (marks as deleted by setting deletedAt field for product and variants)
 export const softDeleteProduct = async (adminId: number, adminRole: string, id: number) => {
     try {
