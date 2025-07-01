@@ -1,8 +1,4 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/admin/supplier/bank-account/change-request/route": "app/api/admin/supplier/bank-account/change-request/route.js",
-  "/api/admin/auth/verify/route": "app/api/admin/auth/verify/route.js",
-  "/api/admin/dropshipper/bank-account/change-request/route": "app/api/admin/dropshipper/bank-account/change-request/route.js",
   "/supplier/bank/update/page": "app/supplier/bank/update/page.js",
   "/admin/supplier/bankaccount-update-requests/page": "app/admin/supplier/bankaccount-update-requests/page.js",
   "/admin/dropshipper/bankaccount-update-requests/page": "app/admin/dropshipper/bankaccount-update-requests/page.js"
