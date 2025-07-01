@@ -196,7 +196,7 @@ const ProfileList = () => {
                 <HashLoader color="orange" />
             </div>
         ) : (
-            <div className="grid gap-6 grid-cols-2 ">
+            <div className="grid gap-6 md:grid-cols-2 ">
                 <div className="bg-white rounded-2xl p-6 shadow-md">
                     <h3 className="text-2xl font-semibold text-[#2B3674] mb-4">Personal Information</h3>
                     <div className='flex gap-4 items-start'>

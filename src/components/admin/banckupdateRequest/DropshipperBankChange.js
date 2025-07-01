@@ -6,7 +6,7 @@ import { HashLoader } from "react-spinners";
 import 'datatables.net-dt/css/dataTables.dataTables.css';
 import { useAdmin } from "../middleware/AdminMiddleWareContext";
 
-function List() {
+function DropshipperBankChange() {
     const router = useRouter();
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -19,7 +19,7 @@ function List() {
     const canAction = shouldCheckPermissions
         ? extractedPermissions.some(
             (perm) =>
-                perm.module === "Supplier" &&
+                perm.module === "dropshipper" &&
                 perm.action === "Bank Account Change Request Review" &&
                 perm.status === true
         )
@@ -43,7 +43,7 @@ function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `/api/admin/supplier/bank-account/change-request`,
+                `/api/admin/dropshipper/bank-account/change-request`,
                 {
                     method: "GET",
                     headers: {
@@ -83,7 +83,7 @@ function List() {
         fetchRequests();
     }, [fetchRequests]);
 
-   const handleAction = async (requestId, action) => {
+  const handleAction = async (requestId, action) => {
   const adminData = JSON.parse(localStorage.getItem("shippingData"));
   const token = adminData?.security?.token;
 
@@ -98,7 +98,7 @@ function List() {
     });
 
     const response = await fetch(
-      `/api/admin/supplier/bank-account/change-request/${requestId}/review`,
+      `/api/admin/dropshipper/bank-account/change-request/${requestId}/review`,
       {
         method: "POST",
         headers: {
@@ -174,7 +174,7 @@ function List() {
                     <table className="md:w-full w-auto display main-tables" id="bankTable">
                         <thead className="">
                             <tr className="border-b text-[#A3AED0] border-[#E9EDF7]">
-                                <th className="p-2 whitespace-nowrap pe-5 text-left uppercase">Supplier Name</th>
+                                <th className="p-2 whitespace-nowrap pe-5 text-left uppercase">dropshipper Name</th>
                                 <th className="p-2 whitespace-nowrap pe-5 text-left uppercase">Account Number</th>
                                 <th className="p-2 whitespace-nowrap pe-5 text-left uppercase">Bank Name</th>
                                 <th className="p-2 whitespace-nowrap pe-5 text-left uppercase">IFSC</th>
@@ -184,7 +184,7 @@ function List() {
                         <tbody>
                             {requests.map((req) => (
                                 <tr key={req.id} className="border-b border-[#E9EDF7] text-[#2B3674] font-semibold">
-                                    <td className="p-2 bg-transparent whitespace-nowrap text-left  border-0">{req?.supplier?.name ||req?.admin?.name || "-"}</td>
+                                    <td className="p-2 bg-transparent whitespace-nowrap text-left  border-0">{req?.dropshipper?.name ||req?.admin?.name || "-"}</td>
                                     <td className="p-2 bg-transparent whitespace-nowrap text-left  border-0">{req.accountNumber}</td>
                                     <td className="p-2 bg-transparent whitespace-nowrap text-left  border-0">{req.bankName}</td>
                                     <td className="p-2 bg-transparent whitespace-nowrap text-left  border-0">{req.ifscCode}</td>
@@ -221,4 +221,4 @@ function List() {
     );
 }
 
-export default List;
+export default DropshipperBankChange;

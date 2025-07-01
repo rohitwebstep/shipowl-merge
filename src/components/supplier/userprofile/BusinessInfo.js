@@ -621,8 +621,20 @@ const BusinessInfo = () => {
                 slidesPerView={2}
                 loop={formData.gstDocument?.split(',').length > 1}
                 navigation={true}
+                touchRatio={0} // 👈 disables dragging/swiping
                 className="mySwiper w-full ms-2"
+                breakpoints={{
+                  0: {
+                    slidesPerView: 1,
+                    allowTouchMove: false, // 👈 disable drag on mobile
+                  },
+                  1024: {
+                    slidesPerView: 2,
+                    allowTouchMove: true, // 👈 enable drag on tablet/desktop
+                  }
+                }}
               >
+
                 {formData.gstDocument?.split(',').map((img, index) => (
                   <SwiperSlide key={index} className="relative gap-3">
                     {/* Delete Button */}
@@ -679,12 +691,23 @@ const BusinessInfo = () => {
             {/* File preview for GST Document */}
             {formData?.companyPanCardImage?.length > 0 && (
               <Swiper
+                touchRatio={0} // 👈 disables dragging/swiping
                 key={formData.id}
                 modules={[Navigation]}
                 slidesPerView={2}
                 loop={formData.companyPanCardImage?.split(',').length > 1}
                 navigation={true}
                 className="mySwiper w-full ms-2"
+                breakpoints={{
+                  0: {
+                    slidesPerView: 1,
+                    allowTouchMove: false, // 👈 disable drag on mobile
+                  },
+                  1024: {
+                    slidesPerView: 2,
+                    allowTouchMove: true, // 👈 enable drag on tablet/desktop
+                  }
+                }}
               >
                 {formData.companyPanCardImage?.split(',').map((img, index) => (
                   <SwiperSlide key={index} className="relative gap-3">
@@ -771,7 +794,18 @@ const BusinessInfo = () => {
                   slidesPerView={2}
                   loop={(formData.panCardImage || '').split(',').length > 1}
                   navigation={true}
+                  touchRatio={0} // 👈 disables dragging/swiping
                   className="mySwiper w-full ms-2"
+                  breakpoints={{
+                    0: {
+                      slidesPerView: 1,
+                      allowTouchMove: false, // 👈 disable drag on mobile
+                    },
+                    1024: {
+                      slidesPerView: 2,
+                      allowTouchMove: true, // 👈 enable drag on tablet/desktop
+                    }
+                  }}
                 >
                   {(formData.panCardImage || '').split(',').map((img, index) => (
                     <SwiperSlide key={index} className="relative gap-3">
@@ -835,7 +869,18 @@ const BusinessInfo = () => {
                   slidesPerView={2}
                   loop={formData.aadharCardImage?.split(',').length > 1}
                   navigation={true}
+                  touchRatio={0} // 👈 disables dragging/swiping
                   className="mySwiper w-full ms-2"
+                  breakpoints={{
+                    0: {
+                      slidesPerView: 1,
+                      allowTouchMove: false, // 👈 disable drag on mobile
+                    },
+                    1024: {
+                      slidesPerView: 2,
+                      allowTouchMove: true, // 👈 enable drag on tablet/desktop
+                    }
+                  }}
                 >
                   {formData.aadharCardImage?.split(',').map((img, index) => (
                     <SwiperSlide key={index} className="relative gap-3">
@@ -923,7 +968,18 @@ const BusinessInfo = () => {
                   slidesPerView={2}
                   loop={formData.additionalDocumentUpload?.split(',').length > 1}
                   navigation={true}
+                  touchRatio={0} // 👈 disables dragging/swiping
                   className="mySwiper w-full ms-2"
+                  breakpoints={{
+                    0: {
+                      slidesPerView: 1,
+                      allowTouchMove: false, // 👈 disable drag on mobile
+                    },
+                    1024: {
+                      slidesPerView: 2,
+                      allowTouchMove: true, // 👈 enable drag on tablet/desktop
+                    }
+                  }}
                 >
                   {formData.additionalDocumentUpload?.split(',').map((img, index) => (
                     <SwiperSlide key={index} className="relative gap-3">
@@ -986,9 +1042,20 @@ const BusinessInfo = () => {
                   key={formData.id}
                   modules={[Navigation]}
                   slidesPerView={2}
+                  touchRatio={0} // 👈 disables dragging/swiping
                   loop={formData.documentImage?.split(',').length > 1}
                   navigation={true}
                   className="mySwiper w-full ms-2"
+                  breakpoints={{
+                    0: {
+                      slidesPerView: 1,
+                      allowTouchMove: false, // 👈 disable drag on mobile
+                    },
+                    1024: {
+                      slidesPerView: 2,
+                      allowTouchMove: true, // 👈 enable drag on tablet/desktop
+                    }
+                  }}
                 >
                   {formData.documentImage?.split(',').map((img, index) => (
                     <SwiperSlide key={index} className="relative gap-3">

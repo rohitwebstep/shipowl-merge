@@ -1,9 +1,68 @@
 {
   "pages": {
-    "/api/dropshipper/shopify/custom-privacy/shop-delete/route": [
+    "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/dropshipper/shopify/custom-privacy/shop-delete/route.js"
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
+    "/supplier/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/supplier/layout.css",
+      "static/chunks/app/supplier/layout.js"
+    ],
+    "/supplier/profile/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/supplier/profile/page.css",
+      "static/chunks/app/supplier/profile/page.js"
+    ],
+    "/api/supplier/auth/verify/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/supplier/auth/verify/route.js"
+    ],
+    "/api/supplier/profile/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/supplier/profile/route.js"
+    ],
+    "/api/location/city/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/location/city/route.js"
+    ],
+    "/api/location/state/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/location/state/route.js"
+    ],
+    "/supplier/profile/update/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/supplier/profile/update/page.css",
+      "static/chunks/app/supplier/profile/update/page.js"
+    ],
+    "/api/location/country/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/location/country/route.js"
+    ],
+    "/api/location/country/[countryId]/states/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/location/country/[countryId]/states/route.js"
+    ],
+    "/api/location/state/[stateId]/cities/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/location/state/[stateId]/cities/route.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

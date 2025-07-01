@@ -168,7 +168,7 @@ export default function Login() {
     return (
         <div className="md:flex h-screen w-full ">
             {/* Left Section */}
-            <div className="md:w-1/2 relative md:p-0 p-6 md:flex md:flex-col justify-center items-center px-3 bg-white lg:px-12">
+            <div className="md:w-1/2 relative md:p-0 p-6 md:flex md:flex-col justify-center rounded-md md:rounded-0 items-center px-3 bg-white lg:px-12">
                 <div className="w-full max-w-sm">
                     <div className="lg:absolute top-7">
                         <Link href="/supplier" className="text-[#A3AED0] text-sm mb-6 inline-block">

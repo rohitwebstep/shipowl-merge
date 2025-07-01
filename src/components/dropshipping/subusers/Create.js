@@ -106,7 +106,7 @@ export default function Create() {
 
     const data = new FormData();
 
-     // Append all form fields
+    // Append all form fields
     Object.entries(formData).forEach(([key, value]) => {
       if (value !== null && value !== undefined && value !== '') {
         // Handle File or Blob directly
@@ -140,7 +140,7 @@ export default function Create() {
       // Reset form
       setFormData({
         name: "",
-  
+
         email: "",
         status: "",
         password: "",
@@ -240,7 +240,7 @@ export default function Create() {
     acc[perm.panel][perm.module].push(perm);
     return acc;
   }, {});
-  console.log('groupedPermissions',groupedPermissions)
+  console.log('groupedPermissions', groupedPermissions)
 
   const formFields = [
     { label: "Name", name: "name", type: "text", required: true },
@@ -364,32 +364,30 @@ export default function Create() {
       <div>
         <label className="block text-[#232323] font-bold mb-1 mt-2">Permissions <span className="text-red-500">*</span></label>
         <div className="space-y-4">
-          {groupedPermissions?.dropshipper && (
+          {groupedPermissions?.["Dropshipper"] && (
             <div className="space-y-4">
-              {Object.entries(groupedPermissions.dropshipper).map(([module, perms]) => (
+              {Object.entries(groupedPermissions["Dropshipper"]).map(([module, perms]) => (
                 <div key={module} className="space-y-2">
-                  {/* Module Name and Action List */}
+                  {/* Module Name */}
                   <div className="flex justify-between items-center">
                     <h4 className="font-semibold capitalize">{module}</h4>
-
                   </div>
 
                   {/* Permission Checkboxes */}
-                  <div className="grid border p-3 border-[#DFEAF2] rounded-md grid-cols-2 lg:grid-cols-4 gap-2 md:grid-cols-3">
+                  <div className="grid border p-3 border-[#DFEAF2] rounded-md grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                     {perms.map((perm) => (
                       <label key={perm.id} className="flex items-center space-x-2">
-                       <input
+                        <input
                           type="checkbox"
-                          checked={
-                            Array.isArray(formData.permissions)
-                              ? formData.permissions.includes(String(perm.id))
-                              : String(formData.permissions || '')
-                                .split(',')
-                                .includes(String(perm.id))
+                          checked={Array.isArray(formData.permissions)
+                            ? formData.permissions.includes(String(perm.id))
+                            : String(formData.permissions || '').split(',').includes(String(perm.id))
                           }
                           onChange={() => handlePermissionChange(perm.id)}
                         />
-                        <span className="capitalize text-[#232323] font-bold">{perm.action}</span>
+                        <span className="capitalize text-[#232323] font-bold">
+                          {perm.action}
+                        </span>
                       </label>
                     ))}
                   </div>
@@ -397,6 +395,7 @@ export default function Create() {
               ))}
             </div>
           )}
+
         </div>
         {errors.permissions && <p className="text-red-500 text-sm">{errors.permissions}</p>}
       </div>

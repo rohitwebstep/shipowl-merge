@@ -64,7 +64,7 @@ export default function Sidebar() {
           subMenu: [
             { icon: ClipboardList, module: "Supplier", action: actions, name: "Supplier List", href: "/admin/supplier/list" },
             { icon: GoUnverified , module: "Supplier", action: actions, name: "unverified Supplier List", href: "/admin/supplier/Unverified/list" },
-            { icon: Banknote, module: "Supplier", action: actions, name: "Bank Details Update Requests ", href: "/admin/bankaccount-update-requests" },
+            { icon: Banknote, module: "Supplier", action: actions, name: "Bank Details Update Requests ", href: "/admin/supplier/bankaccount-update-requests" },
             { icon: ClipboardList, module: "productRequest", action: actions, name: "New Product Request (In progress)", href: "/admin/products/new" },
             { icon: ShoppingCart, module: "order", action: actions, name: "Orders(In progress)", href: "/admin/supplier/orders" },
             { icon: Warehouse, module: "warehouse", action: actions, name: "Warehouse", href: "/admin/supplier/warehouse/list" },
@@ -83,7 +83,7 @@ export default function Sidebar() {
           icon: LayoutDashboard,
           subMenu: [
             { icon: Users, module: "Dropshipper", action: actions, name: "Dropshippers List", href: "/admin/dropshipper/list" },
-            { icon: Banknote, module: "Dropshipper", action: actions, name: "Bank Details Update Requests", href: "/admin/bankaccount-update-requests" },
+            { icon: Banknote, module: "Dropshipper", action: actions, name: "Bank Details Update Requests", href: "/admin/dropshipper/bankaccount-update-requests" },
             { icon: ShoppingCart, module: "manange-orders", action: actions, name: "Manage Orders(In progress)", href: "/admin/dropshipper/manage-orders" },
             { icon: Package, module: "manage-products", action: actions, name: "Manage Products(In progress)", href: "/admin/dropshipper/manage-products" },
             { icon: Gift, module: "source", action: actions, name: "Source a Product(In progress)", href: "/admin/dropshipper/product/source" },

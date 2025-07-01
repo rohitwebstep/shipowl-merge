@@ -278,7 +278,7 @@ const Payment = () => {
           {/* File Uploads */}
           {['panCardImage', 'aadharCardImage', 'gstDocument'].map((name) => (
             <div key={name} className="mb-6">
-              <label className="block text-[#232323] font-bold mb-1">
+              <label className="block text-[#232323] font-bold mb-1 capitalize">
                 {name.replace(/([A-Z])/g, ' $1')} Upload
               </label>
               <input

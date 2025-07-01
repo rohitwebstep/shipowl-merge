@@ -172,7 +172,7 @@ const NewlyLaunched = () => {
       const form = new FormData();
       let simplifiedVariants = [];
 
-      
+
 
       if (
         totalModalsForPushToShopify === 2 &&
@@ -730,7 +730,7 @@ const NewlyLaunched = () => {
           );
         })()}
 
-   
+
 
         {showVariantPopup && selectedProduct && (
           <div className="fixed  px-6 md:px-0  inset-0 bg-[#000000b0] bg-opacity-40 flex z-50 items-center justify-center ">
@@ -761,7 +761,12 @@ const NewlyLaunched = () => {
                     };
                   }
                   console.log('variant', variant)
-                  const imageUrls = variant.image
+                  const rawImageString = variant?.variant?.image || variant?.image || "";
+                  const imageUrls = rawImageString
+                    .split(",")
+                    .map((img) => img.trim())
+                    .filter(Boolean);
+                  console.log('imageUrls', imageUrls)
 
                   const isExists = selectedProduct?.product?.isVarientExists;
 
@@ -780,7 +785,7 @@ const NewlyLaunched = () => {
                                 height={100}
                                 width={100}
                                 src={fetchImages(url)}
-                                alt={variant.name || 'NIL'}
+                                alt={variant?.name || 'NIL'}
                                 className="h-full w-full object-cover"
                               />
                             ))
@@ -793,6 +798,7 @@ const NewlyLaunched = () => {
                               className="h-full w-full object-cover"
                             />
                           )}
+
 
                         </div>
                         <div className="absolute top-0 left-0 w-full text-center bg-orange-500 p-2 text-white ">Suggested Price : {v.price || v?.supplierProductVariant?.price || "—"}</div>
@@ -843,6 +849,7 @@ export default NewlyLaunched;
 
 const VariantCard = ({ variant, handleVariantChange, fetchImages }) => {
   if (!variant) return null;
+  console.log('variant(1)',variant)
 
   return (
     <div key={variant.id} className="space-y-5 border p-4 rounded-lg shadow-sm">

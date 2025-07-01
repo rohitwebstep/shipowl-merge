@@ -183,6 +183,7 @@ export default function List() {
                             <table id="categoryTable" className="display main-tables">
                                 <thead>
                                     <tr className="border-b text-[#A3AED0] border-[#E9EDF7]">
+                                        <th className="p-2 whitespace-nowrap pe-5 text-left uppercase">Category Image</th>
                                         <th className="p-2 whitespace-nowrap pe-5 text-left uppercase">Category Name</th>
                                         <th className="p-2 whitespace-nowrap px-5 text-left uppercase">Description</th>
                                         <th className="p-2 whitespace-nowrap px-5 text-left uppercase">Status</th>
@@ -250,14 +251,14 @@ export default function List() {
                                                                     slidesPerView={1}
                                                                     loop={item.image?.split(",").length > 1}
                                                                     navigation={true}
-                                                                    className="mySwiper w-[50px] ms-2"
+                                                                    className="mySwiper w-[250px] ms-2"
                                                                 >
                                                                     {item.image?.split(",").map((img, index) => (
                                                                         <SwiperSlide key={index}>
                                                                             <Image
                                                                                 src={fetchImages(img)} alt={`Image ${index + 1}`}
-                                                                                width={40}
-                                                                                height={40}
+                                                                                width={200}
+                                                                                height={200}
                                                                                 className="me-3 object-cover rounded"
                                                                             />
                                                                         </SwiperSlide>
@@ -265,8 +266,11 @@ export default function List() {
                                                                 </Swiper>
                                                             )}
                                                         </label>
-                                                        {item.name}
                                                     </div>
+                                                </td>
+                                                <td className="p-2 bg-transparent whitespace-nowrap border-0 pe-5">
+                                                      
+                                                        {item.name}
                                                 </td>
 
                                                 <td className="p-2 bg-transparent whitespace-nowrap px-5 border-0">

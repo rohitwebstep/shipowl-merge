@@ -21,7 +21,7 @@ export default function List() {
     const [loading, setLoading] = useState(false);
     const [selected, setSelected] = useState([]);
     const [brandData, setBrandData] = useState([]);
-    const {fetchImages} = useImageURL();
+    const { fetchImages } = useImageURL();
     const { verifyAdminAuth, isAdminStaff, checkAdminRole, extractedPermissions } = useAdmin();
     const router = useRouter();
 
@@ -143,7 +143,7 @@ export default function List() {
                         <div className="flex gap-3  items-center">
 
                             <div className="md:flex w-full justify-end gap-2">
-                                {canViewTrashed  && <button
+                                {canViewTrashed && <button
                                     className={`text-sm p-2  gap-2 md:flex hidden items-center text-white rounded-md ${isTrashed ? "bg-green-500" : "bg-red-500"}`}
                                     onClick={handleToggleTrash}
                                 >
@@ -260,8 +260,14 @@ export default function List() {
                                                                         />
                                                                     </SwiperSlide>
                                                                 ))}
-                                                            </Swiper>):(
-                                                                <p className="text-red-500 me-2">No Images Found</p>
+                                                            </Swiper>) : (
+                                                                <Image
+                                                                    src={`https://placehold.co/400`}
+                                                                    alt={`Image`}
+                                                                    width={200}
+                                                                    height={200}
+                                                                    className="me-3 text-center object-cover rounded"
+                                                                />
                                                             )}
 
                                                         </label>

@@ -6,31 +6,35 @@ import { useRouter } from "next/navigation";
 export default function Verify() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  useEffect(() => {
+    const verifyToken = async () => {
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get("token");
 
-  useEffect(async () => {
-    const params = new URLSearchParams(window.location.search);
-    const token = params.get("token");
+      if (!token) {
+        console.error("No token found in URL");
+        setLoading(false);
+        return;
+      }
 
-    if (!token) {
-      console.error("No token found in URL");
-      setLoading(false);
-      return;
-    }
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
 
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+      const raw = JSON.stringify({ token });
 
-    const raw = JSON.stringify({ token });
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
 
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}api/supplier/auth/registration/verify`,
+          requestOptions
+        );
 
-    await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/supplier/auth/registration/verify`, requestOptions)
-      .then(async (response) => {
         const text = await response.text();
         setLoading(false);
 
@@ -51,11 +55,13 @@ export default function Verify() {
             router.push("/supplier/auth/login");
           }
         });
-      })
-      .catch((error) => {
+      } catch (error) {
         setLoading(false);
         Swal.fire("Error", error.message || "Something went wrong", "error");
-      });
+      }
+    };
+
+    verifyToken();
   }, [router]);
 
   return (

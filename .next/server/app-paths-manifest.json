@@ -1,1 +1,9 @@
-{}
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/supplier/profile/route": "app/api/supplier/profile/route.js",
+  "/api/location/country/route": "app/api/location/country/route.js",
+  "/api/location/country/[countryId]/states/route": "app/api/location/country/[countryId]/states/route.js",
+  "/api/location/state/[stateId]/cities/route": "app/api/location/state/[stateId]/cities/route.js",
+  "/supplier/profile/page": "app/supplier/profile/page.js",
+  "/supplier/profile/update/page": "app/supplier/profile/update/page.js"
+}

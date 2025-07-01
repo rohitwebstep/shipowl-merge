@@ -194,7 +194,7 @@ const AccountInfoEdit = () => {
                         ifscCode: "",
                         cancelledChequeImage: [],
                     });
-                    router.push("/dropshipping/profile/");
+                    router.push("/dropshipping/profile");
                 }
             });
 

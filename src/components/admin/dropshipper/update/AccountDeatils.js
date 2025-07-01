@@ -4,10 +4,12 @@ import profileImg from '@/app/images/editprofile.png';
 import Image from 'next/image';
 import { Pencil } from 'lucide-react';
 import { DropshipperProfileContext } from '../DropshipperProfileContext';
+import { useImageURL } from "@/components/ImageURLContext";
+
 const AccountDetails = () => {
   const { formData, setFormData, setFiles, errors, setErrors, validate, setActiveTab } = useContext(DropshipperProfileContext);
   const [previewUrl, setPreviewUrl] = useState(null);
-
+  const { fetchImages } = useImageURL();
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     let updatedFormData = { ...formData };
@@ -64,7 +66,7 @@ const AccountDetails = () => {
       <div className='md:w-2/12'>
         <div className="relative">
           <Image
-            src={previewUrl || profileImg}
+            src={fetchImages(formData.profilePicture) ||  profileImg}
             alt="Profile image"
             height={100}
             width={100}

@@ -8,8 +8,6 @@ export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email.trim()) {
@@ -28,7 +26,7 @@ export default function ForgotPassword() {
       const result = await res.json();
 
       if (!res.ok) {
-        throw new Error(result.message || 'Something went wrong');
+        throw new Error(result.message || result.error || 'Something went wrong');
       }
 
       Swal.fire('Success', 'Password reset link sent to your email.', 'success');

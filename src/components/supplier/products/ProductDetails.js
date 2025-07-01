@@ -869,9 +869,12 @@ const ProductDetails = () => {
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-h-[70vh] overflow-y-auto pr-1">
                     {inventoryData.variant?.map((variant, idx) => {
-                      const imageUrls = variant.image
-                        ? variant.image.split(",").map((img) => img.trim()).filter(Boolean)
-                        : [];
+                      console.log('variant', variant)
+                      const imageUrls = variant?.variant?.image
+                        ? variant.variant.image.split(",").map((img) => img.trim()).filter(Boolean)
+                        : variant?.image
+                          ? variant.image.split(",").map((img) => img.trim()).filter(Boolean)
+                          : [];
 
                       return (
                         <div
