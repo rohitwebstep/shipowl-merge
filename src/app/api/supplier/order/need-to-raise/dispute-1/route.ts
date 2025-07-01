@@ -167,11 +167,42 @@ export async function POST(req: NextRequest) {
         });
 
         const mailData = {
-            recipient: [{ name: 'Rohit Webstep', email: 'rohitwebstep@gmail.com' }],
+            recipient: [
+                ...emailConfig.to
+            ],
+            cc: [
+                ...emailConfig.cc
+            ],
+            bcc: [
+                ...emailConfig.bcc
+            ],
             subject,
             htmlBody,
             attachments: [],
         };
+
+        // Step 2: Function to apply replacements in strings
+        const replacePlaceholders = (text: string) => {
+            return Object.keys(replacements).reduce((result, key) => {
+                return result.replace(new RegExp(key, "g"), replacements[key]);
+            }, text);
+        };
+
+        // Step 3: Apply replacements to recipient/cc/bcc fields
+        mailData.recipient = mailData.recipient.map(({ name, email }) => ({
+            name: replacePlaceholders(name),
+            email: replacePlaceholders(email),
+        }));
+
+        mailData.cc = mailData.cc.map(({ name, email }) => ({
+            name: replacePlaceholders(name),
+            email: replacePlaceholders(email),
+        }));
+
+        mailData.bcc = mailData.bcc.map(({ name, email }) => ({
+            name: replacePlaceholders(name),
+            email: replacePlaceholders(email),
+        }));
 
         const emailResult = await sendEmail(emailConfig, mailData);
         if (!emailResult.status) {
@@ -211,7 +242,7 @@ export async function POST(req: NextRequest) {
 }
 
 export const config = {
-  api: {
-    bodyParser: false,
-  },
+    api: {
+        bodyParser: false,
+    },
 };

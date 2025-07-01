@@ -206,6 +206,7 @@ export async function handleForgetPassword(
         // Use index signature to avoid TS error
         const replacements: Record<string, string> = {
             "{{name}}": admin.name,
+            "{{email}}": admin.email,
             "{{resetUrl}}": urlPanel,
             "{{year}}": new Date().getFullYear().toString(),
             "{{appName}}": "Shipping OWL",
@@ -228,14 +229,41 @@ export async function handleForgetPassword(
 
         const mailData = {
             recipient: [
-                { name: admin.name, email }
+                ...emailConfig.to
             ],
-            cc: [{ name: 'Rohit', email: 'rohitwebstep@gmail.com' }, { name: 'Shikha', email: 'shikhawebstep@gmail.com' }],
-            bcc: [],
+            cc: [
+                ...emailConfig.cc
+            ],
+            bcc: [
+                ...emailConfig.bcc
+            ],
             subject,
             htmlBody,
             attachments: [],
         };
+
+        // Step 2: Function to apply replacements in strings
+        const replacePlaceholders = (text: string) => {
+            return Object.keys(replacements).reduce((result, key) => {
+                return result.replace(new RegExp(key, "g"), replacements[key]);
+            }, text);
+        };
+
+        // Step 3: Apply replacements to recipient/cc/bcc fields
+        mailData.recipient = mailData.recipient.map(({ name, email }) => ({
+            name: replacePlaceholders(name),
+            email: replacePlaceholders(email),
+        }));
+
+        mailData.cc = mailData.cc.map(({ name, email }) => ({
+            name: replacePlaceholders(name),
+            email: replacePlaceholders(email),
+        }));
+
+        mailData.bcc = mailData.bcc.map(({ name, email }) => ({
+            name: replacePlaceholders(name),
+            email: replacePlaceholders(email),
+        }));
 
         const emailResult = await sendEmail(emailConfig, mailData);
 
@@ -330,6 +358,7 @@ export async function handleResetPassword(
         // Use index signature to avoid TS error
         const replacements: Record<string, string> = {
             "{{name}}": admin.name,
+            "{{email}}": admin.email,
             "{{year}}": new Date().getFullYear().toString(),
             "{{appName}}": "Shipping OWL",
         };
@@ -352,13 +381,41 @@ export async function handleResetPassword(
 
         const mailData = {
             recipient: [
-                { name: admin.name, email: admin.email },
+                ...emailConfig.to
             ],
-            cc: [{ name: 'Rohit', email: 'rohitwebstep@gmail.com' }, { name: 'Shikha', email: 'shikhawebstep@gmail.com' }],
+            cc: [
+                ...emailConfig.cc
+            ],
+            bcc: [
+                ...emailConfig.bcc
+            ],
             subject,
             htmlBody,
             attachments: [],
         };
+
+        // Step 2: Function to apply replacements in strings
+        const replacePlaceholders = (text: string) => {
+            return Object.keys(replacements).reduce((result, key) => {
+                return result.replace(new RegExp(key, "g"), replacements[key]);
+            }, text);
+        };
+
+        // Step 3: Apply replacements to recipient/cc/bcc fields
+        mailData.recipient = mailData.recipient.map(({ name, email }) => ({
+            name: replacePlaceholders(name),
+            email: replacePlaceholders(email),
+        }));
+
+        mailData.cc = mailData.cc.map(({ name, email }) => ({
+            name: replacePlaceholders(name),
+            email: replacePlaceholders(email),
+        }));
+
+        mailData.bcc = mailData.bcc.map(({ name, email }) => ({
+            name: replacePlaceholders(name),
+            email: replacePlaceholders(email),
+        }));
 
         // Send email notification
         const emailResult = await sendEmail(emailConfig, mailData);
@@ -483,6 +540,7 @@ export async function handleVerifyStatus(
         // Use index signature to avoid TS error
         const replacements: Record<string, string> = {
             "{{name}}": admin.name,
+            "{{email}}": admin.email,
             "{{year}}": new Date().getFullYear().toString(),
             "{{loginLink}}": loginLink,
             "{{appName}}": "Shipping OWL",
@@ -506,12 +564,41 @@ export async function handleVerifyStatus(
 
         const mailData = {
             recipient: [
-                { name: admin.name, email: admin.email },
+                ...emailConfig.to
+            ],
+            cc: [
+                ...emailConfig.cc
+            ],
+            bcc: [
+                ...emailConfig.bcc
             ],
             subject,
             htmlBody,
             attachments: [],
         };
+
+        // Step 2: Function to apply replacements in strings
+        const replacePlaceholders = (text: string) => {
+            return Object.keys(replacements).reduce((result, key) => {
+                return result.replace(new RegExp(key, "g"), replacements[key]);
+            }, text);
+        };
+
+        // Step 3: Apply replacements to recipient/cc/bcc fields
+        mailData.recipient = mailData.recipient.map(({ name, email }) => ({
+            name: replacePlaceholders(name),
+            email: replacePlaceholders(email),
+        }));
+
+        mailData.cc = mailData.cc.map(({ name, email }) => ({
+            name: replacePlaceholders(name),
+            email: replacePlaceholders(email),
+        }));
+
+        mailData.bcc = mailData.bcc.map(({ name, email }) => ({
+            name: replacePlaceholders(name),
+            email: replacePlaceholders(email),
+        }));
 
         // Send email notification
         const emailResult = await sendEmail(emailConfig, mailData);

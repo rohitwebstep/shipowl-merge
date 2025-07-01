@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/api/admin/email-config/[emailConfigId]/route": [
+    "/api/admin/auth/password/forget/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/email-config/[emailConfigId]/route.js"
+      "static/chunks/app/api/admin/auth/password/forget/route.js"
     ]
   }
 }

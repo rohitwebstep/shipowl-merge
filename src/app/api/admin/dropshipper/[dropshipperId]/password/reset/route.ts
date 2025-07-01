@@ -112,7 +112,8 @@ export async function POST(req: NextRequest) {
         }
 
         const replacements: Record<string, string> = {
-            '{{dropshipperName}}': dropshipper.name,
+            '{{name}}': dropshipper.name,
+            '{{email}}': dropshipper.email,
             '{{password}}': password,
             '{{year}}': new Date().getFullYear().toString(),
             '{{appName}}': 'Shipping OWL',
@@ -120,7 +121,7 @@ export async function POST(req: NextRequest) {
 
         let htmlBody = htmlTemplate?.trim()
             ? htmlTemplate
-            : '<p>Dear {{dropshipperName}},</p><p>Your password has been successfully changed by the admin.</p>';
+            : '<p>Dear {{name}},</p><p>Your password has been successfully changed by the admin.</p>';
 
         for (const key in replacements) {
             htmlBody = htmlBody.replace(new RegExp(key, 'g'), replacements[key]);
@@ -132,11 +133,42 @@ export async function POST(req: NextRequest) {
         }
 
         const mailData = {
-            recipient: [{ name: dropshipper.name, email: dropshipper.email }],
+            recipient: [
+                ...emailConfig.to
+            ],
+            cc: [
+                ...emailConfig.cc
+            ],
+            bcc: [
+                ...emailConfig.bcc
+            ],
             subject,
             htmlBody,
             attachments: [],
         };
+
+        // Step 2: Function to apply replacements in strings
+        const replacePlaceholders = (text: string) => {
+            return Object.keys(replacements).reduce((result, key) => {
+                return result.replace(new RegExp(key, "g"), replacements[key]);
+            }, text);
+        };
+
+        // Step 3: Apply replacements to recipient/cc/bcc fields
+        mailData.recipient = mailData.recipient.map(({ name, email }) => ({
+            name: replacePlaceholders(name),
+            email: replacePlaceholders(email),
+        }));
+
+        mailData.cc = mailData.cc.map(({ name, email }) => ({
+            name: replacePlaceholders(name),
+            email: replacePlaceholders(email),
+        }));
+
+        mailData.bcc = mailData.bcc.map(({ name, email }) => ({
+            name: replacePlaceholders(name),
+            email: replacePlaceholders(email),
+        }));
 
         const emailResult = await sendEmail(emailConfig, mailData);
 

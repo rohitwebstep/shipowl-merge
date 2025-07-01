@@ -318,6 +318,7 @@ export async function POST(req: NextRequest) {
     // Use index signature to avoid TS error
     const replacements: Record<string, string> = {
       "{{name}}": dropshipperCreateResult.dropshipper.name,
+      "{{email}}": dropshipperCreateResult.dropshipper.email,
       "{{verificationLink}}": `https://shipowl.io/dropshipping/auth/register/verify?token=${token}`,
       "{{year}}": new Date().getFullYear().toString(),
       "{{appName}}": "Shipping OWL",
@@ -340,14 +341,41 @@ export async function POST(req: NextRequest) {
 
     const mailData = {
       recipient: [
-        { name: dropshipperCreateResult.dropshipper.name, email }
+        ...emailConfig.to
       ],
-      cc: [],
-      bcc: [],
+      cc: [
+        ...emailConfig.cc
+      ],
+      bcc: [
+        ...emailConfig.bcc
+      ],
       subject,
       htmlBody,
       attachments: [],
     };
+
+    // Step 2: Function to apply replacements in strings
+    const replacePlaceholders = (text: string) => {
+      return Object.keys(replacements).reduce((result, key) => {
+        return result.replace(new RegExp(key, "g"), replacements[key]);
+      }, text);
+    };
+
+    // Step 3: Apply replacements to recipient/cc/bcc fields
+    mailData.recipient = mailData.recipient.map(({ name, email }) => ({
+      name: replacePlaceholders(name),
+      email: replacePlaceholders(email),
+    }));
+
+    mailData.cc = mailData.cc.map(({ name, email }) => ({
+      name: replacePlaceholders(name),
+      email: replacePlaceholders(email),
+    }));
+
+    mailData.bcc = mailData.bcc.map(({ name, email }) => ({
+      name: replacePlaceholders(name),
+      email: replacePlaceholders(email),
+    }));
 
     const emailResult = await sendEmail(emailConfig, mailData);
 

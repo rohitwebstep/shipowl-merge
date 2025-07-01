@@ -84,6 +84,10 @@ export const getEmailConfig = async (
             return { status: false, message: "Email configuration not found" };
         }
 
+        const to = emailConfig.to as { name: string; email: string }[];
+        const cc = emailConfig.cc as { name: string; email: string }[];
+        const bcc = emailConfig.bcc as { name: string; email: string }[];
+
         // Mapping the database result to the desired output format
         const config = {
             host: emailConfig.smtp_host,
@@ -93,6 +97,9 @@ export const getEmailConfig = async (
             password: emailConfig.smtp_password,
             from_email: emailConfig.from_email,
             from_name: emailConfig.from_name,
+            to,
+            cc,
+            bcc,
         };
 
         return { status: true, emailConfig: config, htmlTemplate: emailConfig.html_template, subject: emailConfig.subject };
