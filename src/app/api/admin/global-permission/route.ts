@@ -13,7 +13,7 @@ interface MainAdmin {
   // other optional properties if needed
 }
 
-interface SupplierStaff {
+interface DropshipperStaff {
   id: number;
   name: string;
   email: string;
@@ -25,7 +25,7 @@ interface SupplierStaff {
 interface UserCheckResult {
   status: boolean;
   message?: string;
-  admin?: SupplierStaff;
+  admin?: DropshipperStaff;
 }
 
 export async function GET(req: NextRequest) {
@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const isStaffUser = !['admin', 'dropshipper', 'supplier'].includes(String(adminRole));
+    const isStaffUser = !['admin', 'dropshipper', 'dropshipper'].includes(String(adminRole));
 
     if (isStaffUser) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;
@@ -133,7 +133,7 @@ export async function PUT(req: NextRequest) {
       );
     }
 
-    const isStaffUser = !['admin', 'dropshipper', 'supplier'].includes(String(adminRole));
+    const isStaffUser = !['admin', 'dropshipper', 'dropshipper'].includes(String(adminRole));
 
     if (isStaffUser) {
       // mainAdminId = userCheck.admin?.admin?.id ?? adminId;

@@ -13,7 +13,7 @@ interface MainAdmin {
   // other optional properties if needed
 }
 
-interface SupplierStaff {
+interface DropshipperStaff {
   id: number;
   name: string;
   email: string;
@@ -25,7 +25,7 @@ interface SupplierStaff {
 interface UserCheckResult {
   status: boolean;
   message?: string;
-  admin?: SupplierStaff;
+  admin?: DropshipperStaff;
 }
 
 export async function PATCH(req: NextRequest) {
@@ -55,7 +55,7 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ error: `User Not Found: ${userCheck.message}` }, { status: 404 });
     }
 
-    const isStaff = !['admin', 'dropshipper', 'supplier'].includes(String(adminRole));
+    const isStaff = !['admin', 'dropshipper', 'dropshipper'].includes(String(adminRole));
 
     if (isStaff) {
       const options = {

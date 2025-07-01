@@ -290,6 +290,7 @@ export const getSuppliersByStatus = async (
                 throw new Error("Invalid status");
         }
 
+        console.log(`whereCondition - `, whereCondition);
         // Fetch suppliers based on the status and include the password field if requested
         const suppliers = await prisma.admin.findMany({
             where: whereCondition,

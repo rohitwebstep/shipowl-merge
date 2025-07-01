@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { fetchLogInfo, logMessage } from "@/utils/commonUtils";
-import { getAllBankAccountChangeRequests } from '@/app/models/supplier/bankAccount';
+import { getAllBankAccountChangeRequests } from '@/app/models/dropshipper/bankAccount';
 import { isUserExist } from '@/utils/auth/authUtils';
 import { checkStaffPermissionStatus } from '@/app/models/staffPermission';
 
@@ -12,7 +12,7 @@ interface MainAdmin {
     // other optional properties if needed
 }
 
-interface SupplierStaff {
+interface DropshipperStaff {
     id: number;
     name: string;
     email: string;
@@ -24,7 +24,7 @@ interface SupplierStaff {
 interface UserCheckResult {
     status: boolean;
     message?: string;
-    admin?: SupplierStaff;
+    admin?: DropshipperStaff;
 }
 
 export async function GET(req: NextRequest) {

@@ -13,7 +13,7 @@ interface MainAdmin {
   // other optional properties if needed
 }
 
-interface SupplierStaff {
+interface DropshipperStaff {
   id: number;
   name: string;
   email: string;
@@ -25,7 +25,7 @@ interface SupplierStaff {
 interface UserCheckResult {
   status: boolean;
   message?: string;
-  admin?: SupplierStaff;
+  admin?: DropshipperStaff;
 }
 
 export async function GET(req: NextRequest) {

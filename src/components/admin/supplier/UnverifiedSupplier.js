@@ -277,7 +277,7 @@ export default function UnverifiedSupplier() {
                         {item.permanentCity?.name || '-'}
                       </td>
                       <td className="p-3 capitalize text-left whitespace-nowrap">
-                        {item.isEmailVerified === null || item.isEmailVerified === undefined || item.isEmailVerified === 0 || item.isEmailVerified === "" ? (
+                        {!item.isEmailVerified || !item.emailVerifiedAt ? (
                           <span className="text-red-500">mail not verified</span>
                         ) : (
                           <span className="text-green-600">mail verified</span>

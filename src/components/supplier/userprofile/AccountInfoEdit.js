@@ -85,6 +85,7 @@ const AccountInfoEdit = () => {
             const bankAccounts = result?.supplier?.bankAccount || [];
 
             setFormData({
+                id: bankAccounts.id || "",
                 accountHolderName: bankAccounts.accountHolderName || "",
                 accountNumber: bankAccounts.accountNumber || "",
                 bankName: bankAccounts.bankName || "",
@@ -256,6 +257,8 @@ const AccountInfoEdit = () => {
             return;
         }
 
+        console.log(`dropshipperData - `, dropshipperData);
+
         const token = dropshipperData?.security?.token;
         if (!token) {
             router.push("/supplier/auth/login");
@@ -272,7 +275,7 @@ const AccountInfoEdit = () => {
                 }
             });
 
-            const url = `/api/supplier/${formData.id}/bank-account/image/${index}?type=${type}`;
+            const url = `/api/supplier/${dropshipperData.supplier.id}/bank-account/${formData.id}/image/${index}?type=${type}`;
             const response = await fetch(url, {
                 method: "DELETE",
                 headers: {
@@ -465,28 +468,6 @@ const AccountInfoEdit = () => {
                             ).map((img, imgIndex) => (
                                 <SwiperSlide key={imgIndex}>
                                     <div className="relative">
-                                        {/* Delete Button */}
-                                        <button
-                                            type="button"
-                                            className="absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center z-10"
-                                            onClick={() => {
-                                                Swal.fire({
-                                                    title: 'Are you sure?',
-                                                    text: 'Do you want to delete this image?',
-                                                    icon: 'warning',
-                                                    showCancelButton: true,
-                                                    confirmButtonColor: '#d33',
-                                                    cancelButtonColor: '#3085d6',
-                                                    confirmButtonText: 'Yes, delete it!',
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        handleImageDelete(imgIndex, 'cancelledChequeImage');
-                                                    }
-                                                });
-                                            }}
-                                        >
-                                            ✕
-                                        </button>
                                         <Image
                                             src={fetchImages(img)}
                                             alt={`Image ${imgIndex + 1}`}

@@ -5,56 +5,62 @@
       "static/chunks/_app-pages-browser_node_modules_next_dist_client_dev_noop-turbopack-hmr_js.js"
     ]
   },
-  "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_app": {
-    "id": "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_app",
-    "files": [
-      "static/chunks/_pages-dir-browser_node_modules_next_dist_pages__app_js.js"
-    ]
-  },
-  "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_error": {
-    "id": "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_error",
-    "files": [
-      "static/chunks/_pages-dir-browser_node_modules_next_dist_pages__error_js.js"
-    ]
-  },
-  "app\\dropshipping\\page.js -> @/components/dropshipping/home/Home": {
-    "id": "app\\dropshipping\\page.js -> @/components/dropshipping/home/Home",
-    "files": [
-      "static/chunks/_app-pages-browser_src_components_dropshipping_home_Home_js.js"
-    ]
-  },
-  "components\\supplier\\subusers\\Create.js -> react-select": {
-    "id": "components\\supplier\\subusers\\Create.js -> react-select",
-    "files": [
-      "static/chunks/_app-pages-browser_node_modules_react-select_dist_react-select_esm_js.js"
-    ]
-  },
-  "components\\supplier\\subusers\\List.js -> datatables.net": {
-    "id": "components\\supplier\\subusers\\List.js -> datatables.net",
+  "components\\admin\\banckupdateRequest\\DropshipperBankChange.js -> datatables.net": {
+    "id": "components\\admin\\banckupdateRequest\\DropshipperBankChange.js -> datatables.net",
     "files": [
       "static/chunks/_app-pages-browser_node_modules_datatables_net_js_dataTables_mjs.js"
     ]
   },
-  "components\\supplier\\subusers\\List.js -> datatables.net-buttons": {
-    "id": "components\\supplier\\subusers\\List.js -> datatables.net-buttons",
+  "components\\admin\\banckupdateRequest\\DropshipperBankChange.js -> datatables.net-buttons": {
+    "id": "components\\admin\\banckupdateRequest\\DropshipperBankChange.js -> datatables.net-buttons",
     "files": [
       "static/chunks/_app-pages-browser_node_modules_datatables_net-buttons_js_dataTables_buttons_mjs.js"
     ]
   },
-  "components\\supplier\\subusers\\List.js -> datatables.net-buttons-dt": {
-    "id": "components\\supplier\\subusers\\List.js -> datatables.net-buttons-dt",
+  "components\\admin\\banckupdateRequest\\DropshipperBankChange.js -> datatables.net-buttons-dt": {
+    "id": "components\\admin\\banckupdateRequest\\DropshipperBankChange.js -> datatables.net-buttons-dt",
     "files": [
       "static/chunks/_app-pages-browser_node_modules_datatables_net-buttons-dt_js_buttons_dataTables_mjs.js"
     ]
   },
-  "components\\supplier\\subusers\\List.js -> datatables.net-dt": {
-    "id": "components\\supplier\\subusers\\List.js -> datatables.net-dt",
+  "components\\admin\\banckupdateRequest\\DropshipperBankChange.js -> datatables.net-dt": {
+    "id": "components\\admin\\banckupdateRequest\\DropshipperBankChange.js -> datatables.net-dt",
     "files": [
       "static/chunks/_app-pages-browser_node_modules_datatables_net-dt_js_dataTables_dataTables_mjs.js"
     ]
   },
-  "components\\supplier\\subusers\\List.js -> jquery": {
-    "id": "components\\supplier\\subusers\\List.js -> jquery",
+  "components\\admin\\banckupdateRequest\\DropshipperBankChange.js -> jquery": {
+    "id": "components\\admin\\banckupdateRequest\\DropshipperBankChange.js -> jquery",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_jquery_dist_jquery_js.js"
+    ]
+  },
+  "components\\admin\\banckupdateRequest\\List.js -> datatables.net": {
+    "id": "components\\admin\\banckupdateRequest\\List.js -> datatables.net",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_datatables_net_js_dataTables_mjs.js"
+    ]
+  },
+  "components\\admin\\banckupdateRequest\\List.js -> datatables.net-buttons": {
+    "id": "components\\admin\\banckupdateRequest\\List.js -> datatables.net-buttons",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_datatables_net-buttons_js_dataTables_buttons_mjs.js"
+    ]
+  },
+  "components\\admin\\banckupdateRequest\\List.js -> datatables.net-buttons-dt": {
+    "id": "components\\admin\\banckupdateRequest\\List.js -> datatables.net-buttons-dt",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_datatables_net-buttons-dt_js_buttons_dataTables_mjs.js"
+    ]
+  },
+  "components\\admin\\banckupdateRequest\\List.js -> datatables.net-dt": {
+    "id": "components\\admin\\banckupdateRequest\\List.js -> datatables.net-dt",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_datatables_net-dt_js_dataTables_dataTables_mjs.js"
+    ]
+  },
+  "components\\admin\\banckupdateRequest\\List.js -> jquery": {
+    "id": "components\\admin\\banckupdateRequest\\List.js -> jquery",
     "files": [
       "static/chunks/_app-pages-browser_node_modules_jquery_dist_jquery_js.js"
     ]

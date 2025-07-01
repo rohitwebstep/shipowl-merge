@@ -28,26 +28,26 @@ interface DropshipperBankAccountPayload {
 type ImageType = "cancelledChequeImage";
 
 const serializeBigInt = <T>(obj: T): T => {
-  if (typeof obj === "bigint") {
-    return obj.toString() as unknown as T;
-  }
+    if (typeof obj === "bigint") {
+        return obj.toString() as unknown as T;
+    }
 
-  if (obj instanceof Date) {
-    // Return Date object unchanged, no conversion
+    if (obj instanceof Date) {
+        // Return Date object unchanged, no conversion
+        return obj;
+    }
+
+    if (Array.isArray(obj)) {
+        return obj.map(serializeBigInt) as unknown as T;
+    }
+
+    if (obj && typeof obj === "object") {
+        return Object.fromEntries(
+            Object.entries(obj).map(([key, value]) => [key, serializeBigInt(value)])
+        ) as T;
+    }
+
     return obj;
-  }
-
-  if (Array.isArray(obj)) {
-    return obj.map(serializeBigInt) as unknown as T;
-  }
-
-  if (obj && typeof obj === "object") {
-    return Object.fromEntries(
-      Object.entries(obj).map(([key, value]) => [key, serializeBigInt(value)])
-    ) as T;
-  }
-
-  return obj;
 };
 
 export const getBankAccountById = async (id: number) => {
@@ -332,6 +332,11 @@ export async function requestDropshipperBankAccountChange(
 export const getAllBankAccountChangeRequests = async () => {
     try {
         const requests = await prisma.bankAccountChangeRequest.findMany({
+            where: {
+                admin: {
+                    role: 'dropshipper',
+                },
+            },
             include: {
                 admin: {
                     include: {
