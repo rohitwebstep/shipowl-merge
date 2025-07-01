@@ -341,13 +341,13 @@ export async function POST(req: NextRequest) {
 
     const mailData = {
       recipient: [
-        ...emailConfig.to
+        ...(emailConfig.to ?? [])
       ],
       cc: [
-        ...emailConfig.cc
+        ...(emailConfig.cc ?? [])
       ],
       bcc: [
-        ...emailConfig.bcc
+        ...(emailConfig.bcc ?? [])
       ],
       subject,
       htmlBody,
@@ -362,20 +362,26 @@ export async function POST(req: NextRequest) {
     };
 
     // Step 3: Apply replacements to recipient/cc/bcc fields
-    mailData.recipient = mailData.recipient.map(({ name, email }) => ({
-      name: replacePlaceholders(name),
-      email: replacePlaceholders(email),
-    }));
+    if (Array.isArray(mailData.recipient) && mailData.recipient.length > 0) {
+      mailData.recipient = mailData.recipient.map(({ name, email }) => ({
+        name: replacePlaceholders(name),
+        email: replacePlaceholders(email),
+      }));
+    }
 
-    mailData.cc = mailData.cc.map(({ name, email }) => ({
-      name: replacePlaceholders(name),
-      email: replacePlaceholders(email),
-    }));
+    if (Array.isArray(mailData.cc) && mailData.cc.length > 0) {
+      mailData.cc = mailData.cc.map(({ name, email }) => ({
+        name: replacePlaceholders(name),
+        email: replacePlaceholders(email),
+      }));
+    }
 
-    mailData.bcc = mailData.bcc.map(({ name, email }) => ({
-      name: replacePlaceholders(name),
-      email: replacePlaceholders(email),
-    }));
+    if (Array.isArray(mailData.bcc) && mailData.bcc.length > 0) {
+      mailData.bcc = mailData.bcc.map(({ name, email }) => ({
+        name: replacePlaceholders(name),
+        email: replacePlaceholders(email),
+      }));
+    }
 
     const emailResult = await sendEmail(emailConfig, mailData);
 
