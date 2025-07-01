@@ -141,6 +141,7 @@ exports.Prisma.EmailConfigScalarFieldEnum = {
   from_email: 'from_email',
   from_name: 'from_name',
   status: 'status',
+  variables: 'variables',
   createdAt: 'createdAt',
   createdBy: 'createdBy',
   createdByRole: 'createdByRole',
@@ -940,6 +941,17 @@ exports.Prisma.NullableJsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
@@ -1208,17 +1220,6 @@ exports.Prisma.productRequestOrderByRelevanceFieldEnum = {
   createdByRole: 'createdByRole',
   updatedByRole: 'updatedByRole',
   deletedByRole: 'deletedByRole'
-};
-
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
-};
-
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
 };
 
 exports.Prisma.productOrderByRelevanceFieldEnum = {
