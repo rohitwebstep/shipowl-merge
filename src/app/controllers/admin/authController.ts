@@ -244,6 +244,7 @@ export async function handleForgetPassword(
 
         // Step 2: Function to apply replacements in strings
         const replacePlaceholders = (text: string) => {
+            if (typeof text !== "string") return text;
             return Object.keys(replacements).reduce((result, key) => {
                 return result.replace(new RegExp(key, "g"), replacements[key]);
             }, text);
@@ -386,6 +387,7 @@ export async function handleResetPassword(
         });
 
         logMessage('debug', 'HTML Body:', htmlBody);
+        logMessage('debug', 'emailConfig:', emailConfig);
 
         const mailData = {
             recipient: [
@@ -404,6 +406,7 @@ export async function handleResetPassword(
 
         // Step 2: Function to apply replacements in strings
         const replacePlaceholders = (text: string) => {
+            if (typeof text !== "string") return text;
             return Object.keys(replacements).reduce((result, key) => {
                 return result.replace(new RegExp(key, "g"), replacements[key]);
             }, text);
@@ -593,6 +596,7 @@ export async function handleVerifyStatus(
 
         // Step 2: Function to apply replacements in strings
         const replacePlaceholders = (text: string) => {
+            if (typeof text !== "string") return text;
             return Object.keys(replacements).reduce((result, key) => {
                 return result.replace(new RegExp(key, "g"), replacements[key]);
             }, text);

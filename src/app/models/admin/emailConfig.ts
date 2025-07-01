@@ -84,9 +84,33 @@ export const getEmailConfig = async (
             return { status: false, message: "Email configuration not found" };
         }
 
-        const to = emailConfig.to as { name: string; email: string }[];
-        const cc = emailConfig.cc as { name: string; email: string }[];
-        const bcc = emailConfig.bcc as { name: string; email: string }[];
+        let to: { name: string; email: string }[] = [];
+        let cc: { name: string; email: string }[] = [];
+        let bcc: { name: string; email: string }[] = [];
+
+        try {
+            if (typeof emailConfig.to === "string") {
+                to = JSON.parse(emailConfig.to);
+            }
+        } catch (e) {
+            console.error("Invalid JSON in emailConfig.to:", e);
+        }
+
+        try {
+            if (typeof emailConfig.cc === "string") {
+                cc = JSON.parse(emailConfig.cc);
+            }
+        } catch (e) {
+            console.error("Invalid JSON in emailConfig.cc:", e);
+        }
+
+        try {
+            if (typeof emailConfig.bcc === "string") {
+                bcc = JSON.parse(emailConfig.bcc);
+            }
+        } catch (e) {
+            console.error("Invalid JSON in emailConfig.bcc:", e);
+        }
 
         // Mapping the database result to the desired output format
         const config = {

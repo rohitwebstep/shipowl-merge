@@ -116,6 +116,7 @@ export async function PATCH(req: NextRequest) {
 
     // Step 2: Function to apply replacements in strings
     const replacePlaceholders = (text: string) => {
+            if (typeof text !== "string") return text;
       return Object.keys(replacements).reduce((result, key) => {
         return result.replace(new RegExp(key, "g"), replacements[key]);
       }, text);
