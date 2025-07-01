@@ -1,10 +1,5 @@
 {
   "pages": {
-    "/api/admin/auth/login/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/auth/login/route.js"
-    ],
     "/api/admin/email-config/[emailConfigId]/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",

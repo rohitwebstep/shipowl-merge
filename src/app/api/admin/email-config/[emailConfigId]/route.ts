@@ -174,7 +174,7 @@ export async function PUT(req: NextRequest) {
 
     // Validate input
     const validation = validateFormData(formData, {
-      requiredFields: ['subject', 'html_template', 'smtp_host', 'smtp_secure', 'smtp_port', 'smtp_username', 'smtp_password', 'from_email', 'from_name', 'status'],
+      requiredFields: ['subject', 'html_template', 'smtp_host', 'smtp_secure', 'smtp_port', 'smtp_username', 'smtp_password', 'from_email', 'from_name', 'status', 'to', 'cc', 'bcc'],
       patternValidations: {
         subject: 'string',
         html_template: 'string',
@@ -185,7 +185,10 @@ export async function PUT(req: NextRequest) {
         smtp_password: 'string',
         from_email: 'string',
         from_name: 'string',
-        status: 'boolean'
+        status: 'boolean',
+        to: 'string',
+        cc: 'string',
+        bcc: 'string'
       },
     });
 
@@ -200,6 +203,27 @@ export async function PUT(req: NextRequest) {
     }
 
     const extractString = (key: string) => (formData.get(key) as string) || null;
+    const parseJsonArray = (field: string): { name: string; email: string }[] => {
+      try {
+        const val = formData.get(field);
+        if (!val) return [];
+
+        const parsed = JSON.parse(val.toString());
+        if (!Array.isArray(parsed)) throw new Error('Not an array');
+
+        // Ensure every object has 'name' and 'email'
+        const validated = parsed.filter((item) =>
+          item && typeof item === 'object' &&
+          typeof item.name === 'string' &&
+          typeof item.email === 'string'
+        );
+
+        return validated;
+      } catch (err) {
+        logMessage('warn', `Invalid JSON for field "${field}"`, err);
+        return [];
+      }
+    };
 
     // Extract fields
     const statusRaw = formData.get('status')?.toString().toLowerCase();
@@ -218,6 +242,9 @@ export async function PUT(req: NextRequest) {
       smtp_password: extractString('smtp_password') || '',
       from_email: extractString('from_email') || '',
       from_name: extractString('from_name') || '',
+      to: JSON.stringify(parseJsonArray('to')),
+      cc: JSON.stringify(parseJsonArray('cc')),
+      bcc: JSON.stringify(parseJsonArray('bcc')),
       status,
       updatedBy: adminId,
       updatedAt: new Date(),

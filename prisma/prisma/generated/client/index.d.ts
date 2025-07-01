@@ -5670,6 +5670,9 @@ export namespace Prisma {
     from_name: number
     status: number
     variables: number
+    to: number
+    cc: number
+    bcc: number
     createdAt: number
     createdBy: number
     createdByRole: number
@@ -5756,6 +5759,9 @@ export namespace Prisma {
     from_name?: true
     status?: true
     variables?: true
+    to?: true
+    cc?: true
+    bcc?: true
     createdAt?: true
     createdBy?: true
     createdByRole?: true
@@ -5867,6 +5873,9 @@ export namespace Prisma {
     from_name: string
     status: boolean
     variables: JsonValue | null
+    to: JsonValue | null
+    cc: JsonValue | null
+    bcc: JsonValue | null
     createdAt: Date
     createdBy: number | null
     createdByRole: string | null
@@ -5910,6 +5919,9 @@ export namespace Prisma {
     from_name?: boolean
     status?: boolean
     variables?: boolean
+    to?: boolean
+    cc?: boolean
+    bcc?: boolean
     createdAt?: boolean
     createdBy?: boolean
     createdByRole?: boolean
@@ -5936,6 +5948,9 @@ export namespace Prisma {
     from_name?: boolean
     status?: boolean
     variables?: boolean
+    to?: boolean
+    cc?: boolean
+    bcc?: boolean
     createdAt?: boolean
     createdBy?: boolean
     createdByRole?: boolean
@@ -5944,7 +5959,7 @@ export namespace Prisma {
     updatedByRole?: boolean
   }
 
-  export type emailConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "panel" | "module" | "subject" | "action" | "html_template" | "smtp_host" | "smtp_secure" | "smtp_port" | "smtp_username" | "smtp_password" | "from_email" | "from_name" | "status" | "variables" | "createdAt" | "createdBy" | "createdByRole" | "updatedAt" | "updatedBy" | "updatedByRole", ExtArgs["result"]["emailConfig"]>
+  export type emailConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "panel" | "module" | "subject" | "action" | "html_template" | "smtp_host" | "smtp_secure" | "smtp_port" | "smtp_username" | "smtp_password" | "from_email" | "from_name" | "status" | "variables" | "to" | "cc" | "bcc" | "createdAt" | "createdBy" | "createdByRole" | "updatedAt" | "updatedBy" | "updatedByRole", ExtArgs["result"]["emailConfig"]>
 
   export type $emailConfigPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "emailConfig"
@@ -5965,6 +5980,9 @@ export namespace Prisma {
       from_name: string
       status: boolean
       variables: Prisma.JsonValue | null
+      to: Prisma.JsonValue | null
+      cc: Prisma.JsonValue | null
+      bcc: Prisma.JsonValue | null
       createdAt: Date
       createdBy: number | null
       createdByRole: string | null
@@ -6355,6 +6373,9 @@ export namespace Prisma {
     readonly from_name: FieldRef<"emailConfig", 'String'>
     readonly status: FieldRef<"emailConfig", 'Boolean'>
     readonly variables: FieldRef<"emailConfig", 'Json'>
+    readonly to: FieldRef<"emailConfig", 'Json'>
+    readonly cc: FieldRef<"emailConfig", 'Json'>
+    readonly bcc: FieldRef<"emailConfig", 'Json'>
     readonly createdAt: FieldRef<"emailConfig", 'DateTime'>
     readonly createdBy: FieldRef<"emailConfig", 'Int'>
     readonly createdByRole: FieldRef<"emailConfig", 'String'>
@@ -48134,6 +48155,9 @@ export namespace Prisma {
     from_name: 'from_name',
     status: 'status',
     variables: 'variables',
+    to: 'to',
+    cc: 'cc',
+    bcc: 'bcc',
     createdAt: 'createdAt',
     createdBy: 'createdBy',
     createdByRole: 'createdByRole',
@@ -49699,6 +49723,9 @@ export namespace Prisma {
     from_name?: StringFilter<"emailConfig"> | string
     status?: BoolFilter<"emailConfig"> | boolean
     variables?: JsonNullableFilter<"emailConfig">
+    to?: JsonNullableFilter<"emailConfig">
+    cc?: JsonNullableFilter<"emailConfig">
+    bcc?: JsonNullableFilter<"emailConfig">
     createdAt?: DateTimeFilter<"emailConfig"> | Date | string
     createdBy?: IntNullableFilter<"emailConfig"> | number | null
     createdByRole?: StringNullableFilter<"emailConfig"> | string | null
@@ -49723,6 +49750,9 @@ export namespace Prisma {
     from_name?: SortOrder
     status?: SortOrder
     variables?: SortOrderInput | SortOrder
+    to?: SortOrderInput | SortOrder
+    cc?: SortOrderInput | SortOrder
+    bcc?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrderInput | SortOrder
     createdByRole?: SortOrderInput | SortOrder
@@ -49751,6 +49781,9 @@ export namespace Prisma {
     from_name?: StringFilter<"emailConfig"> | string
     status?: BoolFilter<"emailConfig"> | boolean
     variables?: JsonNullableFilter<"emailConfig">
+    to?: JsonNullableFilter<"emailConfig">
+    cc?: JsonNullableFilter<"emailConfig">
+    bcc?: JsonNullableFilter<"emailConfig">
     createdAt?: DateTimeFilter<"emailConfig"> | Date | string
     createdBy?: IntNullableFilter<"emailConfig"> | number | null
     createdByRole?: StringNullableFilter<"emailConfig"> | string | null
@@ -49775,6 +49808,9 @@ export namespace Prisma {
     from_name?: SortOrder
     status?: SortOrder
     variables?: SortOrderInput | SortOrder
+    to?: SortOrderInput | SortOrder
+    cc?: SortOrderInput | SortOrder
+    bcc?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrderInput | SortOrder
     createdByRole?: SortOrderInput | SortOrder
@@ -49807,6 +49843,9 @@ export namespace Prisma {
     from_name?: StringWithAggregatesFilter<"emailConfig"> | string
     status?: BoolWithAggregatesFilter<"emailConfig"> | boolean
     variables?: JsonNullableWithAggregatesFilter<"emailConfig">
+    to?: JsonNullableWithAggregatesFilter<"emailConfig">
+    cc?: JsonNullableWithAggregatesFilter<"emailConfig">
+    bcc?: JsonNullableWithAggregatesFilter<"emailConfig">
     createdAt?: DateTimeWithAggregatesFilter<"emailConfig"> | Date | string
     createdBy?: IntNullableWithAggregatesFilter<"emailConfig"> | number | null
     createdByRole?: StringNullableWithAggregatesFilter<"emailConfig"> | string | null
@@ -54694,6 +54733,9 @@ export namespace Prisma {
     from_name: string
     status: boolean
     variables?: NullableJsonNullValueInput | InputJsonValue
+    to?: NullableJsonNullValueInput | InputJsonValue
+    cc?: NullableJsonNullValueInput | InputJsonValue
+    bcc?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     createdBy?: number | null
     createdByRole?: string | null
@@ -54718,6 +54760,9 @@ export namespace Prisma {
     from_name: string
     status: boolean
     variables?: NullableJsonNullValueInput | InputJsonValue
+    to?: NullableJsonNullValueInput | InputJsonValue
+    cc?: NullableJsonNullValueInput | InputJsonValue
+    bcc?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     createdBy?: number | null
     createdByRole?: string | null
@@ -54742,6 +54787,9 @@ export namespace Prisma {
     from_name?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     variables?: NullableJsonNullValueInput | InputJsonValue
+    to?: NullableJsonNullValueInput | InputJsonValue
+    cc?: NullableJsonNullValueInput | InputJsonValue
+    bcc?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: NullableIntFieldUpdateOperationsInput | number | null
     createdByRole?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54766,6 +54814,9 @@ export namespace Prisma {
     from_name?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     variables?: NullableJsonNullValueInput | InputJsonValue
+    to?: NullableJsonNullValueInput | InputJsonValue
+    cc?: NullableJsonNullValueInput | InputJsonValue
+    bcc?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: NullableIntFieldUpdateOperationsInput | number | null
     createdByRole?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54790,6 +54841,9 @@ export namespace Prisma {
     from_name: string
     status: boolean
     variables?: NullableJsonNullValueInput | InputJsonValue
+    to?: NullableJsonNullValueInput | InputJsonValue
+    cc?: NullableJsonNullValueInput | InputJsonValue
+    bcc?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     createdBy?: number | null
     createdByRole?: string | null
@@ -54814,6 +54868,9 @@ export namespace Prisma {
     from_name?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     variables?: NullableJsonNullValueInput | InputJsonValue
+    to?: NullableJsonNullValueInput | InputJsonValue
+    cc?: NullableJsonNullValueInput | InputJsonValue
+    bcc?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: NullableIntFieldUpdateOperationsInput | number | null
     createdByRole?: NullableStringFieldUpdateOperationsInput | string | null
@@ -54838,6 +54895,9 @@ export namespace Prisma {
     from_name?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     variables?: NullableJsonNullValueInput | InputJsonValue
+    to?: NullableJsonNullValueInput | InputJsonValue
+    cc?: NullableJsonNullValueInput | InputJsonValue
+    bcc?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: NullableIntFieldUpdateOperationsInput | number | null
     createdByRole?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60605,6 +60665,9 @@ export namespace Prisma {
     from_name?: SortOrder
     status?: SortOrder
     variables?: SortOrder
+    to?: SortOrder
+    cc?: SortOrder
+    bcc?: SortOrder
     createdAt?: SortOrder
     createdBy?: SortOrder
     createdByRole?: SortOrder

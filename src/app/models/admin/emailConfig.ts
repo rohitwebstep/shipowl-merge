@@ -14,6 +14,9 @@ interface Mail {
     smtp_password: string;
     from_email: string;
     from_name: string;
+    to: string,
+    cc: string,
+    bcc: string,
     status: boolean;
     createdAt?: Date;
     createdBy?: number | null;
@@ -118,6 +121,9 @@ export const updateEmailConfig = async (
             smtp_password,
             from_email,
             from_name,
+            to,
+            cc,
+            bcc,
             status,
             createdAt,
             createdBy,
@@ -137,6 +143,9 @@ export const updateEmailConfig = async (
             smtp_password,
             from_email,
             from_name,
+            to,
+            cc,
+            bcc,
             status,
             createdAt,
             createdBy,

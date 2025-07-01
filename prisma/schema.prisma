@@ -36,6 +36,9 @@ model emailConfig {
   from_name      String
   status         Boolean
   variables      Json?
+  to             Json?
+  cc             Json?
+  bcc            Json?
   createdAt      DateTime @default(now())
   createdBy      Int?
   createdByRole  String?
