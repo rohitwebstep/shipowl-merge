@@ -5,10 +5,8 @@ import { useEffect, useCallback, useState } from "react";
 import 'datatables.net-dt/css/dataTables.dataTables.css';
 import { FaCheckCircle } from "react-icons/fa";
 import { PiKeyReturnFill } from "react-icons/pi";
-import {Package ,TrendingUp} from "lucide-react";
+import { Package, TrendingUp } from "lucide-react";
 import { FaCuttlefish } from "react-icons/fa";
-
-
 import {
     BarChart,
     Bar,
@@ -100,7 +98,7 @@ export default function Analytics() {
 
     useEffect(() => {
         if (
-            typeof window !== "undefined" && filteredOrders.length > 0 
+            typeof window !== "undefined" && filteredOrders.length > 0
         ) {
             let table = null;
 
@@ -254,10 +252,10 @@ export default function Analytics() {
             <div className="grid md:grid-cols-6 mb-8 gap-3">
                 <div className=" bg-white p-4 rounded-2xl shadow-md transition hover:shadow-lg">
                     <h2 className="text-lg flex gap-3 items-center font-semibold text-gray-700 mb-2">
-                      <TrendingUp  />  Total Earnings
+                        <TrendingUp />  Total Earnings
                     </h2>
                     <p className="text-3xl  text-green-600 font-bold">
-                           ₹{totalEarnings.toFixed(2)}
+                        ₹{totalEarnings.toFixed(2)}
                     </p>
                 </div>
                 <div className=" bg-white p-4 rounded-2xl shadow-md transition hover:shadow-lg">
@@ -270,49 +268,49 @@ export default function Analytics() {
                 </div>
                 <div className=" bg-white p-4 rounded-2xl shadow-md transition hover:shadow-lg">
                     <h2 className="text-lg flex gap-3 items-center font-semibold text-gray-700 mb-2">
-                       <TrendingUp  />   Final Earnings
+                        <TrendingUp />   Final Earnings
                     </h2>
                     <p className={`text-3xl  font-bold ${finalEarnings > 0 ? 'text-green-600' : 'text-red-500'}`}>
-                         ₹{Math.abs(finalEarnings)}
+                        ₹{Math.abs(finalEarnings)}
                     </p>
                 </div>
-         
-                    {/* Progress */}
-                    <div className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition-all">
-                        <h2 className="text-lg font-semibold text-gray-700 mb-1 flex gap-2 items-center"><GiProgression className={` ${progressOrderCount > 0 ? 'text-yellow-500' : 'text-red-500'}`}/> In Progress</h2>
-                        <p className="text-sm text-gray-500 mb-2">Orders not yet delivered or RTO delivered</p>
-                        <p className={`text-3xl font-bold ${progressOrderCount > 0 ? 'text-yellow-500' : 'text-red-500'}`}>
-                            {progressOrderCount}{" "}
-                            <span className="text-base text-gray-600 font-medium">
-                                ({totalItems > 0 ? ((progressOrderCount / totalItems) * 100).toFixed(2) : 0}%)
-                            </span>
-                        </p>
-                    </div>
 
-                    {/* Delivered */}
-                    <div className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition-all">
-                        <h2 className="text-lg font-semibold text-gray-700 mb-1 flex gap-2 items-center "><FaCheckCircle className={`${deliveredOrderCount > 0 ? 'text-green-600' : 'text-red-500'}`} /> Delivered</h2>
-                        <p className="text-sm text-gray-500 mb-2">Orders successfully delivered</p>
-                        <p className={`text-3xl font-bold ${deliveredOrderCount > 0 ? 'text-green-600' : 'text-red-500'}`}>
-                            {deliveredOrderCount}{" "}
-                            <span className="text-base text-gray-600 font-medium">
-                                ({totalItems > 0 ? ((deliveredOrderCount / totalItems) * 100).toFixed(2) : 0}%)
-                            </span>
-                        </p>
-                    </div>
+                {/* Progress */}
+                <div className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition-all">
+                    <h2 className="text-lg font-semibold text-gray-700 mb-1 flex gap-2 items-center"><GiProgression className={` ${progressOrderCount > 0 ? 'text-yellow-500' : 'text-red-500'}`} /> In Progress</h2>
+                    <p className="text-sm text-gray-500 mb-2">Orders not yet delivered or RTO delivered</p>
+                    <p className={`text-3xl font-bold ${progressOrderCount > 0 ? 'text-yellow-500' : 'text-red-500'}`}>
+                        {progressOrderCount}{" "}
+                        <span className="text-base text-gray-600 font-medium">
+                            ({totalItems > 0 ? ((progressOrderCount / totalItems) * 100).toFixed(2) : 0}%)
+                        </span>
+                    </p>
+                </div>
 
-                    {/* RTO Delivered */}
-                    <div className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition-all">
-                        <h2 className="text-lg font-semibold text-gray-700 mb-1 flex gap-2 items-center"><PiKeyReturnFill className={`${rtoDeliveredOrderCount > 0 ? 'text-blue-600' : 'text-red-500'}`}/> RTO Delivered</h2>
-                        <p className="text-sm text-gray-500 mb-2">Orders returned to origin and delivered</p>
-                        <p className={`text-3xl font-bold ${rtoDeliveredOrderCount > 0 ? 'text-blue-600' : 'text-red-500'}`}>
-                            {rtoDeliveredOrderCount}{" "}
-                            <span className="text-base text-gray-600 font-medium">
-                                ({totalItems > 0 ? ((rtoDeliveredOrderCount / totalItems) * 100).toFixed(2) : 0} %)
-                            </span>
-                        </p>
-                    </div>
-                
+                {/* Delivered */}
+                <div className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition-all">
+                    <h2 className="text-lg font-semibold text-gray-700 mb-1 flex gap-2 items-center "><FaCheckCircle className={`${deliveredOrderCount > 0 ? 'text-green-600' : 'text-red-500'}`} /> Delivered</h2>
+                    <p className="text-sm text-gray-500 mb-2">Orders successfully delivered</p>
+                    <p className={`text-3xl font-bold ${deliveredOrderCount > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                        {deliveredOrderCount}{" "}
+                        <span className="text-base text-gray-600 font-medium">
+                            ({totalItems > 0 ? ((deliveredOrderCount / totalItems) * 100).toFixed(2) : 0}%)
+                        </span>
+                    </p>
+                </div>
+
+                {/* RTO Delivered */}
+                <div className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition-all">
+                    <h2 className="text-lg font-semibold text-gray-700 mb-1 flex gap-2 items-center"><PiKeyReturnFill className={`${rtoDeliveredOrderCount > 0 ? 'text-blue-600' : 'text-red-500'}`} /> RTO Delivered</h2>
+                    <p className="text-sm text-gray-500 mb-2">Orders returned to origin and delivered</p>
+                    <p className={`text-3xl font-bold ${rtoDeliveredOrderCount > 0 ? 'text-blue-600' : 'text-red-500'}`}>
+                        {rtoDeliveredOrderCount}{" "}
+                        <span className="text-base text-gray-600 font-medium">
+                            ({totalItems > 0 ? ((rtoDeliveredOrderCount / totalItems) * 100).toFixed(2) : 0} %)
+                        </span>
+                    </p>
+                </div>
+
 
             </div>
 
@@ -320,7 +318,7 @@ export default function Analytics() {
                 {/* Table */}
                 <div className="bg-white p-4 rounded-2xl shadow-md transition main-outer-wrapper hover:shadow-lg overflow-auto">
                     <h2 className="text-lg flex gap-3 items-center font-bold text-gray-700 mb-4">
-                    <Package className="text-orange-500"/>  Order Overview
+                        <Package className="text-orange-500" />  Order Overview
                     </h2>
                     <table
                         className="min-w-full text-sm display main-tables"
@@ -385,7 +383,7 @@ export default function Analytics() {
                 {/* Chart */}
                 <div className="bg-white p-4 rounded-2xl flex items-center flex-wrap shadow-md transition hover:shadow-lg">
                     <h2 className="text-lg flex gap-3 items-center mb-6 font-bold text-gray-700">
-                        <TrendingUp className="text-orange-500"/>  Profit & Loss Trend
+                        <TrendingUp className="text-orange-500" />  Profit & Loss Trend
                     </h2>
                     <div className="w-full">
                         <ResponsiveContainer width="100%" height={300}>

@@ -14,7 +14,12 @@ import { MdOutlineChecklistRtl } from "react-icons/md";
 
 export default function My() {
     const { fetchImages } = useImageURL();
-    const { verifySupplierAuth } = useSupplier();
+    const { verifySupplierAuth, hasPermission } = useSupplier();
+    const canDestory = hasPermission("Product", "Permanent Delete");
+    const canRestore = hasPermission("Product", "Restore");
+    const canSoftDelete = hasPermission("Product", "Soft Delete");
+    const canEdit = hasPermission("Product", "Update");
+    const canViewTrashed = hasPermission("Product", "Trash Listing");
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(null);
     const router = useRouter();
@@ -542,8 +547,6 @@ export default function My() {
         } finally {
             setLoading(false);
         }
-
-
     }
 
     if (loading) {
@@ -554,27 +557,30 @@ export default function My() {
         );
     }
 
-
-
     return (
         <>
             <div className="flex flex-wrap md:justify-end gap-3 justify-center mb-6">
 
                 <div className="flex justify-end gap-2">
-                    <button
-                        className={`p-3 text-white rounded-md ${isTrashed ? 'bg-orange-500' : 'bg-red-500'}`}
-                        onClick={async () => {
-                            if (isTrashed) {
-                                setIsTrashed(false);
-                                await fetchProducts();
-                            } else {
-                                setIsTrashed(true);
-                                await trashProducts();
-                            }
-                        }}
-                    >
-                        {isTrashed ? "Product Listing (Simple)" : "Trashed Product"}
-                    </button>
+                    {
+                        canViewTrashed && (
+                            <button
+                                className={`p-3 text-white rounded-md ${isTrashed ? 'bg-orange-500' : 'bg-red-500'}`}
+                                onClick={async () => {
+                                    if (isTrashed) {
+                                        setIsTrashed(false);
+                                        await fetchProducts();
+                                    } else {
+                                        setIsTrashed(true);
+                                        await trashProducts();
+                                    }
+                                }}
+                            >
+                                {isTrashed ? "Product Listing (Simple)" : "Trashed Product"}
+                            </button>
+
+                        )
+                    }
 
                 </div>
 
@@ -717,7 +723,7 @@ export default function My() {
                                                                 </button>
 
                                                                 {/* HTML Description Content */}
-                                                                {product?.product?.description &&product?.product?.description.trim() !== "" ? (
+                                                                {product?.product?.description && product?.product?.description.trim() !== "" ? (
                                                                     <div
                                                                         className="prose max-w-none [&_iframe]:h-[200px] [&_iframe]:max-h-[200px] [&_iframe]:w-full [&_iframe]:aspect-video"
                                                                         dangerouslySetInnerHTML={{ __html: product?.product?.description }}
@@ -763,16 +769,19 @@ export default function My() {
                                             <div className="flex items-center gap-2">
                                                 {isTrashed ? (
                                                     <>
-                                                        <button
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                handleRestore(product);
-                                                            }}
-                                                            className="bg-orange-500 text-white px-3 py-1 text-sm rounded hover:bg-orange-600"
-                                                        >
-                                                            <RotateCcw />
-                                                        </button>
-                                                        <button
+                                                        {
+                                                            canRestore && <button
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    handleRestore(product);
+                                                                }}
+                                                                className="bg-orange-500 text-white px-3 py-1 text-sm rounded hover:bg-orange-600"
+                                                            >
+                                                                <RotateCcw />
+                                                            </button>
+                                                        }
+
+                                                        {canDestory && <button
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
                                                                 handlePermanentDelete(product);
@@ -780,20 +789,23 @@ export default function My() {
                                                             className="bg-red-500 text-white px-3 py-1 text-sm rounded hover:bg-red-600"
                                                         >
                                                             <Trash2 />
-                                                        </button>
+                                                        </button>}
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <button
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                handleEdit(product, product.id);
-                                                            }}
-                                                            className="bg-yellow-500 text-white px-3 py-1 text-sm rounded hover:bg-yellow-600"
-                                                        >
-                                                            <Pencil />
-                                                        </button>
-                                                        <button
+                                                        {canEdit && (
+                                                            <button
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    handleEdit(product, product.id);
+                                                                }}
+                                                                className="bg-yellow-500 text-white px-3 py-1 text-sm rounded hover:bg-yellow-600"
+                                                            >
+                                                                <Pencil />
+                                                            </button>
+
+                                                        )}
+                                                        {canSoftDelete && <button
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
                                                                 handleDelete(product);
@@ -801,7 +813,8 @@ export default function My() {
                                                             className="bg-red-500 text-white px-3 py-1 text-sm rounded hover:bg-red-600"
                                                         >
                                                             <Trash2 />
-                                                        </button>
+                                                        </button>}
+
                                                         <button
                                                             onClick={(e) => {
                                                                 e.stopPropagation();

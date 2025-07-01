@@ -15,7 +15,7 @@ export default function AddShopifyStore() {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedShop, setSelectedShop] = useState('');
     const [shopifyStores, setShopifyStores] = useState([]);
-    const { verifyDropShipperAuth } = useDropshipper();
+    const { verifyDropShipperAuth, hasPermission } = useDropshipper();
     const [formData, setFormData] = useState({
         shop: '',
     })
@@ -256,7 +256,7 @@ export default function AddShopifyStore() {
                 });
 
 
-               
+
             } else {
                 Swal.close();
                 Swal.fire({
@@ -295,6 +295,13 @@ export default function AddShopifyStore() {
         }));
     };
 
+
+    const canCreate = hasPermission("Shopify", "Create");
+    const canDestory = hasPermission("Shopify", "Permanent Delete");
+    const canRestore = hasPermission("Shopify", "Restore");
+    const canSoftDelete = hasPermission("Shopify", "Soft Delete");
+    const canEdit = hasPermission("Shopify", "Update");
+    const canViewTrashed = hasPermission("Shopify", "Trash Listing");
     if (loading) {
         return (
             <div className="flex items-center justify-center h-[80vh]">
@@ -307,35 +314,40 @@ export default function AddShopifyStore() {
             <div className="grid grid-cols-2 gap-3">
                 <div className="bg-white rounded-2xl p-5">
                     <h2 className='text-2xl font-bold pb-4'>Add New Store </h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className=" ">
-                            <div>
-                                <label htmlFor="name" className="font-bold block text-[#232323]">
-                                    Shop Name <span className='text-red-500 text-lg'>*</span>
-                                </label>
-                                <input
-                                    type="text"
-                                    name="shop"
-                                    value={formData?.shop || ''}
-                                    id="shop"
-                                    onChange={handleChange}
-                                    className={`text-[#718EBF] border w-full border-[#DFEAF2] rounded-md p-3 mt-2 font-bold  ${validationErrors.name ? "border-red-500" : "border-[#E0E5F2]"
-                                        } `} />
-                                {validationErrors.shop && (
-                                    <p className="text-red-500 text-sm mt-1">{validationErrors.shop}</p>
-                                )}
-                            </div>
-                        </div>
+                    {canCreate ? (
 
-                        <div className="flex flex-wrap gap-3 mt-5">
-                            <button type="submit" className="bg-orange-500 text-white px-15 rounded-md p-3">
-                                {loading ? 'Connecting...' : 'Connect'}
-                            </button>
-                            <button type="button" className="bg-gray-500 text-white px-15 rounded-md p-3" onClick={() => router.back()}>
-                                Cancel
-                            </button>
-                        </div>
-                    </form>
+                        <form onSubmit={handleSubmit}>
+                            <div className=" ">
+                                <div>
+                                    <label htmlFor="name" className="font-bold block text-[#232323]">
+                                        Shop Name <span className='text-red-500 text-lg'>*</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="shop"
+                                        value={formData?.shop || ''}
+                                        id="shop"
+                                        onChange={handleChange}
+                                        className={`text-[#718EBF] border w-full border-[#DFEAF2] rounded-md p-3 mt-2 font-bold  ${validationErrors.name ? "border-red-500" : "border-[#E0E5F2]"
+                                            } `} />
+                                    {validationErrors.shop && (
+                                        <p className="text-red-500 text-sm mt-1">{validationErrors.shop}</p>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="flex flex-wrap gap-3 mt-5">
+                                <button type="submit" className="bg-orange-500 text-white px-15 rounded-md p-3">
+                                    {loading ? 'Connecting...' : 'Connect'}
+                                </button>
+                                <button type="button" className="bg-gray-500 text-white px-15 rounded-md p-3" onClick={() => router.back()}>
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    ) : (
+                        <p className='capitalize'>You have not permission to perform this action </p>
+                    )}
                 </div>
                 <div className="bg-white rounded-2xl p-5">
                     <h2 className='text-2xl font-bold pb-4'>Store List</h2>
@@ -360,10 +372,15 @@ export default function AddShopifyStore() {
                                         </td>
                                         <td className=" border border-[#E0E5F2] px-2 py-1 text-center">{item.domain || item.shop}</td>
                                         <td className=" border border-[#E0E5F2] px-2 py-1 text-center">
-                                            <button onClick={() => {
-                                                setModalOpen(true), setSelectedShop(item)
-                                            }}
-                                                className='bg-green-500 p-2 rounded-md text-white'>Edit Shop</button></td>
+                                            {canEdit ? (
+                                                <button onClick={() => {
+                                                    setModalOpen(true), setSelectedShop(item)
+                                                }}
+                                                    className='bg-green-500 p-2 rounded-md text-white'>Edit Shop</button>
+                                            ) : (
+                                                <p className='capitalize'>You have No permission to edit store</p>
+                                            )}
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

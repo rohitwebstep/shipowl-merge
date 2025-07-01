@@ -16,9 +16,15 @@ export default function Payments() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
-    const { verifyDropShipperAuth } = useDropshipper();
+    const { verifyDropShipperAuth, hasPermission } = useDropshipper();
     const router = useRouter();
     const [selected, setSelected] = useState([]);
+    const canCreate = hasPermission("Payment", "Create");
+    const canDestory = hasPermission("Payment", "Permanent Delete");
+    const canRestore = hasPermission("Payment", "Restore");
+    const canSoftDelete = hasPermission("Payment", "Soft Delete");
+    const canEdit = hasPermission("Payment", "Update");
+    const canViewTrashed = hasPermission("Payment", "Trash Listing");
 
     const handleCheckboxChange = (id) => {
         setSelected((prev) =>
@@ -426,7 +432,7 @@ export default function Payments() {
                             </div>
                         )}
                     </button>
-                    <button
+                    {canViewTrashed && <button
                         className={`p-3 text-white rounded-md ${isTrashed ? 'bg-green-500' : 'bg-red-500'}`}
                         onClick={async () => {
                             if (isTrashed) {
@@ -440,10 +446,10 @@ export default function Payments() {
                         }}
                     >
                         {isTrashed ? "Payments Listing (Simple)" : "Trashed Payments"}
-                    </button>
-                    <Link href="/dropshipping/payments/create">
+                    </button>}
+                    {canCreate && <Link href="/dropshipping/payments/create">
                         <button className="bg-[#4285F4] text-white rounded-md p-3 px-8">Add New</button>
-                    </Link>
+                    </Link>}
                 </div>
             </div>
             {
@@ -491,10 +497,10 @@ export default function Payments() {
                                         <td className="p-2 px-5 text-center">
                                             <span
                                                 className={`px-2 py-1 rounded-full text-xs font-semibold ${item.status.toLowerCase() === "success"
-                                                        ? "bg-green-100 text-green-600"
-                                                        : item.status.toLowerCase() === "pending"
-                                                            ? "bg-yellow-100 text-yellow-700"
-                                                            : "bg-red-100 text-red-600"
+                                                    ? "bg-green-100 text-green-600"
+                                                    : item.status.toLowerCase() === "pending"
+                                                        ? "bg-yellow-100 text-yellow-700"
+                                                        : "bg-red-100 text-red-600"
                                                     }`}
                                             >
                                                 {item.status}
@@ -503,13 +509,13 @@ export default function Payments() {
                                         <td className="p-2 px-5 text-center">
                                             <div className="flex justify-end gap-2">{isTrashed ? (
                                                 <>
-                                                    <MdRestoreFromTrash onClick={() => handleRestore(item)} className="cursor-pointer text-3xl text-green-500" />
-                                                    <AiOutlineDelete onClick={() => handlePermanentDelete(item)} className="cursor-pointer text-3xl" />
+                                                    {canRestore && <MdRestoreFromTrash onClick={() => handleRestore(item)} className="cursor-pointer text-3xl text-green-500" />}
+                                                    {canDestory && <AiOutlineDelete onClick={() => handlePermanentDelete(item)} className="cursor-pointer text-3xl" />}
                                                 </>
                                             ) : (
                                                 <>
-                                                    <MdModeEdit onClick={() => handleEditItem(item)} className="cursor-pointer text-3xl" />
-                                                    <AiOutlineDelete onClick={() => handleDelete(item)} className="cursor-pointer text-3xl" />
+                                                    {canEdit && <MdModeEdit onClick={() => handleEditItem(item)} className="cursor-pointer text-3xl" />}
+                                                    {canSoftDelete && <AiOutlineDelete onClick={() => handleDelete(item)} className="cursor-pointer text-3xl" />}
                                                 </>
                                             )}</div>
                                         </td>

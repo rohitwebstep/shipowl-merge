@@ -188,6 +188,38 @@ const ProductTable = () => {
                 perm.status === true
         )
         : true;
+    const canDelete = shouldCheckPermissions
+        ? extractedPermissions.some(
+            (perm) =>
+                perm.module === "Product" &&
+                perm.action === "Permanent Delete" &&
+                perm.status === true
+        )
+        : true;
+    const canEdit = shouldCheckPermissions
+        ? extractedPermissions.some(
+            (perm) =>
+                perm.module === "Product" &&
+                perm.action === "Update" &&
+                perm.status === true
+        )
+        : true;
+    const canSoftDelete = shouldCheckPermissions
+        ? extractedPermissions.some(
+            (perm) =>
+                perm.module === "Product" &&
+                perm.action === "Soft Delete" &&
+                perm.status === true
+        )
+        : true;
+    const canRestore = shouldCheckPermissions
+        ? extractedPermissions.some(
+            (perm) =>
+                perm.module === "Product" &&
+                perm.action === "Restore" &&
+                perm.status === true
+        )
+        : true;
 
 
     return (
@@ -356,38 +388,7 @@ const ProductTable = () => {
                                 </thead>
                                 <tbody>
                                     {products.map((item) => {
-                                        const canDelete = shouldCheckPermissions
-                                            ? extractedPermissions.some(
-                                                (perm) =>
-                                                    perm.module === "Product" &&
-                                                    perm.action === "Permanent Delete" &&
-                                                    perm.status === true
-                                            )
-                                            : true;
-                                        const canEdit = shouldCheckPermissions
-                                            ? extractedPermissions.some(
-                                                (perm) =>
-                                                    perm.module === "Product" &&
-                                                    perm.action === "Update" &&
-                                                    perm.status === true
-                                            )
-                                            : true;
-                                        const canSoftDelete = shouldCheckPermissions
-                                            ? extractedPermissions.some(
-                                                (perm) =>
-                                                    perm.module === "Product" &&
-                                                    perm.action === "Soft Delete" &&
-                                                    perm.status === true
-                                            )
-                                            : true;
-                                        const canRestore = shouldCheckPermissions
-                                            ? extractedPermissions.some(
-                                                (perm) =>
-                                                    perm.module === "Product" &&
-                                                    perm.action === "Restore" &&
-                                                    perm.status === true
-                                            )
-                                            : true;
+
                                         return (
                                             <tr key={item.id} className="border-b capitalize border-[#E9EDF7] text-[#2B3674] font-semibold">
                                                 <td className="p-2 px-5  text-left whitespace-nowrap">

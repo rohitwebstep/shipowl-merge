@@ -17,56 +17,59 @@ export default function DropshipperMiddleWareProvider({ children }) {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const [isDropshipperStaff, setIsDropshipperStaff] = useState(null);
+    const [extractedPermissions, setExtractedPermissions] = useState([]);
+    const checkDropshipperRole = () => {
+        try {
+            const shippingData = JSON.parse(localStorage.getItem("shippingData"));
+            console.log('shippingData', shippingData)
+            if (shippingData?.dropshipper?.role === "dropshipper_staff") {
+                setIsDropshipperStaff(true);
+            }
+        } catch (err) {
+            console.error("Error reading shippingdata:", err);
+            setIsDropshipperStaff(false);
+        }
 
-    function InputField({ label, value, onChange, error, required }) {
-        return (
-            <>
-                <div className='flex justify-between'>
-                    <label className="md:w-7/12 block text-sm font-medium mb-1">
-                        {label} {required && <span className="text-red-500">*</span>}
-                        {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
-                    </label>
-
-                    <input
-                        type="number"
-                        value={value}
-                        onChange={(e) => onChange(e.target.value)}
-                        className={`md:w-5/12 bg-white border px-3 py-[6px] ${error ? 'border-red-500' : 'border-gray-300'}`}
-                    />
-                </div>
-            </>
-        );
+        try {
+            const rawPermissions = JSON.parse(localStorage.getItem("dropshipperPermissions")) || [];
+            const permissions = [];
+            rawPermissions.forEach((perm) => {
+                if (perm.permission) {
+                    permissions.push({
+                        panel: perm.permission.panel,
+                        module: perm.permission.module,
+                        action: perm.permission.action,
+                        status: perm.permission.status,
+                    });
+                }
+            });
+            setExtractedPermissions(permissions);
+        } catch (err) {
+            console.error("Error parsing permissions:", err);
+        }
     }
 
-    // Result output component with conditional display
-    function ResultItem({ label, value, isVisible, placeholder = '-' }) {
-        const numeric = parseFloat(value?.replace?.(/[₹,]/g, '')) || 0;
-        return (
-            <div className="flex justify-between text-sm w-full">
-                <span className="font-medium text-black">{label}</span>
-                <span className={` font-bold  text-green-800 ${!isVisible ? 'text-gray-400' : numeric < 0 ? 'text-red-800' : 'text-green-800'}`}>
-                    {isVisible ? value : placeholder}
-                </span>
-            </div>
-        );
-    }
 
-    // Info box component
-    function ProductInfo({ label, value }) {
-        return (
-            <div className="flex items-center space-x-1 text-sm">
-                <span className="text-gray-500">{label}:</span>
-                <span className="font-medium text-black">{value}</span>
-            </div>
+    const hasPermission = (module, action) => {
+        const shouldCheckPermissions = isDropshipperStaff && extractedPermissions.length > 0;
+        if (!shouldCheckPermissions) return true;
+        return extractedPermissions.some(
+            (perm) =>
+                perm.module === module &&
+                perm.action === action &&
+                perm.status === true
         );
-    }
+    };
+
+
     const verifyDropShipperAuth = useCallback(async () => {
         setLoading(true);
-        const supplierData = JSON.parse(localStorage.getItem("shippingData"));
-        const dropshipper_token = supplierData?.security?.token;
+        const dropshipperData = JSON.parse(localStorage.getItem("shippingData"));
+        const dropshipper_token = dropshipperData?.security?.token;
 
         // ✅ Corrected the condition for active panel
-        if (supplierData?.project?.active_panel !== "dropshipper") {
+        if (dropshipperData?.project?.active_panel !== "dropshipper") {
             localStorage.removeItem("shippingData"); // Correct way to remove item
             router.push("/dropshipping/auth/login");
             return; // Stop further execution
@@ -120,7 +123,7 @@ export default function DropshipperMiddleWareProvider({ children }) {
 
 
     return (
-        <DropshipperMiddleWareContext.Provider value={{InputField,ResultItem,ProductInfo, dropShipperApi, setDropShipperApi, verifyDropShipperAuth, error, loading }}>
+        <DropshipperMiddleWareContext.Provider value={{ checkDropshipperRole, isDropshipperStaff, hasPermission, dropShipperApi, extractedPermissions, setDropShipperApi, verifyDropShipperAuth, error, loading }}>
             {children}
         </DropshipperMiddleWareContext.Provider>
     );

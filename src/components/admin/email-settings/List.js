@@ -12,51 +12,7 @@ export default function List() {
     const [selectedDescription, setSelectedDescription] = useState('');
     const [loading, setLoading] = useState(null);
 
-    const data = [
-        {
-            id: 1,
-            panel: 'Supplier',
-            module: 'Order',
-            action: 'Create',
-            status: 'Active',
-            subject: 'New Order Received',
-            body: 'You have a new order placed.',
-            toMails: 'supplier@example.com',
-            ccMail: 'cc@example.com',
-            bccMails: 'bcc@example.com',
-            description: `<div style="width:250px; height:100vh; background:white; padding:20px; box-shadow:2px 0 8px rgba(0,0,0,0.1);">
-        <a href="#" style="display:flex; align-items:center; background-color:#22c55e; color:white; padding:10px 15px; border-radius:6px; margin-bottom:10px; text-decoration:none;">
-          <i data-lucide="mail" style="margin-right:10px;"></i>
-          <span>Email Settings</span>
-        </a>
-        <a href="#" style="display:flex; align-items:center; background-color:#ef4444; color:white; padding:10px 15px; border-radius:6px; margin-bottom:10px; text-decoration:none;">
-          <i data-lucide="package" style="margin-right:10px;"></i>
-          <span>Product Management</span>
-        </a>
-        <a href="#" style="display:flex; align-items:center; background-color:#ef4444; color:white; padding:10px 15px; border-radius:6px; margin-bottom:10px; text-decoration:none;">
-          <i data-lucide="image" style="margin-right:10px;"></i>
-          <span>Dropshipper Banners</span>
-        </a>
-        <a href="#" style="display:flex; align-items:center; background-color:#22c55e; color:white; padding:10px 15px; border-radius:6px; margin-bottom:10px; text-decoration:none;">
-          <i data-lucide="layout-dashboard" style="margin-right:10px;"></i>
-          <span>Dashboard</span>
-        </a>
-      </div>`,
-        },
-        {
-            id: 2,
-            panel: 'Dropshipper',
-            module: 'Product',
-            action: 'Update',
-            status: 'Inactive',
-            subject: 'Product Updated',
-            body: 'Product details have been changed.',
-            toMails: 'dropship@example.com',
-            ccMail: '',
-            bccMails: 'hidden@example.com',
-            description: '',
-        },
-    ];
+
 
     const fetchEmails = useCallback(async () => {
         const adminData = JSON.parse(localStorage.getItem("shippingData"));
@@ -76,7 +32,7 @@ export default function List() {
         try {
             setLoading(true);
             const response = await fetch(
-                `/api/admin/emails`,
+                `${process.env.NEXT_PUBLIC_API_BASE_URL}api/admin/email-config`,
                 {
                     method: "GET",
                     headers: {
@@ -97,7 +53,7 @@ export default function List() {
             }
 
             const result = await response.json();
-            const emails = result?.emails || {};
+            const emails = result?.mails || {};
             setEmails(emails)
 
 
@@ -122,25 +78,25 @@ export default function List() {
     const handleEdit = (id) => {
         router.push(`/admin/email-settings/update?id=${id}`)
     }
-   useEffect(() => {
-    const init = async () => {
-        setLoading(true);
-        try {
-            await verifyAdminAuth(); // in case verifyAdminAuth is async
-            await fetchEmails();
-        } catch (error) {
-            console.error("Initialization error:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    useEffect(() => {
+        const init = async () => {
+            setLoading(true);
+            try {
+                await verifyAdminAuth(); // in case verifyAdminAuth is async
+                await fetchEmails();
+            } catch (error) {
+                console.error("Initialization error:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    init();
-}, []);
+        init();
+    }, []);
 
 
     useEffect(() => {
-        if (typeof window !== "undefined" && data.length > 0 && !loading) {
+        if (typeof window !== "undefined" && emails.length > 0 && !loading) {
             let tableInstance;
 
             const initializeDataTable = async () => {
@@ -182,7 +138,22 @@ export default function List() {
                 }
             };
         }
-    }, [data, loading]);
+    }, [emails, loading]);
+    const parseAndRenderEmails = (data) => {
+        try {
+            const emails = JSON.parse(data);
+            if (!Array.isArray(emails)) return "-";
+
+            return emails.map((entry, idx) => (
+                <div key={idx} className="text-sm text-gray-700">
+                    {entry.name} &lt;{entry.email}&gt;
+                </div>
+            ));
+        } catch (e) {
+            return "-"; // Fallback if JSON is malformed
+        }
+    };
+
 
     return (
         <>
@@ -210,30 +181,37 @@ export default function List() {
                             </tr>
                         </thead>
                         <tbody>
-                            {data.map((item, index) => (
+                            {emails.map((item, index) => (
                                 <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-50">
                                     <td className="px-6 py-4 whitespace-nowrap text-left font-medium text-gray-900">{index + 1}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{item.panel}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{item.module}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{item.action}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <span className={`px-3 py-1 rounded text-white ${item.status === 'Active' ? 'bg-green-500' : 'bg-red-500'}`}>
-                                            {item.status}
+                                        <span className={`px-3 py-1 rounded text-white ${item.status === true ? 'bg-green-500' : 'bg-red-500'}`}>
+                                            {item.status ? "Active" : 'Inactive'}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">{item.subject}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        {item.description ? (
-                                            <button onClick={() => handleView(item.description)} className="text-blue-600 hover:underline">
+                                        {item.html_template ? (
+                                            <button onClick={() => handleView(item.html_template)} className="text-blue-600 hover:underline">
                                                 View
                                             </button>
                                         ) : (
                                             '-'
                                         )}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{item.toMails}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{item.ccMail || '-'}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{item.bccMails || '-'}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        {parseAndRenderEmails(item.to)}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        {item.cc ? parseAndRenderEmails(item.cc) : "-"}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        {item.bcc ? parseAndRenderEmails(item.bcc) : "-"}
+                                    </td>
+
                                     <td className="px-6 py-4 whitespace-nowrap text-center">
                                         <button className="text-indigo-600 hover:underline" onClick={() => handleEdit(item.id)}>Edit</button>
                                     </td>

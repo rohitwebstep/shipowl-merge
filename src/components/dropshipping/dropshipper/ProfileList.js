@@ -15,8 +15,11 @@ const ProfileList = () => {
     const [stateData, setStateData] = useState([]);
     const [isTrashed, setIsTrashed] = useState(false);
     const router = useRouter();
+    const { hasPermission } = useDropshipper();
     const [loading, setLoading] = useState(false);
-    const fetchSupplier = useCallback(async () => {
+
+    const canAddBank = hasPermission("My Profile", "Bank Account Change Request");
+    const canEdit = hasPermission("My Profile", "Update"); const fetchSupplier = useCallback(async () => {
         const supplierData = JSON.parse(localStorage.getItem("shippingData"));
 
         if (supplierData?.project?.active_panel !== "dropshipper") {
@@ -107,7 +110,7 @@ const ProfileList = () => {
             setLoading(false);
         }
     }, [router]);
-      const handleEditBank = () => {
+    const handleEditBank = () => {
         router.push(`/dropshipping/bank/update`);
     }
 
@@ -208,9 +211,13 @@ const ProfileList = () => {
                     <p><strong>City:</strong> {cityData.find(c => c.id === suppliers.permanentCityId)?.name || '-'}</p>
                     <p><strong>Postal Code:</strong> {suppliers.permanentPostalCode || '-'}</p>
                 </div>
-                <div className="mt-4 text-right">
-                    <button onClick={() => handleEdit(suppliers.id)} className='bg-orange-500 text-white p-3 rounded-md'>Update Profile</button>
-                </div>
+                {
+                    canEdit && (
+                        <div className="mt-4 text-right">
+                            <button onClick={() => handleEdit(suppliers.id)} className='bg-orange-500 text-white p-3 rounded-md'>Update Profile</button>
+                        </div>
+                    )
+                }
             </div>
 
             <div className="bg-white rounded-2xl p-6 shadow-md ">
@@ -232,12 +239,17 @@ const ProfileList = () => {
                 ) : (
                     <p className="text-[#A3AED0]">No bank account details available.</p>
                 )}
-                <div className="mt-4 text-right">
-                    {!suppliers.bankAccount ? (<button onClick={() => handleEditBank(suppliers.id)} className='bg-orange-500 text-white p-3 rounded-md'> Bank  Account Add Request</button>) : (
-                        <button onClick={() => handleEditBank(suppliers.id)} className='bg-orange-500 text-white p-3 rounded-md'> Bank  AccountUpdate Request</button>
+                {
+                    canAddBank && (
+                        <div className="mt-4 text-right">
+                            {!suppliers.bankAccount ? (<button onClick={() => handleEditBank(suppliers.id)} className='bg-orange-500 text-white p-3 rounded-md'> Bank  Account Add Request</button>) : (
+                                <button onClick={() => handleEditBank(suppliers.id)} className='bg-orange-500 text-white p-3 rounded-md'> Bank  AccountUpdate Request</button>
+                            )
+                            }
+                        </div>
+
                     )
-                    }
-                </div>
+                }
             </div>
         </div>
 

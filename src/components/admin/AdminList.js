@@ -6,10 +6,10 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import 'datatables.net-dt/css/dataTables.dataTables.css';
 
 const dummyPermissions = [
-  { module: 'admin', panel: 'Admin', action: 'listing' },
-  { module: 'admin', panel: 'Admin', action: 'view' },
-  { module: 'admin', panel: 'Admin', action: 'update' },
-  { module: 'admin', panel: 'Admin', action: 'soft-delete' },
+  { module: 'admin', panel: 'admin', action: 'listing' },
+  { module: 'admin', panel: 'admin', action: 'view' },
+  { module: 'admin', panel: 'admin', action: 'update' },
+  { module: 'admin', panel: 'admin', action: 'soft-delete' },
   { module: 'dropshipper', panel: 'product-request', action: 'create' },
 ];
 

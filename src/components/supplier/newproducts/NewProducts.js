@@ -12,7 +12,7 @@ import { MdInventory } from "react-icons/md";
 import { useImageURL } from "@/components/ImageURLContext";
 export default function NewProducts() {
   const { fetchImages } = useImageURL();
-  const { verifySupplierAuth } = useSupplier();
+  const { verifySupplierAuth, hasPermission } = useSupplier();
   const [productsRequest, setProductsRequest] = useState([]);
   const [loading, setLoading] = useState(null);
   const router = useRouter();
@@ -25,7 +25,6 @@ export default function NewProducts() {
     id: '',
     isVarientExists: '',
   });
-  let prolist = false;
   const viewProduct = (id) => {
     if (type == "notmy") {
       router.push(`/supplier/product/?id=${id}&type=${type}`);
@@ -209,7 +208,7 @@ export default function NewProducts() {
       setLoading(false);
     }
   };
-  console.log('inventory', inventoryData)
+  const canCreate = hasPermission("Product", "Create");
 
   return (
     <>
@@ -366,28 +365,33 @@ export default function NewProducts() {
                     </button>
 
                     {/* Hover Action Buttons */}
-                    <div
-                      className="absolute bottom-0 left-0 w-full p-3 bg-white z-10 opacity-0 translate-y-4
+                    {
+                      canCreate && (
+                        <div
+                          className="absolute bottom-0 left-0 w-full p-3 bg-white z-10 opacity-0 translate-y-4
             group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300
             pointer-events-none group-hover:pointer-events-auto shadow border border-gray-100"
-                    >
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => {
-                            setShowPopup(true);
-                            setInventoryData({
-                              productId: product.id,
-                              variant: product.variants,
-                              id: product.id,
-                              isVarientExists: product.isVarientExists,
-                            });
-                          }}
-                          className="mt-3 w-full bg-blue-500 text-white px-4 py-2 rounded font-semibold hover:bg-blue-600 transition"
                         >
-                          Add
-                        </button>
-                      </div>
-                    </div>
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => {
+                                setShowPopup(true);
+                                setInventoryData({
+                                  productId: product.id,
+                                  variant: product.variants,
+                                  id: product.id,
+                                  isVarientExists: product.isVarientExists,
+                                });
+                              }}
+                              className="mt-3 w-full bg-blue-500 text-white px-4 py-2 rounded font-semibold hover:bg-blue-600 transition"
+                            >
+                              Add
+                            </button>
+                          </div>
+                        </div>
+
+                      )
+                    }
                   </div>
                 </div>
               );
@@ -403,7 +407,7 @@ export default function NewProducts() {
       {showPopup && (
         <div className="fixed inset-0 bg-[#00000087] bg-opacity-40 flex items-center justify-center z-50 overflow-y-auto">
           <div className="bg-white p-6 rounded-lg border-orange-500 w-full border max-w-5xl shadow-xl relative">
-            <h2 className="text-2xl  flex justify-center gap-3 items-center text-center underline font-semibold mb-6 text-orange-500"><MdInventory/> Add To List</h2>
+            <h2 className="text-2xl  flex justify-center gap-3 items-center text-center underline font-semibold mb-6 text-orange-500"><MdInventory /> Add To List</h2>
 
             {(() => {
               const varinatExists = inventoryData?.isVarientExists ? "yes" : "no";

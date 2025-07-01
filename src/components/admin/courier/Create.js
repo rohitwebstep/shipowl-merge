@@ -91,7 +91,7 @@ export default function Create() {
   
      
   
-      const url = "/api/courier-company";
+      const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}api/courier-company`;
   
       const response = await fetch(url, {
         method: "POST",

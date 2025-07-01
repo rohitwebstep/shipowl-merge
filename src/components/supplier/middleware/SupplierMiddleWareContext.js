@@ -22,7 +22,8 @@ export default function SupplierMiddleWareProvider({ children }) {
     const checkSupplierRole = () => {
         try {
             const shippingData = JSON.parse(localStorage.getItem("shippingData"));
-            if (shippingData?.admin?.role === "supplier_staff") {
+            console.log('shippingData', shippingData)
+            if (shippingData?.supplier?.role === "supplier_staff") {
                 setIsSupplierStaff(true);
             }
         } catch (err) {
@@ -48,6 +49,18 @@ export default function SupplierMiddleWareProvider({ children }) {
             console.error("Error parsing permissions:", err);
         }
     }
+
+
+    const hasPermission = (module, action) => {
+        const shouldCheckPermissions = isSupplierStaff && extractedPermissions.length > 0;
+        if (!shouldCheckPermissions) return true;
+        return extractedPermissions.some(
+            (perm) =>
+                perm.module === module &&
+                perm.action === action &&
+                perm.status === true
+        );
+    };
     const verifySupplierAuth = useCallback(async () => {
         setLoading(true);
         const dropshipperData = JSON.parse(localStorage.getItem("shippingData"));
@@ -91,7 +104,7 @@ export default function SupplierMiddleWareProvider({ children }) {
                 router.push("/supplier/auth/login");
                 return;
             }
-            
+
 
         } catch (error) {
             console.error("Error:", error);
@@ -104,8 +117,11 @@ export default function SupplierMiddleWareProvider({ children }) {
 
 
 
+
+
+
     return (
-        <SupplierMiddleWareContext.Provider value={{ isSupplierStaff, extractedPermissions, checkSupplierRole, supplierApi, setSupplierApi, verifySupplierAuth, error, loading }}>
+        <SupplierMiddleWareContext.Provider value={{ hasPermission, isSupplierStaff, extractedPermissions, checkSupplierRole, supplierApi, setSupplierApi, verifySupplierAuth, error, loading }}>
             {children}
         </SupplierMiddleWareContext.Provider>
     );

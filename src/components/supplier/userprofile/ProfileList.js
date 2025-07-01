@@ -18,7 +18,7 @@ const ProfileList = () => {
     const [isTrashed, setIsTrashed] = useState(false);
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-
+    const { hasPermission } = useSupplier();
     const { setActiveTab } = useContext(ProfileContext);
 
     const fetchSupplier = useCallback(async () => {
@@ -190,6 +190,9 @@ const ProfileList = () => {
     const handleEditBank = () => {
         router.push(`/supplier/bank/update`);
     }
+
+    const canAddBank = hasPermission("My Profile", "Bank Account Change Request");
+    const canEdit = hasPermission("My Profile", "Update");
     return (
         loading ? (
             <div className="flex justify-center items-center h-96">
@@ -230,8 +233,9 @@ const ProfileList = () => {
                         <p><strong>AadharCardHolderName:</strong> {suppliers?.companyDetail?.aadharCardHolderName || '-'}</p>
 
                     </div>
-                    <div className="mt-4 text-right">
-                        <button onClick={() => handleEdit(suppliers.id)} className='bg-orange-500 text-white p-3 rounded-md'>Update Profile</button>
+                    <div className="mt-4 text-right">{
+                        canEdit && <button onClick={() => handleEdit(suppliers.id)} className='bg-orange-500 text-white p-3 rounded-md'>Update Profile</button>
+                    }
                     </div>
                 </div>
 
@@ -270,12 +274,16 @@ const ProfileList = () => {
                     ) : (
                         <p className="text-[#A3AED0]">No bank account details available.</p>
                     )}
-                    <div className="mt-4 text-right">
-                        {!suppliers.bankAccount ? (<button onClick={() => handleEditBank(suppliers.id)} className='bg-orange-500 text-white p-3 rounded-md'> Bank  Account Add Request</button>) : (
-                            <button onClick={() => handleEditBank(suppliers.id)} className='bg-orange-500 text-white p-3 rounded-md'> Bank  AccountUpdate Request</button>
-                        )
-                        }
-                    </div>
+                    {canAddBank && (
+                        <div className="mt-4 text-right">
+
+                            {!suppliers.bankAccount ? (<button onClick={() => handleEditBank(suppliers.id)} className='bg-orange-500 text-white p-3 rounded-md'> Bank  Account Add Request</button>) : (
+                                <button onClick={() => handleEditBank(suppliers.id)} className='bg-orange-500 text-white p-3 rounded-md'> Bank  AccountUpdate Request</button>
+                            )
+                            }
+                        </div>
+                    )}
+
                 </div>
 
 

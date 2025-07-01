@@ -17,7 +17,7 @@ export default function List() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
-    const { verifySupplierAuth } = useSupplier();
+    const { verifySupplierAuth, hasPermission } = useSupplier();
     const router = useRouter();
     const fetchUsers = useCallback(async () => {
         const supplierData = JSON.parse(localStorage.getItem("shippingData"));
@@ -401,6 +401,13 @@ export default function List() {
         );
     }
 
+    const canCreate = hasPermission("Sub User", "Create");
+    const canDestory = hasPermission("Sub User", "Permanent Delete");
+    const canRestore = hasPermission("Sub User", "Restore");
+    const canSoftDelete = hasPermission("Sub User", "Soft Delete");
+    const canEdit = hasPermission("Sub User", "Update");
+    const canViewTrashed = hasPermission("Sub User", "Trash Listing");
+
 
 
     return (
@@ -426,7 +433,7 @@ export default function List() {
                             )}
                         </button>
                         <div className="flex justify-start gap-5 items-end">
-                            <button
+                            {canViewTrashed && <button
                                 className={`p-3 text-white rounded-md ${isTrashed ? 'bg-green-500' : 'bg-red-500'}`}
                                 onClick={async () => {
                                     if (isTrashed) {
@@ -440,7 +447,9 @@ export default function List() {
                             >
                                 {isTrashed ? "Subuser Listing (Simple)" : "Trashed Subuser"}
                             </button>
-                            <button className='bg-[#4285F4] text-white rounded-md p-3 px-8'><Link href="/supplier/sub-user/create">Add New</Link></button>
+                            }
+                            {canCreate && <button className='bg-[#4285F4] text-white rounded-md p-3 px-8'><Link href="/supplier/sub-user/create">Add New</Link></button>
+                            }
                         </div>
                     </div>
                 </div>
@@ -471,20 +480,20 @@ export default function List() {
                                         </td>
 
                                         <td className="p-2 whitespace-nowrap px-5">{item.phoneNumber || 'NIL'}</td>
-                                        <td className="p-2 whitespace-nowrap px-5"> 
+                                        <td className="p-2 whitespace-nowrap px-5">
                                             <Image height={50} width={50} src={fetchImages(item.profilePicture)}
-                                            alt={item.name} /></td>
+                                                alt={item.name} /></td>
                                         <td className="p-2 px-5 text-[#8F9BBA] text-center">
 
                                             <div className="flex justify-end gap-2">{isTrashed ? (
                                                 <>
-                                                    <MdRestoreFromTrash onClick={() => handleRestore(item)} className="cursor-pointer text-3xl text-green-500" />
-                                                    <AiOutlineDelete onClick={() => handlePermanentDelete(item)} className="cursor-pointer text-3xl" />
+                                                    {canRestore && <MdRestoreFromTrash onClick={() => handleRestore(item)} className="cursor-pointer text-3xl text-green-500" />}
+                                                    {canDestory && <AiOutlineDelete onClick={() => handlePermanentDelete(item)} className="cursor-pointer text-3xl" />}
                                                 </>
                                             ) : (
                                                 <>
-                                                    <MdModeEdit onClick={() => handleEditItem(item)} className="cursor-pointer text-3xl" />
-                                                    <AiOutlineDelete onClick={() => handleDelete(item)} className="cursor-pointer text-3xl" />
+                                                    {canEdit && <MdModeEdit onClick={() => handleEditItem(item)} className="cursor-pointer text-3xl" />}
+                                                    {canSoftDelete && <AiOutlineDelete onClick={() => handleDelete(item)} className="cursor-pointer text-3xl" />}
                                                 </>
                                             )}</div>
 
