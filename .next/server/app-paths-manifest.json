@@ -1,9 +1,17 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/supplier/profile/route": "app/api/supplier/profile/route.js",
-  "/api/location/country/route": "app/api/location/country/route.js",
-  "/api/location/country/[countryId]/states/route": "app/api/location/country/[countryId]/states/route.js",
-  "/api/location/state/[stateId]/cities/route": "app/api/location/state/[stateId]/cities/route.js",
-  "/supplier/profile/page": "app/supplier/profile/page.js",
-  "/supplier/profile/update/page": "app/supplier/profile/update/page.js"
+  "/api/dropshipper/profile/route": "app/api/dropshipper/profile/route.js",
+  "/api/dropshipper/profile/update/route": "app/api/dropshipper/profile/update/route.js",
+  "/api/dropshipper/auth/verify/route": "app/api/dropshipper/auth/verify/route.js",
+  "/api/location/city/route": "app/api/location/city/route.js",
+  "/api/location/state/route": "app/api/location/state/route.js",
+  "/api/dropshipper/auth/login/route": "app/api/dropshipper/auth/login/route.js",
+  "/api/dropshipper/product/inventory/route": "app/api/dropshipper/product/inventory/route.js",
+  "/api/dropshipper/category/route": "app/api/dropshipper/category/route.js",
+  "/dropshipping/auth/password/reset/page": "app/dropshipping/auth/password/reset/page.js",
+  "/supplier/auth/password/reset/page": "app/supplier/auth/password/reset/page.js",
+  "/dropshipping/auth/login/page": "app/dropshipping/auth/login/page.js",
+  "/dropshipping/profile/update/page": "app/dropshipping/profile/update/page.js",
+  "/dropshipping/profile/page": "app/dropshipping/profile/page.js",
+  "/supplier/page": "app/supplier/page.js",
+  "/dropshipping/page": "app/dropshipping/page.js"
 }

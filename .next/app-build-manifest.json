@@ -6,22 +6,83 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
     "/supplier/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/supplier/layout.css",
       "static/chunks/app/supplier/layout.js"
     ],
-    "/supplier/profile/page": [
+    "/supplier/sub-user/create/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/supplier/profile/page.css",
-      "static/chunks/app/supplier/profile/page.js"
+      "static/chunks/app/supplier/sub-user/create/page.js"
+    ],
+    "/supplier/auth/login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/supplier/auth/login/page.js"
+    ],
+    "/api/supplier/auth/login/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/supplier/auth/login/route.js"
+    ],
+    "/supplier/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/supplier/page.js"
     ],
     "/api/supplier/auth/verify/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/supplier/auth/verify/route.js"
+    ],
+    "/supplier/sub-user/list/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/supplier/sub-user/list/page.css",
+      "static/chunks/app/supplier/sub-user/list/page.js"
+    ],
+    "/api/supplier/staff/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/supplier/staff/route.js"
+    ],
+    "/api/location/country/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/location/country/route.js"
+    ],
+    "/api/supplier/staff/meta/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/supplier/staff/meta/route.js"
+    ],
+    "/api/location/country/[countryId]/states/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/location/country/[countryId]/states/route.js"
+    ],
+    "/api/location/state/[stateId]/cities/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/location/state/[stateId]/cities/route.js"
+    ],
+    "/api/admin/auth/login/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/admin/auth/login/route.js"
+    ],
+    "/supplier/profile/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/supplier/profile/page.css",
+      "static/chunks/app/supplier/profile/page.js"
     ],
     "/api/supplier/profile/route": [
       "static/chunks/webpack.js",
@@ -44,25 +105,103 @@
       "static/css/app/supplier/profile/update/page.css",
       "static/chunks/app/supplier/profile/update/page.js"
     ],
-    "/api/location/country/route": [
+    "/dropshipping/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/location/country/route.js"
+      "static/css/app/dropshipping/layout.css",
+      "static/chunks/app/dropshipping/layout.js"
     ],
-    "/api/location/country/[countryId]/states/route": [
+    "/dropshipping/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/location/country/[countryId]/states/route.js"
+      "static/chunks/app/dropshipping/page.js"
     ],
-    "/api/location/state/[stateId]/cities/route": [
+    "/supplier/auth/password/forget/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/location/state/[stateId]/cities/route.js"
+      "static/chunks/app/supplier/auth/password/forget/page.js"
     ],
-    "/_not-found/page": [
+    "/dropshipping/auth/login/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/dropshipping/auth/login/page.js"
+    ],
+    "/dropshipping/auth/password/forget/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dropshipping/auth/password/forget/page.js"
+    ],
+    "/api/dropshipper/auth/password/forget/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/dropshipper/auth/password/forget/route.js"
+    ],
+    "/supplier/auth/password/reset/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/supplier/auth/password/reset/page.js"
+    ],
+    "/api/supplier/auth/password/reset/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/supplier/auth/password/reset/route.js"
+    ],
+    "/dropshipping/auth/password/reset/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dropshipping/auth/password/reset/page.js"
+    ],
+    "/api/dropshipper/auth/password/reset/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/dropshipper/auth/password/reset/route.js"
+    ],
+    "/api/dropshipper/auth/login/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/dropshipper/auth/login/route.js"
+    ],
+    "/api/dropshipper/product/inventory/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/dropshipper/product/inventory/route.js"
+    ],
+    "/api/dropshipper/auth/verify/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/dropshipper/auth/verify/route.js"
+    ],
+    "/api/dropshipper/category/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/dropshipper/category/route.js"
+    ],
+    "/dropshipping/profile/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/dropshipping/profile/page.css",
+      "static/chunks/app/dropshipping/profile/page.js"
+    ],
+    "/api/dropshipper/profile/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/dropshipper/profile/route.js"
+    ],
+    "/dropshipping/profile/update/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/dropshipping/profile/update/page.css",
+      "static/chunks/app/dropshipping/profile/update/page.js"
+    ],
+    "/api/dropshipper/[dropshipperId]/company/[companyId]/image/[imageIndex]/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/dropshipper/[dropshipperId]/company/[companyId]/image/[imageIndex]/route.js"
+    ],
+    "/api/dropshipper/profile/update/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/dropshipper/profile/update/route.js"
     ]
   }
 }

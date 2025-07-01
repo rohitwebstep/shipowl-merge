@@ -253,6 +253,7 @@ export const updateSupplierStaff = async (
             name,
             profilePicture,
             email,
+            password,
             phoneNumber,
             permissions,
             permanentAddress,
@@ -280,7 +281,7 @@ export const updateSupplierStaff = async (
         }
 
         // Check if currentSupplier has a password (it should if the supplier is valid)
-        const password = (withPassword && currentSupplierStaff.password) ? currentSupplierStaff.password : '123456'; // Default password
+        const finalPassword = (withPassword && currentSupplierStaff.password) ? password : currentSupplierStaff.password; // Default password
 
         if (profilePicture && profilePicture.trim() !== '' && currentSupplierStaff?.profilePicture?.trim()) {
             try {
@@ -302,7 +303,7 @@ export const updateSupplierStaff = async (
             name,
             email,
             phoneNumber,
-            password,
+            password: finalPassword,
             role: 'supplier_staff',
             permanentAddress,
             permanentPostalCode,

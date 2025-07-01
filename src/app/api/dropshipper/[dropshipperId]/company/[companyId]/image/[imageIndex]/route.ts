@@ -10,7 +10,7 @@ export async function DELETE(req: NextRequest) {
   try {
     const parts = req.nextUrl.pathname.split('/');
     logMessage(`debug`, 'URL parts', parts);
-    const dropshipperId = Number(parts[parts.length - 5]);
+    // const dropshipperId = Number(parts[parts.length - 5]);
     const companyId = Number(parts[parts.length - 3]);
     const imageIndex = Number(parts[parts.length - 1]);
 
@@ -25,20 +25,20 @@ export async function DELETE(req: NextRequest) {
 
     logMessage('debug', `Attempting to delete image (${imageIndex}) from company (${companyId})`);
 
-    // Validate admin headers
-    const adminId = req.headers.get('x-admin-id');
-    const adminRole = req.headers.get('x-admin-role');
+    // Validate dropshipper headers
+    const dropshipperId = Number(req.headers.get('x-dropshipper-id'));
+    const dropshipperRole = req.headers.get('x-dropshipper-role');
 
-    if (!adminId || isNaN(Number(adminId))) {
-      logMessage('warn', 'Missing or invalid admin ID header', { adminId });
-      return NextResponse.json({ error: 'Admin ID is missing or invalid' }, { status: 400 });
+    if (!dropshipperId || isNaN(Number(dropshipperId))) {
+      logMessage('warn', 'Missing or invalid dropshipper ID header', { dropshipperId });
+      return NextResponse.json({ error: 'Dropshipper ID is missing or invalid' }, { status: 400 });
     }
 
-    // Authenticate admin user
-    const userCheck = await isUserExist(Number(adminId), String(adminRole));
+    // Authenticate dropshipper user
+    const userCheck = await isUserExist(Number(dropshipperId), String(dropshipperRole));
     if (!userCheck.status) {
-      logMessage('warn', 'Admin authentication failed', { adminId, adminRole });
-      return NextResponse.json({ error: `Admin not found: ${userCheck.message}` }, { status: 404 });
+      logMessage('warn', 'Dropshipper authentication failed', { dropshipperId, dropshipperRole });
+      return NextResponse.json({ error: `Dropshipper not found: ${userCheck.message}` }, { status: 404 });
     }
 
     // Validate company existence
@@ -52,7 +52,7 @@ export async function DELETE(req: NextRequest) {
     const result = await removeCompanyDetailImageByIndex(companyId, dropshipperId, imageType, imageIndex);
 
     if (result.status) {
-      logMessage('info', `Image index ${imageIndex} removed from company ${companyId} by admin ${adminId}`);
+      logMessage('info', `Image index ${imageIndex} removed from company ${companyId} by dropshipper ${dropshipperId}`);
       return NextResponse.json({
         status: true,
         message: result.message || 'Image removed successfully',

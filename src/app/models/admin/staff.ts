@@ -269,6 +269,7 @@ export const updateAdminStaff = async (
             name,
             profilePicture,
             email,
+            password,
             phoneNumber,
             permissions,
             permanentAddress,
@@ -292,9 +293,9 @@ export const updateAdminStaff = async (
             return { status: false, message: message || "Admin staff not found." };
         }
 
-        const password = (withPassword && currentAdminStaff.password)
-            ? currentAdminStaff.password
-            : '123456'; // Default password fallback
+        const finalPassword = (withPassword && currentAdminStaff.password)
+            ? password
+            : currentAdminStaff.password; // Default password fallback
 
         // Delete old profile picture if new one is provided
         if (profilePicture && profilePicture.trim() !== '' && currentAdminStaff?.profilePicture?.trim()) {
@@ -318,7 +319,7 @@ export const updateAdminStaff = async (
                 name,
                 email,
                 phoneNumber,
-                password,
+                password: finalPassword,
                 role: 'admin_staff',
                 permanentAddress,
                 permanentPostalCode,

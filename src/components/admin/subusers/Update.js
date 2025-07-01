@@ -456,9 +456,9 @@ export default function Update() {
       <div>
         <label className="block text-[#232323] font-bold mb-1 mt-2">Permissions <span className="text-red-500">*</span></label>
         <div className="space-y-4">
-          {groupedPermissions?.admin && (
+          {groupedPermissions?.Admin && (
             <div className="space-y-4">
-              {Object.entries(groupedPermissions.admin).map(([module, perms]) => (
+              {Object.entries(groupedPermissions.Admin).map(([module, perms]) => (
                 <div key={module} className="space-y-2">
                   {/* Module Name and Action List */}
                   <div className="flex justify-between items-center">

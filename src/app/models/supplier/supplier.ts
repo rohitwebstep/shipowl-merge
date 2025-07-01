@@ -320,7 +320,7 @@ export const getSupplierById = async (id: number, withPassword: boolean | string
             where: { id, role: 'supplier' },
             include: {
                 companyDetail: {
-                    include:{
+                    include: {
                         billingCountry: true,
                         billingState: true,
                         billingCity: true
@@ -359,6 +359,7 @@ export const updateSupplier = async (
             profilePicture,
             username,
             email,
+            password,
             dateOfBirth,
             currentAddress,
             permanentAddress,
@@ -386,7 +387,7 @@ export const updateSupplier = async (
         }
 
         // Check if currentSupplier has a password (it should if the supplier is valid)
-        const password = (withPassword && currentSupplier.password) ? currentSupplier.password : '123456'; // Default password
+        const finalPassword = (withPassword && currentSupplier.password) ? password : currentSupplier.password; // Default password
 
         // Handle profile picture deletion if a new one is being uploaded
         if (profilePicture && profilePicture.trim() !== '' && currentSupplier?.profilePicture?.trim()) {
@@ -409,7 +410,7 @@ export const updateSupplier = async (
             name,
             username,
             email,
-            password,
+            password: finalPassword,
             role: 'supplier',
             dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : null,
             currentAddress,

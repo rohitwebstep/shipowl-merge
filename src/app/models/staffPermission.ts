@@ -124,7 +124,7 @@ export const getStaffPermissionsByStaffId = async (filter: StaffPermissionFilter
 
         // Validate panel if provided
         if (filter.panel) {
-            const isValidPanel = ["admin", "supplier", "customer", "dropshipper"].includes(filter.panel);
+            const isValidPanel = ["Admin", "Supplier", "Dropshipper"].includes(filter.panel);
             if (!isValidPanel) {
                 return {
                     status: false,

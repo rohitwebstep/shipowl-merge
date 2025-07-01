@@ -8,8 +8,8 @@ import { useImageURL } from "@/components/ImageURLContext";
 const AccountDetails = () => {
   const { formData, setFormData, errors, setErrors, validate, setActiveTab } = useContext(DropshipperProfileContext);
   const [previewUrl, setPreviewUrl] = useState(null);
-  
-  const {fetchImages} = useImageURL();
+
+  const { fetchImages } = useImageURL();
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     let updatedFormData = { ...formData };
@@ -58,12 +58,12 @@ const AccountDetails = () => {
       <div className='md:w-2/12'>
         <div className="relative">
           <Image
-             src={fetchImages(formData.profilePicture)}
+            src={fetchImages(formData.profilePicture)}
             alt="Profile image"
-
+            height={100}
+            width={100}
             className="w-full h-full object-cover rounded-full p-3"
           />
-
 
           {/* Hidden input */}
           <input

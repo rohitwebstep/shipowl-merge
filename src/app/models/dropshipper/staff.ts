@@ -253,6 +253,7 @@ export const updateDropshipperStaff = async (
             name,
             profilePicture,
             email,
+            password,
             phoneNumber,
             permissions,
             permanentAddress,
@@ -280,7 +281,7 @@ export const updateDropshipperStaff = async (
         }
 
         // Check if currentDropshipper has a password (it should if the dropshipper is valid)
-        const password = (withPassword && currentDropshipperStaff.password) ? currentDropshipperStaff.password : '123456'; // Default password
+        const finalPassword = (withPassword && currentDropshipperStaff.password) ? password : currentDropshipperStaff.password; // Default password
 
         if (profilePicture && profilePicture.trim() !== '' && currentDropshipperStaff?.profilePicture?.trim()) {
             try {
@@ -302,7 +303,7 @@ export const updateDropshipperStaff = async (
             name,
             email,
             phoneNumber,
-            password,
+            password: finalPassword,
             role: 'dropshipper_staff',
             permanentAddress,
             permanentPostalCode,
