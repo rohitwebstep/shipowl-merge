@@ -75,7 +75,7 @@ function Permission() {
     verifyAdminAuth();
     checkAdminRole();
     fetchPermission();
-  }, [fetchPermission]);
+  }, []);
   const openModal = (panel) => setSelectedPanel(panel);
   const closeModal = () => setSelectedPanel(null);
   const handleSubmit = async () => {

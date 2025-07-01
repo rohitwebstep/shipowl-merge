@@ -2,6 +2,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter, useSearchParams } from "next/navigation";
+import HashLoader from "react-spinners/HashLoader";
 import Swal from 'sweetalert2';
 const Editor = dynamic(() => import('@tinymce/tinymce-react').then(mod => mod.Editor), {
     ssr: false,

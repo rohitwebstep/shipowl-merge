@@ -4,6 +4,7 @@ import { FaCheck } from 'react-icons/fa';
 import { MdModeEdit } from 'react-icons/md';
 import { AiOutlineDelete } from 'react-icons/ai';
 import 'datatables.net-dt/css/dataTables.dataTables.css';
+import Image from 'next/image';
 
 const dummyPermissions = [
   { module: 'admin', panel: 'admin', action: 'listing' },
@@ -120,7 +121,7 @@ const EditAdminModal = ({ item, onClose, onSave }) => {
           <div>
             <label className="block text-sm font-medium mb-1">Profile Picture</label>
             {formData.profilePicture && (
-              <img src={formData.profilePicture} alt="Preview" className="w-20 h-20 rounded-full mb-2" />
+              <Image height={100} width={100} src={formData.profilePicture} alt="Preview" className="w-20 h-20 rounded-full mb-2" />
             )}
             <input type="file" accept="image/*" onChange={handleImageChange} />
           </div>

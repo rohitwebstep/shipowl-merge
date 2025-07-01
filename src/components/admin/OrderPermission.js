@@ -65,7 +65,7 @@ function OrderPermission() {
         verifyAdminAuth();
         checkAdminRole();
         fetchPermission();
-    }, [fetchPermission]);
+    }, []);
     const handleSubmit = async () => {
         const payload = permissions.map(({ id, ...rest }) => rest);
 
