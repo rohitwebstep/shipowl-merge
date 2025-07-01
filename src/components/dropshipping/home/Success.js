@@ -62,7 +62,6 @@ export default function Success() {
   useEffect(() => {
     fetchStores();
   }, [fetchStores]);
-  console.log('status',status)
 
   // UI rendering based on status
   if (status === "processing") {

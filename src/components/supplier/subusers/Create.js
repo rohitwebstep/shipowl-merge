@@ -91,7 +91,6 @@ export default function Create() {
     return Object.keys(newErrors).length === 0;
   };
 
-  console.log('formData', formData)
   // Inside handleSubmit function
   const handleSubmit = async (e) => {
     e.preventDefault();

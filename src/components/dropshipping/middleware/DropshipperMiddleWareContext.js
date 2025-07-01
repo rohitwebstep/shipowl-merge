@@ -22,8 +22,8 @@ export default function DropshipperMiddleWareProvider({ children }) {
     const checkDropshipperRole = () => {
         try {
             const shippingData = JSON.parse(localStorage.getItem("shippingData"));
-            console.log('shippingData', shippingData)
-            if (shippingData?.dropshipper?.role === "dropshipper_staff") {
+          
+            if (shippingData?.admin?.role === "dropshipper_staff") {
                 setIsDropshipperStaff(true);
             }
         } catch (err) {
@@ -49,7 +49,7 @@ export default function DropshipperMiddleWareProvider({ children }) {
             console.error("Error parsing permissions:", err);
         }
     }
-
+  
 
     const hasPermission = (module, action) => {
         const shouldCheckPermissions = isDropshipperStaff && extractedPermissions.length > 0;

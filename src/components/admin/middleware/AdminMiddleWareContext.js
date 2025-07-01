@@ -23,7 +23,6 @@ export default function AdminMiddleWareProvider({ children }) {
      const checkAdminRole = () => {
         try {
             const shippingData = JSON.parse(localStorage.getItem("shippingData"));
-            console.log('shippingData', shippingData)
             if (shippingData?.admin?.role === "admin_staff") {
                 setIsAdminStaff(true);
             }

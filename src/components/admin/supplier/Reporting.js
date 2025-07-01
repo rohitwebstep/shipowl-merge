@@ -16,7 +16,6 @@ function Reporting() {
   const [showModal, setShowModal] = useState(false);
 
   const handleViewVariants = (items) => {
-    console.log('items', items)
     const variants = items.map(item => item.dropshipperVariant?.supplierProductVariant?.variant).filter(Boolean);
     setSelectedVariants(variants);
     setShowModal(true);
@@ -98,12 +97,8 @@ function Reporting() {
     acc[key] = item.permission.status;
     return acc;
   }, {});
-  console.log('permissionMap', permissionMap)
-  console.log('permission', permission)
   const PermissionField = ({ permissionKey, children }) => {
     const isAllowed = permissionMap[permissionKey];
-    console.log('isAllowed', isAllowed)
-    console.log('permissionMap[permissionKey]', permissionMap[permissionKey])
     return (
       <span
         style={
@@ -125,8 +120,6 @@ function Reporting() {
   const hasAnyPermission = (...keys) => keys.some((key) => permissionMap?.[key]); useEffect(() => {
     fetchReporting();
   }, [fetchReporting]);
-
-  console.log('selectedVariants', selectedVariants)
 
   return (
     <div className="p-6 bg-white rounded-xl">

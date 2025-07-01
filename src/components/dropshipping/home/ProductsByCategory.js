@@ -148,7 +148,6 @@ function ProductsByCategory() {
         totalModalsForPushToShopify > 1 &&
         modalNamesForPushToShopify.some((model) => groupedByModalForPushToShopify[model]?.length > 1)
       ) {
-        console.log("CASE: multiple modals with multiple variants — push all from selected model");
 
         if (selectedVariant) {
           const selectedModal =
@@ -675,7 +674,6 @@ function ProductsByCategory() {
                     ...v
                   };
                 }
-                console.log('variant', variant)
                 const imageUrls = variant.image
 
                 const isExists = selectedProduct?.product?.isVarientExists;

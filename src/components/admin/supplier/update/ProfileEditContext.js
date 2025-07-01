@@ -129,9 +129,6 @@ const ProfileEditProvider = ({ children }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-
-  console.log('formData',formData);
-  console.log('files',files);
 const validateBusiness = () => {
   const newErrors = {};
 

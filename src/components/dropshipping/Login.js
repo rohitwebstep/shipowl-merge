@@ -94,6 +94,11 @@ export default function Login() {
                 },
             };
             localStorage.setItem("shippingData", JSON.stringify(shippingData));
+             if (admin.role === "dropshipper_staff" && Array.isArray(result.assignedPermissions)) {
+                    localStorage.setItem("dropshipperPermissions", JSON.stringify(result.assignedPermissions));
+                } else {
+                    localStorage.removeItem("dropshipperPermissions");
+                }
     
             // ✅ Show success alert
             await Swal.fire({

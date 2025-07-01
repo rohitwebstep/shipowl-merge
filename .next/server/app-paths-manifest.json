@@ -1,3 +1,9 @@
 {
-  "/dropshipping/auth/password/reset/page": "app/dropshipping/auth/password/reset/page.js"
+  "/api/dropshipper/staff/[dropshipperStaffId]/route": "app/api/dropshipper/staff/[dropshipperStaffId]/route.js",
+  "/api/location/country/route": "app/api/location/country/route.js",
+  "/page": "app/page.js",
+  "/dropshipping/auth/login/page": "app/dropshipping/auth/login/page.js",
+  "/dropshipping/page": "app/dropshipping/page.js",
+  "/dropshipping/sub-user/list/page": "app/dropshipping/sub-user/list/page.js",
+  "/dropshipping/sub-user/update/page": "app/dropshipping/sub-user/update/page.js"
 }

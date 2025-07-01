@@ -61,7 +61,6 @@ export default function Login() {
                 body: JSON.stringify({ email, password }),
             });
 
-            console.log(`response - `, response);
             const result = await response.json();
 
             if (!response.ok) {

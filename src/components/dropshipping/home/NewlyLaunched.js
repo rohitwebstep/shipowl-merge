@@ -206,7 +206,6 @@ const NewlyLaunched = () => {
         totalModalsForPushToShopify > 1 &&
         modalNamesForPushToShopify.some((model) => groupedByModalForPushToShopify[model]?.length > 1)
       ) {
-        console.log("CASE: multiple modals with multiple variants — push all from selected model");
 
         if (selectedVariant) {
           const selectedModal =
@@ -760,13 +759,11 @@ const NewlyLaunched = () => {
                       ...v
                     };
                   }
-                  console.log('variant', variant)
                   const rawImageString = variant?.variant?.image || variant?.image || "";
                   const imageUrls = rawImageString
                     .split(",")
                     .map((img) => img.trim())
                     .filter(Boolean);
-                  console.log('imageUrls', imageUrls)
 
                   const isExists = selectedProduct?.product?.isVarientExists;
 
@@ -849,7 +846,6 @@ export default NewlyLaunched;
 
 const VariantCard = ({ variant, handleVariantChange, fetchImages }) => {
   if (!variant) return null;
-  console.log('variant(1)',variant)
 
   return (
     <div key={variant.id} className="space-y-5 border p-4 rounded-lg shadow-sm">

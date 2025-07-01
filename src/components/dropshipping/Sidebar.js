@@ -31,49 +31,45 @@ const Sidebar = () => {
     checkDropshipperRole();
   }, []);
 
-  const hasPermission = (module, actionList) => {
-    return extractedPermissions.some(
-      (perm) =>
-        perm.module === module &&
-        actionList.includes(perm.action) &&
-        perm.status === true
-    );
-  };
+const hasPermission = (module, actionList) => {
+  return extractedPermissions.some(
+    (perm) =>
+      perm.module === module &&
+      actionList.includes(perm.action) &&
+      perm.status === true
+  );
+};
 
-  const menuItems = useMemo(() => {
-    const baseItems = [
-      { name: "Home", icon: Home, module: "Home", href: "/dropshipping", section: "MENU" },
-      { name: "Analytics", icon: IoMdAnalytics, module: "Analytics", href: "/dropshipping/analytics", section: "MENU" },
-      {
-        name: "Manage Orders", icon: ShoppingCart, href: "#", section: "MENU",
-        subMenu: [
-          { name: "All Orders (In progress)", module: "All Orders (In progress)", href: "/dropshipping/manage-orders" },
-          { name: "Pending Orders (In progress)", module: "Pending Orders (In progress)", href: "/dropshipping/pending-orders" }
-        ]
-      },
-      { name: "Link Shopify Store", icon: FaShopify, module: "Shopify", href: "/dropshipping/store/link", section: "MENU" },
-      { name: "Reporting", icon: FileBarChart2, module: "Report", href: "/dropshipping/reporting", section: "MENU" },
-      { name: "Manage Products (In progress)", icon: Package, module: "Manage Products (In progress)", href: "/dropshipping/manage-products", section: "MENU" },
-      { name: "Subuser Listing", icon: Package, module: "Sub User", href: "/dropshipping/sub-user/list", section: "MENU" },
-      { name: "Profile", icon: Package, module: "My Profile", href: "/dropshipping/profile", section: "MENU" },
-      { name: "Source a Product", icon: Gift, module: "Source a Product", href: "/dropshipping/product/source", section: "MENU" },
-      { name: "Reports (In progress)", icon: BarChart, module: "Reports (In progress)", href: "/dropshipping/report", section: "MENU" },
-      { name: "Payments", icon: CreditCard, module: "Payment", href: "/dropshipping/payments", section: "MENU" },
-      { name: "Manage NDR (In progress)", icon: FileText, module: "Manage NDR (In progress)", href: "/dropshipping/manage-ndr", section: "MENU" },
-      { name: "High RTO Pincode (In progress)", icon: MapPin, module: "High RTO Pincode (In progress)", href: "/dropshipping/high-rto-pincode", section: "OTHERS" },
-      { name: "Boosters (In progress)", icon: Volume2, module: "Boosters (In progress)", href: "/dropshipping/boosters", section: "OTHERS" },
-      { name: "Integrations (In progress)", icon: Link, module: "Integrations (In progress)", href: "/dropshipping/Integration", section: "OTHERS" },
-      { name: "Settings (In progress)", icon: Settings, module: "Settings (In progress)", href: "/dropshipping/settings", section: "OTHERS" },
-      { name: "Terms & Conditions (In progress)", icon: FileText, module: "Terms & Conditions (In progress)", href: "/dropshipping/term-and-condition", section: "OTHERS" }
-    ];
+  const menuItems = useMemo(() => [
 
-    return baseItems.filter(item => {
-      if (!isDropshipperStaff) return true;
-      if (item.subMenu) return true;
-      return extractedPermissions.length > 0 ? hasPermission(item.module, actions) : true;
-    });
-  }, [isDropshipperStaff, extractedPermissions]);
-
+    { name: "Home", icon: Home, module: "Product", href: "/dropshipping", section: "MENU" },
+    { name: "Analytics", icon: IoMdAnalytics, module: "Analytics", href: "/dropshipping/analytics", section: "MENU" },
+    {
+      name: "Manage Orders", icon: ShoppingCart, href: "#", section: "MENU",
+      subMenu: [
+        { name: "All Orders (In progress)", module: "All Orders (In progress)", href: "/dropshipping/manage-orders" },
+        { name: "Pending Orders (In progress)", module: "Pending Orders (In progress)", href: "/dropshipping/pending-orders" }
+      ]
+    },
+    { name: "Link Shopify Store", icon: FaShopify, module: "Shopify", href: "/dropshipping/store/link", section: "MENU" },
+    { name: "Reporting", icon: FileBarChart2, module: "Report", href: "/dropshipping/reporting", section: "MENU" },
+    { name: "Manage Products (In progress)", icon: Package, module: "Manage Products (In progress)", href: "/dropshipping/manage-products", section: "MENU" },
+    { name: "Subuser Listing", icon: Package, module: "Sub User", href: "/dropshipping/sub-user/list", section: "MENU" },
+    { name: "Profile", icon: Package, module: "My Profile", href: "/dropshipping/profile", section: "MENU" },
+    { name: "Source a Product", icon: Gift, module: "Source a Product", href: "/dropshipping/product/source", section: "MENU" },
+    { name: "Reports (In progress)", icon: BarChart, module: "Reports (In progress)", href: "/dropshipping/report", section: "MENU" },
+    { name: "Payments", icon: CreditCard, module: "Payment", href: "/dropshipping/payments", section: "MENU" },
+    { name: "Manage NDR (In progress)", icon: FileText, module: "Manage NDR (In progress)", href: "/dropshipping/manage-ndr", section: "MENU" },
+    { name: "High RTO Pincode (In progress)", icon: MapPin, module: "High RTO Pincode (In progress)", href: "/dropshipping/high-rto-pincode", section: "OTHERS" },
+    { name: "Boosters (In progress)", icon: Volume2, module: "Boosters (In progress)", href: "/dropshipping/boosters", section: "OTHERS" },
+    { name: "Integrations (In progress)", icon: Link, module: "Integrations (In progress)", href: "/dropshipping/Integration", section: "OTHERS" },
+    { name: "Settings (In progress)", icon: Settings, module: "Settings (In progress)", href: "/dropshipping/settings", section: "OTHERS" },
+    { name: "Terms & Conditions (In progress)", icon: FileText, module: "Terms & Conditions (In progress)", href: "/dropshipping/term-and-condition", section: "OTHERS" }
+  ].filter((item) => {
+    if (!isDropshipperStaff) return true;
+    if (item.children) return true;
+    return extractedPermissions.length > 0 ? hasPermission(item.module, actions) : true;
+  }), [isDropshipperStaff, extractedPermissions]);
   useEffect(() => {
     const initialState = {};
     menuItems.forEach((item) => {

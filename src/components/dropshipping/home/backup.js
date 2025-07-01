@@ -1471,7 +1471,7 @@ const Section = ({ title, showResult, type, setShowResult, products, shopifyStor
                                         ...v
                                     };
                                 }
-                                console.log('variant', variant)
+                                
                                 const imageUrls = variant.image
 
                                 const isExists = selectedProduct?.product?.isVarientExists;

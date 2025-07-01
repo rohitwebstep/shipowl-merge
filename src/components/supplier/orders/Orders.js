@@ -466,7 +466,6 @@ export default function Orders() {
   // ✅ Continue your return(...) block from here — I suggest fixing your filter buttons and looping through `filteredOrders` if needed
 
 
-  console.log('Z94PLQRE', orders)
 
   return (
     <div>
@@ -1033,7 +1032,6 @@ export default function Orders() {
               </tr>
             </thead>
             <tbody>
-              {console.log('orders-----------------96666666666', orders)}
 
               {orders.map((order, index) => {
 

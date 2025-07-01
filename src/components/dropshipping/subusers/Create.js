@@ -240,7 +240,6 @@ export default function Create() {
     acc[perm.panel][perm.module].push(perm);
     return acc;
   }, {});
-  console.log('groupedPermissions', groupedPermissions)
 
   const formFields = [
     { label: "Name", name: "name", type: "text", required: true },

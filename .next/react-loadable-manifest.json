@@ -4,5 +4,47 @@
     "files": [
       "static/chunks/_app-pages-browser_node_modules_next_dist_client_dev_noop-turbopack-hmr_js.js"
     ]
+  },
+  "app\\dropshipping\\page.js -> @/components/dropshipping/home/Home": {
+    "id": "app\\dropshipping\\page.js -> @/components/dropshipping/home/Home",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_dropshipping_home_Home_js.js"
+    ]
+  },
+  "components\\dropshipping\\subusers\\List.js -> datatables.net": {
+    "id": "components\\dropshipping\\subusers\\List.js -> datatables.net",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_datatables_net_js_dataTables_mjs.js"
+    ]
+  },
+  "components\\dropshipping\\subusers\\List.js -> datatables.net-buttons": {
+    "id": "components\\dropshipping\\subusers\\List.js -> datatables.net-buttons",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_datatables_net-buttons_js_dataTables_buttons_mjs.js"
+    ]
+  },
+  "components\\dropshipping\\subusers\\List.js -> datatables.net-buttons-dt": {
+    "id": "components\\dropshipping\\subusers\\List.js -> datatables.net-buttons-dt",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_datatables_net-buttons-dt_js_buttons_dataTables_mjs.js"
+    ]
+  },
+  "components\\dropshipping\\subusers\\List.js -> datatables.net-dt": {
+    "id": "components\\dropshipping\\subusers\\List.js -> datatables.net-dt",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_datatables_net-dt_js_dataTables_dataTables_mjs.js"
+    ]
+  },
+  "components\\dropshipping\\subusers\\List.js -> jquery": {
+    "id": "components\\dropshipping\\subusers\\List.js -> jquery",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_jquery_dist_jquery_js.js"
+    ]
+  },
+  "components\\dropshipping\\subusers\\Update.js -> react-select": {
+    "id": "components\\dropshipping\\subusers\\Update.js -> react-select",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_react-select_dist_react-select_esm_js.js"
+    ]
   }
 }

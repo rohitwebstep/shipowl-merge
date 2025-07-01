@@ -49,10 +49,8 @@ function Permission() {
 
       const result = await res.json();
       if (!res.ok) throw new Error(result.message || result.error || `Failed to fetch ${key}`);
-      console.log(`result - `, result);
 
       setter(result[key] || []);
-      console.log(`setter(result[key] || []) - `, result[key]);
 
     } catch (err) {
       Swal.fire("Error", err.message, "error");
@@ -123,8 +121,6 @@ function Permission() {
       Swal.fire("Error", err.message, "error");
     }
   };
-
-console.log(`permissions`, permissions);
 
   return (
     <div>

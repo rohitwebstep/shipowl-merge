@@ -29,7 +29,6 @@ export default function Update() {
     const handleEditorChange = (value) => {
         setDescription(value);
     };
-    console.log('toMails', toMails, ccMails, bccMails)
 
     const handleAddField = (type) => {
         const setter = getSetter(type);
@@ -195,8 +194,6 @@ export default function Update() {
         data.append("to", safeStringify(toMails.filter(({ name, email }) => name || email)));
         data.append("cc", safeStringify(ccMails.filter(({ name, email }) => name || email)));
         data.append("bcc", safeStringify(bccMails.filter(({ name, email }) => name || email)));
-
-        console.log("data", Object.fromEntries(data.entries())); // Optional debug
 
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/admin/email-config/${id}`, {

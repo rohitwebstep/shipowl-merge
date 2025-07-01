@@ -246,8 +246,7 @@ const ProfileProvider = ({ children }) => {
     setBusinessErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  console.log('files', files?.gstDocument)
-  console.log('formData', formData)
+ 
 
   return (
     <ProfileContext.Provider

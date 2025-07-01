@@ -52,7 +52,6 @@ export default function ProductDetails() {
   }, [selectedVariant]);
 
   const handleVariantChange = (id, field, value) => {
-    console.log('id, field, value', id, field, value);
 
     // Global fields (e.g., shopifyApp)
     if (id == null) {
@@ -107,7 +106,6 @@ export default function ProductDetails() {
     }
   };
 
-  console.log('inventoryData', inventoryData)
 
   const stats = [{ label: "Units Sold", value: "200", icon: <Package className="w-7 h-7 text-orange-500" />, },
   { label: "Delivery Rate", value: "180", icon: <Truck className="w-7 h-7 text-orange-500" />, },
@@ -991,7 +989,6 @@ export default function ProductDetails() {
       </section >
       {showPopup && (() => {
         const variant = selectedVariant?.variant;
-        console.log('selectedVariant', selectedVariant)
 
         return (
           <div className="fixed inset-0 bg-black/70 flex justify-end z-50">

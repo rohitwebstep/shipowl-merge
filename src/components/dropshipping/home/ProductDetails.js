@@ -148,14 +148,12 @@ export default function ProductDetails() {
   };
 
   //calc acc to shipowl 
-  console.log('selectedVariant', selectedVariant)
   const [ordersGiven, setOrdersGiven] = useState(0);
   const [sellingPrice, setSellingPrice] = useState(0);
   const [successRatio, setSuccessRatio] = useState(0);
   const [adSpend, setAdSpend] = useState(0); // Now used in both models
 
   const productPrice = Number(selectedVariant?.price || 0);
-  console.log('productPrice', productPrice)
   const shippingCost = Number(shipCost || 75);
   const isSelfShip = selectedVariant?.variant?.model.toLowerCase() === "selfship" || selectedVariant?.supplierProductVariant?.variant?.model.toLowerCase() === "selfship";
 
@@ -393,19 +391,12 @@ export default function ProductDetails() {
       const form = new FormData();
       let simplifiedVariants = [];
 
-      console.log("Inventory Data:", inventoryData);
-      console.log("Grouped By Model:", groupedByModalForPushToShopify);
-      console.log("Model Names:", modalNamesForPushToShopify);
-      console.log("Total Modals:", totalModalsForPushToShopify);
-
       if (
         totalModalsForPushToShopify === 2 &&
         modalNamesForPushToShopify.every((model) => groupedByModalForPushToShopify[model]?.length === 1)
       ) {
-        console.log("CASE: 2 modals, 1 variant each");
 
         const selectedVariant = inventoryData.variant.find((v) => v.selected);
-        console.log("Selected Variant Entry:", selectedVariant);
 
         if (selectedVariant) {
           simplifiedVariants = [{
@@ -418,7 +409,6 @@ export default function ProductDetails() {
         totalModalsForPushToShopify === 1 &&
         groupedByModalForPushToShopify[modalNamesForPushToShopify[0]]?.length > 1
       ) {
-        console.log("CASE: 1 model, multiple variants — push ALL from that model");
 
         const model = modalNamesForPushToShopify[0];
         const variants = groupedByModalForPushToShopify[model];
@@ -428,13 +418,10 @@ export default function ProductDetails() {
           price: v.dropPrice,
         }));
 
-        console.log("Variants pushed:", simplifiedVariants);
-
       } else if (
         totalModalsForPushToShopify > 1 &&
         modalNamesForPushToShopify.some((model) => groupedByModalForPushToShopify[model]?.length > 1)
       ) {
-        console.log("CASE: multiple modals with multiple variants — push all from selected model");
 
         if (selectedVariant) {
           const selectedModal =
@@ -446,21 +433,15 @@ export default function ProductDetails() {
             variantId: v.id || v.variantId,
             price: v.dropPrice,
           }));
-
-          console.log("Selected Model:", selectedModal);
-          console.log("Variants in Selected Model:", modalVariants);
         }
 
       } else {
-        console.log("DEFAULT CASE: push all variants");
 
         simplifiedVariants = inventoryData.variant.map((v) => ({
           variantId: v.id || v.id,
           price: v.dropPrice,
         }));
       }
-
-      console.log("Final simplifiedVariants to submit:", simplifiedVariants);
 
       form.append('supplierProductId', inventoryData.supplierProductId);
       form.append('shopifyApp', inventoryData.shopifyApp);
@@ -525,7 +506,6 @@ export default function ProductDetails() {
       setLoading(false);
     }
   };
-  console.log('setInventoryData', inventoryData)
   return (
     <>
       <section className="relative productsingal-page pb-[100px]">

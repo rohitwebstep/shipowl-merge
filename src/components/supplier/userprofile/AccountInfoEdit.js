@@ -257,7 +257,6 @@ const AccountInfoEdit = () => {
             return;
         }
 
-        console.log(`dropshipperData - `, dropshipperData);
 
         const token = dropshipperData?.security?.token;
         if (!token) {

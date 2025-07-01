@@ -7,7 +7,6 @@ const ImageURLContext = createContext();
 export const ImageURLProvider = ({ children }) => {
   function fetchImages(url) {
     if (!url || typeof url !== 'string') {
-      console.log(`Invalid URL - `, url);
       return 'https://placehold.co/400';
     }
 
@@ -20,7 +19,6 @@ export const ImageURLProvider = ({ children }) => {
     const splitPart = url.split('tmp');
 
     if (splitPart.length < 2) {
-      console.log(`URL missing '/tmp/' segment - `, url);
       return 'https://placehold.co/400';
     }
 
