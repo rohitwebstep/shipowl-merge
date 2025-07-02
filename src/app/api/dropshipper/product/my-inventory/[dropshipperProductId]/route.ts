@@ -221,6 +221,8 @@ export async function PUT(req: NextRequest) {
 
     const productPayload = {
       supplierProductId,
+      shopifyStoreId: dropshipperProduct.shopifyStoreId,
+      shopifyProductId: dropshipperProduct.shopifyProductId ?? '',
       dropshipperId: mainDropshipperId,
       variants: parsedVariants,
       createdBy: mainDropshipperId,
