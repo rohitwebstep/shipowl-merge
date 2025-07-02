@@ -60,9 +60,9 @@ const AccountDetails = () => {
           <Image
             src={fetchImages(formData.profilePicture)}
             alt="Profile image"
-            height={100}
-            width={100}
-            className="w-full h-full object-cover rounded-full p-3"
+            height={40}
+            width={40}
+            className="md:w-full w-6/12 h-full object-cover rounded-full p-3"
           />
 
           {/* Hidden input */}

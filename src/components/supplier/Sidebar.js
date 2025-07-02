@@ -34,7 +34,7 @@ export default function Sidebar() {
   const actions = [
     "View Listing", "Update", "Create", "Listing", "View",
     "Soft Delete", "Permanent Delete", "Restore", "Trash Listing",
-    "Bank Account Change Request", "Bank Account Change Request Review", "RTO", "Need to Raise", "Warehouse Collected", "report"
+    "Bank Account Change Request", "Bank Account Change Request Review", "RTO", "Need to Raise", "Warehouse Collected", "report", "Add to List"
   ];
 
   const hasPermission = (module, actionList) => {

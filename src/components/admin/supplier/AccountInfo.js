@@ -144,7 +144,7 @@ const handleChange = (e) => {
 
   return (
     <div className="bg-white lg:p-10 p-3 rounded-tr-none rounded-tl-none rounded-2xl">
-     <div className="grid lg:grid-cols-3 gap-4 py-5">
+     <div className="grid lg:grid-cols-3 grid-cols-1 gap-4 py-5">
   {/* Account Holder Name */}
   <div>
     <label className="block text-[#232323] font-bold mb-1">

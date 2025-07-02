@@ -46,7 +46,7 @@ const Header = () => {
     };
     
   return (
-    <nav className="fixed rounded-xl lg:relative lg:mt-3 top-0 left-0 w-full bg-white   p-4 flex items-center justify-between lg:shadow-none">
+    <nav className="fixed z-50 rounded-xl lg:relative lg:mt-3 top-0 left-0 w-full bg-white   p-4 flex items-center justify-between lg:shadow-none">
       <button className="p-2 bg-black text-white rounded-full ">
         <HiBars3CenterLeft className="w-6 h-6" />
       </button>

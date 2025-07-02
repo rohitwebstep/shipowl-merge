@@ -11,13 +11,16 @@ import Image from 'next/image';
 import { Navigation } from 'swiper/modules';
 import { useImageURL } from "@/components/ImageURLContext";
 import { FaTags } from "react-icons/fa";
+import { useDropshipper } from '../middleware/DropshipperMiddleWareContext';
 const tabs = [
   { key: "notmy", label: "Not Pushed to Shopify" },
   { key: "my", label: "Pushed to Shopify" },
 ];
 export default function ProductDetails() {
   const [isSticky, setIsSticky] = useState(false);
-
+  const { hasPermission } = useDropshipper();
+  const canPushToShopify = hasPermission("Product", "Push to Shopify");
+  const canEditFromShopify = hasPermission("Product", "Update");
   useEffect(() => {
     const handleScroll = () => {
       setIsSticky(window.scrollY > 50);
@@ -52,7 +55,7 @@ export default function ProductDetails() {
     model: 'Selfship',
     variant: [],
     isVarientExists: '',
-    shopifyApp: '',
+    shopifyStore: '',
   });
 
   const [tooltipIndex, setTooltipIndex] = useState(null);
@@ -70,7 +73,7 @@ export default function ProductDetails() {
   }, [selectedVariant]);
 
   const handleVariantChange = (id, field, value) => {
-    // If field is global (e.g., shopifyApp), update it at root level
+    // If field is global (e.g., shopifyStore), update it at root level
     if (id == null) {
       setInventoryData((prevData) => ({
         ...prevData,
@@ -444,7 +447,7 @@ export default function ProductDetails() {
       }
 
       form.append('supplierProductId', inventoryData.supplierProductId);
-      form.append('shopifyApp', inventoryData.shopifyApp);
+      form.append('shopifyStore', inventoryData.shopifyStore);
       form.append('variants', JSON.stringify(simplifiedVariants));
 
 
@@ -485,7 +488,7 @@ export default function ProductDetails() {
             variant: [],
             id: '',
             model: 'Selfship',
-            shopifyApp: ''
+            shopifyStore: ''
           });
           setShowPopup(false);
           fetchProduct('my');
@@ -1118,7 +1121,7 @@ export default function ProductDetails() {
               >
                 <div className="flex gap-3 justify-center">
                   {/* Push to Shopify */}
-                  {type === 'notmy' ? (
+                  {canPushToShopify && type === 'notmy'(
                     <button
                       onClick={() => {
                         setShowPopup(true);
@@ -1135,29 +1138,32 @@ export default function ProductDetails() {
                     >
                       <ArrowUpRight /> Push To Shopify
                     </button>
-                  ) : (
+                  )}
+                  {canEditFromShopify && type !== 'notmy'(
                     <button
                       onClick={() => handleEdit(product.id)}
                       className="p-20 py-5 rounded-md mt-2 text-white md:text-sm text-xs bg-black hover:bg-gray-800 transition duration-300 ease-in-out hover:scale-[1.02]"
                     >
                       Edit From Shopify
                     </button>
-                  )}
+                  )
+                  }
                 </div>
 
                 {/* Inline keyframes */}
                 <style jsx>{`
-    @keyframes slideUp {
-      from {
-        transform: translateY(100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-  `}</style>
+                @keyframes slideUp {
+                  from {
+                    transform: translateY(100%);
+                    opacity: 0;
+                  }
+                  to {
+                    transform: translateY(0);
+                    opacity: 1;
+                  }
+                }
+              `}
+              </style>
               </div>
 
             </div>
@@ -1198,10 +1204,10 @@ export default function ProductDetails() {
 
                     <select
                       className="border border-[#E0E2E7] p-2 rounded-md"
-                      name="shopifyApp"
-                      id="shopifyApp"
-                      onChange={(e) => handleVariantChange(null, 'shopifyApp', e.target.value)}
-                      value={inventoryData.shopifyApp || ''}
+                      name="shopifyStore"
+                      id="shopifyStore"
+                      onChange={(e) => handleVariantChange(null, 'shopifyStore', e.target.value)}
+                      value={inventoryData.shopifyStore || ''}
                     >
                       <option value="">Select Store</option>
                       {shopifyStores.map((item, index) => (
@@ -1438,7 +1444,7 @@ export default function ProductDetails() {
                           group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:pointer-events-auto
                           transition-all duration-300"
                     >
-                      {activeTab === "notmy" && (
+                      {canPushToShopify && activeTab === "notmy" && (
                         <button
                           onClick={() => {
                             setShowPopup(true);
@@ -1455,7 +1461,7 @@ export default function ProductDetails() {
                         </button>
                       )}
 
-                      {activeTab === "my" && (
+                      {canEditFromShopify && activeTab === "my" && (
                         <button
                           onClick={() => handleEdit(product.id)}
                           className="py-2 px-4 mt-2 text-white rounded-md md:text-sm  text-xs  bg-black hover:bg-gray-800 transition duration-300 ease-in-out"

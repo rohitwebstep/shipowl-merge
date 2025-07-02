@@ -733,6 +733,62 @@ export const removeProductImageByIndex = async (
     }
 };
 
+export const removeProductVariantImageByIndex = async (
+    variantId: number,
+    imageIndex: number
+) => {
+    try {
+        const { status, variant, message } = await getProductVariantById(variantId);
+
+        if (!status || !variant) {
+            return { status: false, message: message || "Variant not found." };
+        }
+
+        const images = variant.image;
+
+        console.log(`Images :`, images);
+
+        if (!images) {
+            return { status: false, message: "No images available to delete." };
+        }
+
+        const imagesArr = images.split(",");
+
+        if (imageIndex < 0 || imageIndex >= imagesArr.length) {
+            return { status: false, message: "Invalid image index provided." };
+        }
+
+        const removedImage = imagesArr.splice(imageIndex, 1)[0]; // Remove image at given index
+        const updatedImages = imagesArr.join(",");
+
+        // Update product in DB
+        const updatedProduct = await prisma.productVariant.update({
+            where: { id: variantId },
+            data: { image: updatedImages },
+        });
+
+        // 🔥 Attempt to delete the image file from storage
+        const imageFileName = path.basename(removedImage.trim());
+        const filePath = path.join(process.cwd(), "public", "uploads", "product", imageFileName);
+
+        const fileDeleted = await deleteFile(filePath);
+
+        return {
+            status: true,
+            message: fileDeleted
+                ? "Image removed and file deleted successfully."
+                : "Image removed, but file deletion failed.",
+            product: serializeBigInt(updatedProduct),
+        };
+    } catch (error) {
+        console.error("❌ Error removing product image:", error);
+        return {
+            status: false,
+            message: "An unexpected error occurred while removing the image.",
+        };
+    }
+};
+
 // 🔵 GET BY ID
 export const getProductById = async (id: number, includeOtherSuppliers: boolean = false) => {
     try {

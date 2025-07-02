@@ -18,7 +18,7 @@ const actions = [
   "View Listing", "Update", "Create", "Listing", "View",
   "Soft Delete", "Permanent Delete", "Restore", "Trash Listing",
   "Bank Account Change Request", "Bank Account Change Request Review",
-  "RTO", "Need to Raise", "Warehouse Collected", "report"
+  "RTO", "Need to Raise", "Warehouse Collected", "report","Push to Shopify"
 ];
 
 const Sidebar = () => {
@@ -104,7 +104,7 @@ const hasPermission = (module, actionList) => {
       </button>
 
       {isSidebarOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-10 z-40 lg:hidden" />
+        <div className="fixed inset-0 bg-[#00000038] bg-opacity-10 z-40 lg:hidden" />
       )}
 
       <aside className={`fixed top-0 left-0 w-72 h-[500px] lg:h-full overflow-auto bg-white z-50 rounded-xl shadow-lg p-4 transition-transform duration-300 ease-in-out

@@ -175,7 +175,7 @@ const SourceProductForm = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/admin/category`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/dropshipper/category`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -187,7 +187,7 @@ const SourceProductForm = () => {
             if (response.ok) {
                 setCategoryData(result?.categories || []);
             } else {
-                alert(result.message || "Failed to fetch categories.");
+                console.log(result.message || result.error || "Failed to fetch categories.");
             }
         } catch (error) {
             console.error("Error fetching categories:", error);
@@ -201,7 +201,7 @@ const SourceProductForm = () => {
     }, [fetchCategory]);
 
     return (
-        <div className="md:w-8/12">
+        <div className="lg:w-8/12">
             <form onSubmit={handleSubmit} className="w-full py-6">
                 <h2 className="md:text-3xl text-xl font-semibold text-[#F98F5C]">Source A Product</h2>
                 <div className="border-b-4 w-3/12 border-[#F98F5C] mb-4"></div>

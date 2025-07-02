@@ -22,58 +22,24 @@ export default function List() {
 
     const { verifyAdminAuth, isAdminStaff, checkAdminRole, extractedPermissions } = useAdmin();
 
-    const shouldCheckPermissions = isAdminStaff && extractedPermissions.length > 0;
+   const shouldCheckPermissions = isAdminStaff && extractedPermissions.length > 0;
 
+const hasPermission = (action) =>
+  !shouldCheckPermissions ||
+  extractedPermissions.some(
+    (perm) =>
+      perm.module === "Bad Pincode" &&
+      perm.action === action &&
+      perm.status === true
+  );
 
-    const canViewTrashed = shouldCheckPermissions
-        ? extractedPermissions.some(
-            (perm) =>
-                perm.module === "Bad Pincode" &&
-                perm.action === "Trash Listing" &&
-                perm.status === true
-        )
-        : true;
-    const canAdd = shouldCheckPermissions
-        ? extractedPermissions.some(
-            (perm) =>
-                perm.module === "Bad Pincode" &&
-                perm.action === "Create" &&
-                perm.status === true
-        )
-        : true;
+const canViewTrashed = hasPermission("Trash Listing");
+const canAdd = hasPermission("Create");
+const canDelete = hasPermission("Permanent Delete");
+const canEdit = hasPermission("Update");
+const canSoftDelete = hasPermission("Soft Delete");
+const canRestore = hasPermission("Restore");
 
-    const canDelete = shouldCheckPermissions
-        ? extractedPermissions.some(
-            (perm) =>
-                perm.module === "Bad Pincode" &&
-                perm.action === "Permanent Delete" &&
-                perm.status === true
-        )
-        : true;
-    const canEdit = shouldCheckPermissions
-        ? extractedPermissions.some(
-            (perm) =>
-                perm.module === "Bad Pincode" &&
-                perm.action === "Update" &&
-                perm.status === true
-        )
-        : true;
-    const canSoftDelete = shouldCheckPermissions
-        ? extractedPermissions.some(
-            (perm) =>
-                perm.module === "Bad Pincode" &&
-                perm.action === "Soft Delete" &&
-                perm.status === true
-        )
-        : true;
-    const canRestore = shouldCheckPermissions
-        ? extractedPermissions.some(
-            (perm) =>
-                perm.module === "Bad Pincode" &&
-                perm.action === "Restore" &&
-                perm.status === true
-        )
-        : true;
     useEffect(() => {
         verifyAdminAuth();
         checkAdminRole();

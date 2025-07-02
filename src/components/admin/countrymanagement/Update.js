@@ -221,7 +221,7 @@ export default function Update() {
     <div className="p-6 lg:w-10/12 space-y-6">
       <h2 className="text-2xl font-semibold">Country Management</h2>
       <form onSubmit={handleSubmit} className="p-4 rounded-md bg-white shadow space-y-4">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="md:grid grid-cols-2 gap-4">
           {[
             { label: "Country Name", name: "name", required: true },
             { label: "ISO 2 Code", name: "iso2", required: true },

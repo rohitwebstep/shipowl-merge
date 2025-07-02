@@ -162,7 +162,18 @@ export default function Payments() {
                 }
 
                 // Reinitialize DataTable with new data
-                table = $('#payments').DataTable();
+                const isMobile = window.innerWidth <= 768;
+                const pagingType = isMobile ? 'simple' : 'simple_numbers';
+
+                table = $('#payments').DataTable({
+                    pagingType,
+                    language: {
+                        paginate: {
+                            previous: "<",
+                            next: ">"
+                        }
+                    }
+                });
 
                 return () => {
                     if (table) {
@@ -423,8 +434,28 @@ export default function Payments() {
                     >
                         <MoreHorizontal className="text-[#F98F5C]" />
                         {isPopupOpen && (
-                            <div className="absolute left-0 mt-2 w-40 bg-white rounded-md shadow-lg z-10">
+                            <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg z-10">
                                 <ul className="py-2 text-sm text-[#2B3674]">
+                                    <li className="md:hidden block px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                                        {canViewTrashed && <button
+                                            className={`p-3 text-white rounded-md ${isTrashed ? 'bg-green-500' : 'bg-red-500'}`}
+                                            onClick={async () => {
+                                                if (isTrashed) {
+                                                    setIsTrashed(false);
+                                                    await fetchPayments();
+                                                } else {
+                                                    setIsTrashed(true);
+                                                    await trashedPayments();
+
+                                                }
+                                            }}
+                                        >
+                                            {isTrashed ? "Payments Listing (Simple)" : "Trashed Payments"}
+                                        </button>}
+                                    </li>
+                                    <li className="px-4 py-2 md:hidden block hover:bg-gray-100 cursor-pointer">{canCreate && <Link href="/dropshipping/payments/create">
+                                        <button className="bg-[#4285F4] text-white rounded-md p-3 px-8">Add New</button>
+                                    </Link>}</li>
                                     <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Export CSV</li>
                                     <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Bulk Delete</li>
                                     <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Settings</li>
@@ -433,7 +464,7 @@ export default function Payments() {
                         )}
                     </button>
                     {canViewTrashed && <button
-                        className={`p-3 text-white rounded-md ${isTrashed ? 'bg-green-500' : 'bg-red-500'}`}
+                        className={`p-3 text-white hidden md:block rounded-md ${isTrashed ? 'bg-green-500' : 'bg-red-500'}`}
                         onClick={async () => {
                             if (isTrashed) {
                                 setIsTrashed(false);
@@ -448,7 +479,7 @@ export default function Payments() {
                         {isTrashed ? "Payments Listing (Simple)" : "Trashed Payments"}
                     </button>}
                     {canCreate && <Link href="/dropshipping/payments/create">
-                        <button className="bg-[#4285F4] text-white rounded-md p-3 px-8">Add New</button>
+                        <button className="bg-[#4285F4] text-white  hidden md:block rounded-md p-3 px-8">Add New</button>
                     </Link>}
                 </div>
             </div>
@@ -458,19 +489,19 @@ export default function Payments() {
                         <table className="md:w-full w-auto display main-tables" id="payments">
                             <thead>
                                 <tr className="border-b text-[#A3AED0] border-[#E9EDF7] text-sm">
-                                    <th className="p-2 px-5 uppercase text-left">#</th>
-                                    <th className="p-2 px-5 uppercase text-left">Date</th>
-                                    <th className="p-2 px-5 uppercase text-left">Transaction ID</th>
-                                    <th className="p-2 px-5 uppercase text-left">Cycle</th>
-                                    <th className="p-2 px-5 uppercase text-right">Amount</th>
-                                    <th className="p-2 px-5 uppercase text-center">Status</th>
-                                    <th className="p-2 px-5 uppercase text-center">Actions</th>
+                                    <th className="p-2 px-5 uppercase whitespace-nowrap text-left">#</th>
+                                    <th className="p-2 px-5 uppercase whitespace-nowrap text-left">Date</th>
+                                    <th className="p-2 px-5 uppercase whitespace-nowrap text-left">Transaction ID</th>
+                                    <th className="p-2 px-5 uppercase whitespace-nowrap text-left">Cycle</th>
+                                    <th className="p-2 px-5 uppercase whitespace-nowrap text-right">Amount</th>
+                                    <th className="p-2 px-5 uppercase whitespace-nowrap text-center">Status</th>
+                                    <th className="p-2 px-5 uppercase whitespace-nowrap text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {data.map((item) => (
                                     <tr key={item.id} className="border-b border-[#E9EDF7] text-[#2B3674] font-medium text-sm">
-                                        <td className="p-2 px-5">
+                                        <td className="p-2 px-5 whitespace-nowrap">
                                             <label className="flex items-center cursor-pointer">
                                                 <input
                                                     type="checkbox"
@@ -484,17 +515,17 @@ export default function Payments() {
                                                 </div>
                                             </label>
                                         </td>
-                                        <td className="p-2 px-5">
+                                        <td className="p-2 px-5 whitespace-nowrap">
                                             {new Date(item.date).toLocaleDateString("en-IN", {
                                                 year: "numeric",
                                                 month: "short",
                                                 day: "numeric",
                                             })}
                                         </td>
-                                        <td className="p-2 px-5">{item.transactionId}</td>
-                                        <td className="p-2 px-5">{item.cycle}</td>
-                                        <td className="p-2 px-5 text-right">₹{item.amount.toLocaleString()}</td>
-                                        <td className="p-2 px-5 text-center">
+                                        <td className="p-2 px-5 whitespace-nowrap">{item.transactionId}</td>
+                                        <td className="p-2 px-5 whitespace-nowrap">{item.cycle}</td>
+                                        <td className="p-2 px-5 whitespace-nowrap text-right">₹{item.amount.toLocaleString()}</td>
+                                        <td className="p-2 px-5 whitespace-nowrap text-center">
                                             <span
                                                 className={`px-2 py-1 rounded-full text-xs font-semibold ${item.status.toLowerCase() === "success"
                                                     ? "bg-green-100 text-green-600"
@@ -506,7 +537,7 @@ export default function Payments() {
                                                 {item.status}
                                             </span>
                                         </td>
-                                        <td className="p-2 px-5 text-center">
+                                        <td className="p-2 px-5 whitespace-nowrap text-center">
                                             <div className="flex justify-end gap-2">{isTrashed ? (
                                                 <>
                                                     {canRestore && <MdRestoreFromTrash onClick={() => handleRestore(item)} className="cursor-pointer text-3xl text-green-500" />}

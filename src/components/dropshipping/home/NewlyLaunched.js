@@ -11,8 +11,10 @@ import productimg from '@/app/assets/product1.png';
 import { X, ClipboardCopy, HelpCircle, Upload, Store, Star } from 'lucide-react';
 import CategorySection from './CatogorySection'
 import { useImageURL } from "@/components/ImageURLContext";
+import { useDropshipper } from '../middleware/DropshipperMiddleWareContext';
 const NewlyLaunched = () => {
   const router = useRouter();
+  const { hasPermission } = useDropshipper();
   const [shipCost, setShipCost] = useState([]);
   const [showResult, setShowResult] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState('');
@@ -24,7 +26,8 @@ const NewlyLaunched = () => {
   const { fetchImages } = useImageURL();
   const [openSection, setOpenSection] = useState(null);
   const [activeModalPushToShopify, setActiveModalPushToShopify] = useState('Shipowl');
-
+  const canPushToShopify = hasPermission("Product", "Push to Shopify");
+  const canEditFromShopify = hasPermission("Product", "Update");
   const [form, setForm] = useState({
     dropPrice: '',
     totalOrderQty: '',
@@ -76,10 +79,10 @@ const NewlyLaunched = () => {
     model: 'Selfship',
     variant: [],
     isVarientExists: '',
-    shopifyApp: '',
+    shopifyStore: '',
   });
   const handleVariantChange = (id, field, value) => {
-    // If field is global (e.g., shopifyApp), update it at root level
+    // If field is global (e.g., shopifyStore), update it at root level
     if (id == null) {
       setInventoryData((prevData) => ({
         ...prevData,
@@ -229,7 +232,7 @@ const NewlyLaunched = () => {
 
 
       form.append('supplierProductId', inventoryData.supplierProductId);
-      form.append('shopifyApp', inventoryData.shopifyApp);
+      form.append('shopifyStore', inventoryData.shopifyStore);
       form.append('variants', JSON.stringify(simplifiedVariants));
 
 
@@ -270,7 +273,7 @@ const NewlyLaunched = () => {
             variant: [],
             id: '',
             model: 'Selfship',
-            shopifyApp: ''
+            shopifyStore: ''
           });
           setShowPopup(false);
           fetchProduct('my');
@@ -393,7 +396,7 @@ const NewlyLaunched = () => {
               View All <IoIosArrowForward className="text-[#F98F5C]" />
             </Link>
           </div>
-          <div className="md:w-[293px] border-b-3 border-[#F98F5C] mt-1 mb-4"></div>
+          <div className="md:w-[293px] border-b-3 w-4/12 border-[#F98F5C] mt-1 mb-4"></div>
 
           {/* Product Grid */}
           {products.length === 0 ? (
@@ -502,7 +505,7 @@ const NewlyLaunched = () => {
                            group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:pointer-events-auto
                            transition-all duration-300"
                     >
-                      {activeTab === "notmy" && (
+                      {canPushToShopify && activeTab === "notmy" && (
                         <button
                           onClick={() => {
                             setShowPopup(true);
@@ -511,15 +514,17 @@ const NewlyLaunched = () => {
                               id: product.id,
                               variant: product.variants,
                               isVarientExists: product?.product?.isVarientExists,
-                              shopifyApp: "",
-                              model: 'Selfship',
+                              shopifyStore: "",
+                              model: "Selfship",
                             });
                           }}
-                          className="w-full py-2 px-4 md:text-sm  text-xs text-white rounded-md  bg-[#2B3674] hover:bg-[#1f285a] transition-colors duration-200"
+                          className="w-full py-2 px-4 md:text-sm text-xs text-white rounded-md bg-[#2B3674] hover:bg-[#1f285a] transition-colors duration-200"
                         >
                           Push To Shopify
                         </button>
                       )}
+
+
 
                       <button
                         onClick={() => {
@@ -531,7 +536,7 @@ const NewlyLaunched = () => {
                         View Variants
                       </button>
 
-                      {activeTab === "my" && (
+                         {canEditFromShopify && activeTab === "my" && (
                         <button
                           onClick={() => handleEdit(product.id)}
                           className="w-full py-2 px-4 mt-2 text-white rounded-md md:text-sm  text-xs  bg-black hover:bg-gray-800 transition-colors duration-200"
@@ -579,10 +584,10 @@ const NewlyLaunched = () => {
 
                       <select
                         className="border border-[#E0E2E7] p-2 rounded-md"
-                        name="shopifyApp"
-                        id="shopifyApp"
-                        onChange={(e) => handleVariantChange(null, 'shopifyApp', e.target.value)}
-                        value={inventoryData.shopifyApp || ''}
+                        name="shopifyStore"
+                        id="shopifyStore"
+                        onChange={(e) => handleVariantChange(null, 'shopifyStore', e.target.value)}
+                        value={inventoryData.shopifyStore || ''}
                       >
                         <option value="">Select Store</option>
                         {shopifyStores.map((item, index) => (

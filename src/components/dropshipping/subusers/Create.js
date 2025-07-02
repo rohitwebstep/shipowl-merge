@@ -270,7 +270,7 @@ export default function Create() {
         />
         {errors.profilePicture && <p className="text-red-500 text-sm">{errors.profilePicture}</p>}
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="md:grid lg:grid-cols-3 md:grid-cols-2 gap-4 grid-cols-1">
         {formFields.map(({ label, name, type, required }) => (
           <div key={name}>
             <label className="block text-[#232323] font-bold mb-1">
@@ -306,7 +306,7 @@ export default function Create() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mt-3">
+      <div className="md:grid lg:grid-cols-3 md:grid-cols-2 gap-4 grid-cols-1 mt-3">
         {["permanentCountry", "permanentState", "permanentCity"].map((field) => (
           <div key={field} className="relative">
             <label className="block text-[#232323] font-bold mb-1 capitalize">

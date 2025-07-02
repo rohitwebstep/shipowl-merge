@@ -5,13 +5,22 @@ import { useAdmin } from '../middleware/AdminMiddleWareContext';
 import { useRouter } from 'next/navigation';
 import HashLoader from "react-spinners/HashLoader";
 export default function List() {
-    const { verifyAdminAuth } = useAdmin();
+    const { verifyAdminAuth ,isAdminStaff,extractedPermissions} = useAdmin();
     const router = useRouter();
     const [modalVisible, setModalVisible] = useState(false);
     const [emails, setEmails] = useState([]);
     const [selectedDescription, setSelectedDescription] = useState('');
     const [loading, setLoading] = useState(null);
+   const shouldCheckPermissions = isAdminStaff && extractedPermissions.length > 0;
 
+    const hasPermission = (action) =>
+        !shouldCheckPermissions ||
+        extractedPermissions.some(
+            (perm) =>
+                perm.module === "Mail" && perm.action === action && perm.status === true
+        );
+
+    const canEdit = hasPermission("Update");
 
 
     const fetchEmails = useCallback(async () => {
@@ -213,7 +222,10 @@ export default function List() {
                                     </td>
 
                                     <td className="px-6 py-4 whitespace-nowrap text-center">
-                                        <button className="text-indigo-600 hover:underline" onClick={() => handleEdit(item.id)}>Edit</button>
+                                        {
+                                            canEdit && <button className="text-indigo-600 hover:underline" onClick={() => handleEdit(item.id)}>Edit</button>
+                                        }
+                                        
                                     </td>
                                 </tr>
                             ))}

@@ -27,11 +27,11 @@ export default function HighRto() {
 
         <div className="text-gray-700 space-y-4">
           <p>These pincodes can be used as negative locations in Facebook’s Ad Manager</p>
-          <ol className="list-decimal pl-5 space-y-2">
+          <ol className="list-decimal md:pl-5 pl-2 space-y-2">
             <li>Download the list of pincodes from the above link.</li>
             <li>
               Collate the pincodes in a comma-separated form
-              <ol className="list-disc pl-5 mt-1 space-y-1 text-sm">
+              <ol className="list-disc md:pl-5 pl-2 mt-1 space-y-1 text-sm">
                 <li>You can do this in Excel itself using the <code className="bg-gray-100 px-1 rounded">textjoin</code> function.</li>
                 <li>Or use free sites like delim.co and paste the pincodes from the downloaded file.</li>
                 <li>Your output should look like this – <em>784514,784148,784529,784145</em>.</li>
@@ -39,7 +39,7 @@ export default function HighRto() {
             </li>
             <li>
               Open your Facebook Ad Manager and create your ads as you normally would
-              <ol className="list-disc pl-5 mt-1 space-y-1 text-sm">
+              <ol className="list-disc md:pl-5 pl-2 mt-1 space-y-1 text-sm">
                 <li>In the location section, choose <strong>Exclude</strong> and click on <strong>Add locations in bulk</strong>.</li>
                 <li>Choose the postal code option and paste the pincodes in a comma-separated form.</li>
               </ol>

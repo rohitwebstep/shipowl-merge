@@ -158,7 +158,7 @@ export default function Update() {
         );
     }
     return (
-        <div className="bg-white lg:w-9/12 mt-10 rounded-2xl p-8 shadow-md">
+        <div className="bg-white lg:w-9/12 mt-10 rounded-2xl md:p-8 shadow-md p-4">
             <h2 className="text-2xl font-bold text-[#2B3674] mb-6">Update Payment</h2>
 
             <form onSubmit={handleSubmit} className="space-y-6">

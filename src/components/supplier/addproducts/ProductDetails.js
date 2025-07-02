@@ -65,7 +65,7 @@ export default function ProductDetails() {
 
   return (
     <div className="mt-4 lg:p-6 p-3 rounded-2xl bg-white">
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
+      <div className="md:grid lg:grid-cols-3 md:grid-cols-2 gap-4 grid-cols-1">
         <div>
           <label className="block text-[#232323] font-semibold">
             Product Category <span className="text-red-500">*</span>
@@ -129,7 +129,7 @@ export default function ProductDetails() {
         {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
       </div>
 
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4 mt-4">
+      <div className="md:grid lg:grid-cols-3 md:grid-cols-2 gap-4 grid-cols-1 mt-4">
 
         <div>
           <label className="block text-[#232323] font-semibold mb-2">Product Tags<span className="text-red-500">*</span></label>
@@ -183,7 +183,7 @@ export default function ProductDetails() {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4 mt-4">
+      <div className="md:grid lg:grid-cols-3 md:grid-cols-2 gap-4 grid-cols-1 mt-4">
         <div>
           <label className="block text-[#232323] font-semibold">
             Shipping Country <span className="text-red-500">*</span>

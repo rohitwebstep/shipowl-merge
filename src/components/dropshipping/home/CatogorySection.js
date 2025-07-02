@@ -90,19 +90,16 @@ const CategorySection = () => {
     <section className="xl:p-6 pt-5">
       <div className="container">
         <h2 className="md:text-[24px] text-lg text-[#F98F5C] font-lato font-bold">Top Categories</h2>
-        <div className="md:w-[281px] border-b-3 border-[#F98F5C] mt-1 mb-4"></div>
+        <div className="md:w-[281px] w-4/12 border-b-3 border-[#F98F5C] mt-1 mb-4"></div>
 
         {categoryData.length > 0 ? (
           <div className="relative">
-            {/* Left Arrow */}
             <button
               onClick={() => scroll('left')}
               className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2 hover:bg-gray-100 hidden xl:block"
             >
               <ChevronLeft />
             </button>
-
-            {/* Scrollable Container */}
             <div
               ref={scrollRef}
               className="  flex overflow-x-auto gap-4 py-4 justify-between scroll-smooth"
@@ -131,7 +128,6 @@ const CategorySection = () => {
               ))}
             </div>
 
-            {/* Right Arrow */}
             <button
               onClick={() => scroll('right')}
               className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-md rounded-full p-2 hover:bg-gray-100 hidden xl:block"

@@ -222,7 +222,7 @@ export default function Analytics() {
 
     return (
         <div className="p-4 min-h-screen">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6 flex gap-3 items-center">
+            <h1 className="text-2xl font-bold text-gray-800 mb-6 flex gap-3 items-center">
                 <SiGoogleanalytics className="text-orange-500" /> Dropshipper Analytics
             </h1>
 
@@ -249,37 +249,37 @@ export default function Analytics() {
             </div>
 
             {/* Earnings */}
-            <div className="grid md:grid-cols-6 mb-8 gap-3">
+            <div className="grid lg:grid-cols-6 md:grid-cols-3 mb-8 gap-3">
                 <div className=" bg-white p-4 rounded-2xl shadow-md transition hover:shadow-lg">
-                    <h2 className="text-lg flex gap-3 items-center font-semibold text-gray-700 mb-2">
+                    <h2 className="text-lmd flex gap-3 items-center font-semibold text-gray-700 mb-2">
                         <TrendingUp />  Total Earnings
                     </h2>
-                    <p className="text-3xl  text-green-600 font-bold">
+                    <p className="text-2xl  text-green-600 font-bold">
                         ₹{totalEarnings.toFixed(2)}
                     </p>
                 </div>
                 <div className=" bg-white p-4 rounded-2xl shadow-md transition hover:shadow-lg">
-                    <h2 className="text-lg flex gap-3 items-center font-semibold text-gray-700 mb-2">
+                    <h2 className="text-lmd flex gap-3 items-center font-semibold text-gray-700 mb-2">
                         <FaCuttlefish />  Total Supplier Cut
                     </h2>
-                    <p className="text-3xl  text-green-600 font-bold">
+                    <p className="text-2xl  text-green-600 font-bold">
                         ₹{totalSupplierCut.toFixed(2)}
                     </p>
                 </div>
                 <div className=" bg-white p-4 rounded-2xl shadow-md transition hover:shadow-lg">
-                    <h2 className="text-lg flex gap-3 items-center font-semibold text-gray-700 mb-2">
+                    <h2 className="text-lmd flex gap-3 items-center font-semibold text-gray-700 mb-2">
                         <TrendingUp />   Final Earnings
                     </h2>
-                    <p className={`text-3xl  font-bold ${finalEarnings > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                    <p className={`text-2xl  font-bold ${finalEarnings > 0 ? 'text-green-600' : 'text-red-500'}`}>
                         ₹{Math.abs(finalEarnings)}
                     </p>
                 </div>
 
                 {/* Progress */}
                 <div className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition-all">
-                    <h2 className="text-lg font-semibold text-gray-700 mb-1 flex gap-2 items-center"><GiProgression className={` ${progressOrderCount > 0 ? 'text-yellow-500' : 'text-red-500'}`} /> In Progress</h2>
+                    <h2 className="text-lmd font-semibold text-gray-700 mb-1 flex gap-2 items-center"><GiProgression className={` ${progressOrderCount > 0 ? 'text-yellow-500' : 'text-red-500'}`} /> In Progress</h2>
                     <p className="text-sm text-gray-500 mb-2">Orders not yet delivered or RTO delivered</p>
-                    <p className={`text-3xl font-bold ${progressOrderCount > 0 ? 'text-yellow-500' : 'text-red-500'}`}>
+                    <p className={`text-2xl font-bold ${progressOrderCount > 0 ? 'text-yellow-500' : 'text-red-500'}`}>
                         {progressOrderCount}{" "}
                         <span className="text-base text-gray-600 font-medium">
                             ({totalItems > 0 ? ((progressOrderCount / totalItems) * 100).toFixed(2) : 0}%)
@@ -289,9 +289,9 @@ export default function Analytics() {
 
                 {/* Delivered */}
                 <div className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition-all">
-                    <h2 className="text-lg font-semibold text-gray-700 mb-1 flex gap-2 items-center "><FaCheckCircle className={`${deliveredOrderCount > 0 ? 'text-green-600' : 'text-red-500'}`} /> Delivered</h2>
+                    <h2 className="text-lmd font-semibold text-gray-700 mb-1 flex gap-2 items-center "><FaCheckCircle className={`${deliveredOrderCount > 0 ? 'text-green-600' : 'text-red-500'}`} /> Delivered</h2>
                     <p className="text-sm text-gray-500 mb-2">Orders successfully delivered</p>
-                    <p className={`text-3xl font-bold ${deliveredOrderCount > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                    <p className={`text-2xl font-bold ${deliveredOrderCount > 0 ? 'text-green-600' : 'text-red-500'}`}>
                         {deliveredOrderCount}{" "}
                         <span className="text-base text-gray-600 font-medium">
                             ({totalItems > 0 ? ((deliveredOrderCount / totalItems) * 100).toFixed(2) : 0}%)
@@ -301,9 +301,9 @@ export default function Analytics() {
 
                 {/* RTO Delivered */}
                 <div className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition-all">
-                    <h2 className="text-lg font-semibold text-gray-700 mb-1 flex gap-2 items-center"><PiKeyReturnFill className={`${rtoDeliveredOrderCount > 0 ? 'text-blue-600' : 'text-red-500'}`} /> RTO Delivered</h2>
+                    <h2 className="text-lmd font-semibold text-gray-700 mb-1 flex gap-2 items-center"><PiKeyReturnFill className={`${rtoDeliveredOrderCount > 0 ? 'text-blue-600' : 'text-red-500'}`} /> RTO Delivered</h2>
                     <p className="text-sm text-gray-500 mb-2">Orders returned to origin and delivered</p>
-                    <p className={`text-3xl font-bold ${rtoDeliveredOrderCount > 0 ? 'text-blue-600' : 'text-red-500'}`}>
+                    <p className={`text-2xl font-bold ${rtoDeliveredOrderCount > 0 ? 'text-blue-600' : 'text-red-500'}`}>
                         {rtoDeliveredOrderCount}{" "}
                         <span className="text-base text-gray-600 font-medium">
                             ({totalItems > 0 ? ((rtoDeliveredOrderCount / totalItems) * 100).toFixed(2) : 0} %)
@@ -317,120 +317,133 @@ export default function Analytics() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Table */}
                 <div className="bg-white p-4 rounded-2xl shadow-md transition main-outer-wrapper hover:shadow-lg overflow-auto">
-                    <h2 className="text-lg flex gap-3 items-center font-bold text-gray-700 mb-4">
+                    <h2 className="text-lmd flex gap-3 items-center font-bold text-gray-700 mb-4">
                         <Package className="text-orange-500" />  Order Overview
                     </h2>
-                    <table
-                        className="min-w-full text-sm display main-tables"
-                        id="orderTable"
-                    >
-                        <thead>
-                            <tr className="text-left text-gray-500 border-b border-[#E9EDF7]">
-                                <th className="p-2 text-left whitespace-nowrap">Order ID</th>
-                                <th className="p-2 text-left whitespace-nowrap">Date</th>
-                                <th className="p-2 text-left whitespace-nowrap">Status</th>
-                                <th className="p-2 text-left whitespace-nowrap">SubTotal</th>
-                                <th className="p-2 text-left whitespace-nowrap">Supplier Cut</th>
-                                <th className="p-2 text-left whitespace-nowrap">Tax</th>
-                                <th className="p-2 text-left whitespace-nowrap">Total Amount</th>
-                                <th className="p-2 text-center whitespace-nowrap">Profit / Loss</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredOrders.map((order) => {
-                                const isDelivered = order.delivered === true;
-
-                                // Calculate supplier cut for this order
-                                const supplierCut = Array.isArray(order.items)
-                                    ? order.items.reduce((sum, item) => {
-                                        const price = item.dropshipperVariant?.supplierProductVariant?.price || 0;
-                                        const quantity = item.quantity || 1;
-                                        return sum + price * quantity;
-                                    }, 0)
-                                    : 0;
-
-                                // Earnings = order subtotal - supplier cost
-                                const finalEarnings = isDelivered
-                                    ? (order.subtotal || 0) - supplierCut
-                                    : 0;
-
-                                return (
-                                    <tr
-                                        key={order.id}
-                                        className="border-b border-[#E9EDF7] text-gray-700 hover:bg-blue-50 transition"
-                                    >
-                                        <td className="p-2 whitespace-nowrap font-medium">{order.orderNumber}</td>
-                                        <td className="p-2 whitespace-nowrap text-left">{new Date(order.createdAt).toISOString().split("T")[0]}</td>
-                                        <td className="p-2 whitespace-nowrap capitalize">{order.status}</td>
-                                        <td className="p-2 whitespace-nowrap">₹{order.subtotal}</td>
-                                        <td className="p-2 whitespace-nowrap">₹{supplierCut}</td>
-                                        <td className="p-2 whitespace-nowrap">₹{order.tax}</td>
-                                        <td className="p-2 whitespace-nowrap">₹{order.totalAmount}</td>
-                                        <td
-                                            className={`p-2 whitespace-nowrap text-center font-semibold ${finalEarnings >= 0 ? "text-green-600" : "text-red-500"
-                                                }`}
-                                        >
-                                            ₹{Math.abs(finalEarnings)}
-                                        </td>
+                    {
+                        filteredOrders.length > 0 ? (
+                            <table
+                                className="min-w-full text-sm display main-tables"
+                                id="orderTable"
+                            >
+                                <thead>
+                                    <tr className="text-left text-gray-500 border-b border-[#E9EDF7]">
+                                        <th className="p-2 text-left whitespace-nowrap">Order ID</th>
+                                        <th className="p-2 text-left whitespace-nowrap">Date</th>
+                                        <th className="p-2 text-left whitespace-nowrap">Status</th>
+                                        <th className="p-2 text-left whitespace-nowrap">SubTotal</th>
+                                        <th className="p-2 text-left whitespace-nowrap">Supplier Cut</th>
+                                        <th className="p-2 text-left whitespace-nowrap">Tax</th>
+                                        <th className="p-2 text-left whitespace-nowrap">Total Amount</th>
+                                        <th className="p-2 text-center whitespace-nowrap">Profit / Loss</th>
                                     </tr>
-                                );
-                            })}
+                                </thead>
+                                <tbody>
+                                    {filteredOrders.map((order) => {
+                                        const isDelivered = order.delivered === true;
 
-                        </tbody>
-                    </table>
+                                        // Calculate supplier cut for this order
+                                        const supplierCut = Array.isArray(order.items)
+                                            ? order.items.reduce((sum, item) => {
+                                                const price = item.dropshipperVariant?.supplierProductVariant?.price || 0;
+                                                const quantity = item.quantity || 1;
+                                                return sum + price * quantity;
+                                            }, 0)
+                                            : 0;
+
+                                        // Earnings = order subtotal - supplier cost
+                                        const finalEarnings = isDelivered
+                                            ? (order.subtotal || 0) - supplierCut
+                                            : 0;
+
+                                        return (
+                                            <tr
+                                                key={order.id}
+                                                className="border-b border-[#E9EDF7] text-gray-700 hover:bg-blue-50 transition"
+                                            >
+                                                <td className="p-2 whitespace-nowrap font-medium">{order.orderNumber}</td>
+                                                <td className="p-2 whitespace-nowrap text-left">{new Date(order.createdAt).toISOString().split("T")[0]}</td>
+                                                <td className="p-2 whitespace-nowrap capitalize">{order.status}</td>
+                                                <td className="p-2 whitespace-nowrap">₹{order.subtotal}</td>
+                                                <td className="p-2 whitespace-nowrap">₹{supplierCut}</td>
+                                                <td className="p-2 whitespace-nowrap">₹{order.tax}</td>
+                                                <td className="p-2 whitespace-nowrap">₹{order.totalAmount}</td>
+                                                <td
+                                                    className={`p-2 whitespace-nowrap text-center font-semibold ${finalEarnings >= 0 ? "text-green-600" : "text-red-500"
+                                                        }`}
+                                                >
+                                                    ₹{Math.abs(finalEarnings)}
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+
+                                </tbody>
+                            </table>
+
+                        ) : (
+                            <div className="h-[300px] flex items-center justify-center text-gray-500 text-sm border border-dashed rounded-md">
+                                No data available
+                            </div>
+                        )
+                    }
                 </div>
 
                 {/* Chart */}
-                <div className="bg-white p-4 rounded-2xl flex items-center flex-wrap shadow-md transition hover:shadow-lg">
-                    <h2 className="text-lg flex gap-3 items-center mb-6 font-bold text-gray-700">
-                        <TrendingUp className="text-orange-500" />  Profit & Loss Trend
+                <div className="bg-white p-4 rounded-2xl flex items-center flex-wrap shadow-md transition hover:shadow-lg w-full">
+                    <h2 className="text-lmd flex gap-3 items-center mb-6 font-bold text-gray-700">
+                        <TrendingUp className="text-orange-500" /> Profit & Loss Trend
                     </h2>
+
                     <div className="w-full">
-                        <ResponsiveContainer width="100%" height={300}>
-                            <BarChart data={chartData} barCategoryGap="80%">
-                                <XAxis
-                                    dataKey="dateLabel"
-                                    stroke="#000"
-                                    tick={{ fill: "#000", fontSize: 12 }}
-                                />
-                                <YAxis
-                                    stroke="#000"
-                                    tick={{ fill: "#000", fontSize: 12 }}
-                                />
-                                <Tooltip
-                                    contentStyle={{
-                                        backgroundColor: "#ffffff",
-                                        borderRadius: "8px",
-                                        border: "1px solid #e5e7eb",
-                                    }}
-                                    labelStyle={{ fontWeight: "600", color: "#000000" }}
-                                    itemStyle={{ color: "#000000" }}
-                                    cursor={{ fill: "transparent" }} // remove gray hover
-                                />
+                        {chartData?.length > 0 &&
+                            chartData.some((d) => d.profitAmount || d.loss) ? (
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart data={chartData} barCategoryGap="80%">
+                                    <XAxis
+                                        dataKey="dateLabel"
+                                        stroke="#000"
+                                        tick={{ fill: "#000", fontSize: 12 }}
+                                    />
+                                    <YAxis
+                                        stroke="#000"
+                                        tick={{ fill: "#000", fontSize: 12 }}
+                                    />
+                                    <Tooltip
+                                        contentStyle={{
+                                            backgroundColor: "#ffffff",
+                                            borderRadius: "8px",
+                                            border: "1px solid #e5e7eb",
+                                        }}
+                                        labelStyle={{ fontWeight: "600", color: "#000000" }}
+                                        itemStyle={{ color: "#000000" }}
+                                        cursor={{ fill: "transparent" }}
+                                    />
 
-                                {/* Profit bar - blue */}
-                                <Bar
-                                    dataKey="profitAmount"
-                                    name="Profit"
-                                    stackId="a"
-                                    fill="#6AD2FF" // blue
-                                    radius={[8, 8, 0, 0]}
-                                />
-
-                                {/* Loss bar - red */}
-                                <Bar
-                                    dataKey="loss"
-                                    name="Loss"
-                                    stackId="a"
-                                    fill="#F87171" // red
-                                    radius={[8, 8, 0, 0]}
-                                />
-                            </BarChart>
-                        </ResponsiveContainer>
-
-
+                                    <Bar
+                                        dataKey="profitAmount"
+                                        name="Profit"
+                                        stackId="a"
+                                        fill="#6AD2FF"
+                                        radius={[8, 8, 0, 0]}
+                                    />
+                                    <Bar
+                                        dataKey="loss"
+                                        name="Loss"
+                                        stackId="a"
+                                        fill="#F87171"
+                                        radius={[8, 8, 0, 0]}
+                                    />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        ) : (
+                            <div className="h-[300px] flex items-center justify-center text-gray-500 text-sm border border-dashed rounded-md">
+                                No data available
+                            </div>
+                        )}
                     </div>
                 </div>
+
             </div>
         </div>
     );

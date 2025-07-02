@@ -328,8 +328,9 @@ const AccountInfoEdit = () => {
 
     return (
         <div className="bg-white lg:p-10 p-3  rounded-2xl">
-            <div className="grid lg:grid-cols-3 gap-4 py-5">
-                <div>
+            <div className="md:grid lg:grid-cols-3 grid-cols-1 gap-4 py-5">
+                {/* Account Holder Name */}
+                <div className="w-full mb-1">
                     <label className="block text-[#232323] font-bold mb-1">
                         Account Holder Name <span className="text-red-500">*</span>
                     </label>
@@ -347,7 +348,7 @@ const AccountInfoEdit = () => {
                 </div>
 
                 {/* Account Number */}
-                <div>
+                <div className="w-full mb-1">
                     <label className="block text-[#232323] font-bold mb-1">
                         Account Number <span className="text-red-500">*</span>
                     </label>
@@ -365,7 +366,7 @@ const AccountInfoEdit = () => {
                 </div>
 
                 {/* Bank Name */}
-                <div>
+                <div className="w-full mb-1">
                     <label className="block text-[#232323] font-bold mb-1">
                         Bank Name <span className="text-red-500">*</span>
                     </label>
@@ -383,7 +384,7 @@ const AccountInfoEdit = () => {
                 </div>
 
                 {/* Bank Branch */}
-                <div>
+                <div className="w-full mb-1">
                     <label className="block text-[#232323] font-bold mb-1">
                         Bank Branch <span className="text-red-500">*</span>
                     </label>
@@ -401,7 +402,7 @@ const AccountInfoEdit = () => {
                 </div>
 
                 {/* IFSC Code */}
-                <div>
+                <div className="w-full mb-1">
                     <label className="block text-[#232323] font-bold mb-1">
                         IFSC Code <span className="text-red-500">*</span>
                     </label>
@@ -419,7 +420,7 @@ const AccountInfoEdit = () => {
                 </div>
 
                 {/* Account Type */}
-                <div>
+                <div className="w-full mb-1">
                     <label className="block text-[#232323] font-bold mb-1">
                         Account Type <span className="text-red-500">*</span>
                     </label>
@@ -442,9 +443,7 @@ const AccountInfoEdit = () => {
 
                 {/* Cancelled Cheque Image */}
                 <div className="col-span-3">
-                    <label className="block text-[#232323] font-bold mb-1">
-                        Cancelled Cheque Image
-                    </label>
+                    <label className="block text-[#232323] font-bold mb-1">Cancelled Cheque Image</label>
                     <input
                         type="file"
                         name="cancelledChequeImage"
@@ -456,51 +455,50 @@ const AccountInfoEdit = () => {
                     {accountErrors.cancelledChequeImage && (
                         <p className="text-red-500 text-sm mt-1">{accountErrors.cancelledChequeImage}</p>
                     )}
+
                     {formData.cancelledChequeImage && (
-                        <Swiper navigation modules={[Navigation]} spaceBetween={10} slidesPerView={3}>
-                            {(
-                                Array.isArray(formData.cancelledChequeImage)
+                        <div className="mt-3 overflow-x-auto">
+                            <div className="flex gap-3">
+                                {(Array.isArray(formData.cancelledChequeImage)
                                     ? formData.cancelledChequeImage
-                                    : formData.cancelledChequeImage.split(',')
-                            ).map((img, imgIndex) => (
-                                <SwiperSlide key={imgIndex}>
-                                    <div className="relative">
-                                        {/* Delete Button */}
-                                        <button
-                                            type="button"
-                                            className="absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center z-10"
-                                            onClick={() => {
-                                                Swal.fire({
-                                                    title: 'Are you sure?',
-                                                    text: 'Do you want to delete this image?',
-                                                    icon: 'warning',
-                                                    showCancelButton: true,
-                                                    confirmButtonColor: '#d33',
-                                                    cancelButtonColor: '#3085d6',
-                                                    confirmButtonText: 'Yes, delete it!',
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        handleImageDelete(imgIndex, 'cancelledChequeImage');
-                                                    }
-                                                });
-                                            }}
-                                        >
-                                            ✕
-                                        </button>
-                                        <Image
-                                            src={fetchImages(img)}
-                                            alt={`Image ${imgIndex + 1}`}
-                                            width={500}
-                                            height={500}
-                                            className="me-3 p-2 object-cover rounded"
-                                        />
-                                    </div>
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
+                                    : formData.cancelledChequeImage.split(',')).map((img, index) => (
+                                        <div key={index} className="relative min-w-[120px]">
+                                            {/* <button
+                type="button"
+                className="absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center z-10"
+                onClick={() => {
+                  Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'Do you want to delete this image?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!',
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      handleImageDelete(index, 'cancelledChequeImage');
+                    }
+                  });
+                }}
+              >
+                ✕
+              </button> */}
+                                            <Image
+                                                src={fetchImages(img)}
+                                                alt={`Image ${index + 1}`}
+                                                width={120}
+                                                height={120}
+                                                className="object-cover rounded border p-1"
+                                            />
+                                        </div>
+                                    ))}
+                            </div>
+                        </div>
                     )}
                 </div>
             </div>
+
 
 
             <div className="flex space-x-4 mt-6">

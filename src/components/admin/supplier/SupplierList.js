@@ -48,55 +48,23 @@ const SupplierList = () => {
     const handleDestroy = (id) => destroy(id, () => fetchTrashed(setSuppliers, setLoading));
     const { verifyAdminAuth, isAdminStaff, checkAdminRole, extractedPermissions } = useAdmin();
     const shouldCheckPermissions = isAdminStaff && extractedPermissions.length > 0;
-    const canViewTrashed = shouldCheckPermissions
-        ? extractedPermissions.some(
-            (perm) =>
-                perm.module === "Supplier" &&
-                perm.action === "Trash Listing" &&
-                perm.status === true
-        )
-        : true;
-    const canAdd = shouldCheckPermissions
-        ? extractedPermissions.some(
-            (perm) =>
-                perm.module === "Supplier" &&
-                perm.action === "Create" &&
-                perm.status === true
-        )
-        : true;
 
-    const canDelete = shouldCheckPermissions
-        ? extractedPermissions.some(
+    const hasPermission = (action) =>
+        !shouldCheckPermissions ||
+        extractedPermissions.some(
             (perm) =>
                 perm.module === "Supplier" &&
-                perm.action === "Permanent Delete" &&
+                perm.action === action &&
                 perm.status === true
-        )
-        : true;
-    const canEdit = shouldCheckPermissions
-        ? extractedPermissions.some(
-            (perm) =>
-                perm.module === "Supplier" &&
-                perm.action === "Update" &&
-                perm.status === true
-        )
-        : true;
-    const canSoftDelete = shouldCheckPermissions
-        ? extractedPermissions.some(
-            (perm) =>
-                perm.module === "Supplier" &&
-                perm.action === "Soft Delete" &&
-                perm.status === true
-        )
-        : true;
-    const canRestore = shouldCheckPermissions
-        ? extractedPermissions.some(
-            (perm) =>
-                perm.module === "Supplier" &&
-                perm.action === "Restore" &&
-                perm.status === true
-        )
-        : true;
+        );
+
+    const canViewTrashed = hasPermission("Trash Listing");
+    const canAdd = hasPermission("Create");
+    const canDelete = hasPermission("Permanent Delete");
+    const canEdit = hasPermission("Update");
+    const canSoftDelete = hasPermission("Soft Delete");
+    const canRestore = hasPermission("Restore");
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -290,7 +258,7 @@ const SupplierList = () => {
             setLoading(false);
         }
     }, [router]);
-      const inactiveSuppliers = suppliers.filter((supplier) => {
+    const inactiveSuppliers = suppliers.filter((supplier) => {
         const status = supplier.status?.toLowerCase?.().trim?.() || '';
         return status === 'inactive';
     });

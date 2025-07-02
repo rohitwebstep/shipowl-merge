@@ -41,7 +41,7 @@ export default function Sidebar() {
     { title: "Brand Management", module: "Brand", action: actions, icon: Tags, href: "/admin/brand/list" },
     { title: "Product Management", module: "Product", action: actions, icon: Package, href: "/admin/products/list" },
     { title: "Dropshipper Banners", module: "dropshiperBanners", action: actions, icon: LucideImage, href: "/admin/dropshipper/banner" },
-    { title: "Email Settings", module: "emailSetting", action: actions, icon: Mail, href: "/admin/email-settings" },
+    { title: "Email Settings", module: "Mail", action: actions, icon: Mail, href: "/admin/email-settings" },
 
     {
       children: [
@@ -63,7 +63,7 @@ export default function Sidebar() {
           icon: LayoutDashboard,
           subMenu: [
             { icon: ClipboardList, module: "Supplier", action: actions, name: "Supplier List", href: "/admin/supplier/list" },
-            { icon: GoUnverified , module: "Supplier", action: actions, name: "unverified Supplier List", href: "/admin/supplier/Unverified/list" },
+            { icon: GoUnverified, module: "Supplier", action: actions, name: "unverified Supplier List", href: "/admin/supplier/Unverified/list" },
             { icon: Banknote, module: "Supplier", action: actions, name: "Bank Details Update Requests ", href: "/admin/supplier/bankaccount-update-requests" },
             { icon: ClipboardList, module: "productRequest", action: actions, name: "New Product Request (In progress)", href: "/admin/products/new" },
             { icon: ShoppingCart, module: "order", action: actions, name: "Orders(In progress)", href: "/admin/supplier/orders" },

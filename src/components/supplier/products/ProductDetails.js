@@ -13,6 +13,7 @@ import { FaTags } from "react-icons/fa";
 import { MdInventory } from "react-icons/md";
 import { Package, Boxes, Archive, Star, Tag, Truck, Weight, Banknote, ShieldCheck, RotateCcw, ArrowUpRight, ArrowLeft, Store, ChevronDown } from 'lucide-react';
 import { useImageURL } from "@/components/ImageURLContext";
+import { useSupplier } from '../middleware/SupplierMiddleWareContext';
 const tabs = [
   { key: "notmy", label: "Not Listed Products" },
   { key: "my", label: "Listed Products" },
@@ -20,12 +21,15 @@ const tabs = [
 const ProductDetails = () => {
   const { fetchImages } = useImageURL();
   const router = useRouter();
+  const { hasPermission } = useSupplier();
   const searchParams = useSearchParams();
   const id = searchParams.get('id');
   const type = searchParams.get('type');
   const [showPopup, setShowPopup] = useState(false);
   // Dynamic images setup
   const [isSticky, setIsSticky] = useState(false);
+  const canCreate = hasPermission("Product", "Add to List");
+  const canUpdate = hasPermission("Product", "Update");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -814,7 +818,7 @@ const ProductDetails = () => {
                 }}
               >              <div className="flex gap-3 justify-center ">
                   {/* Push to Shopify */}
-                  {type === "notmy" ? (
+                  {canCreate && type === "notmy"(
                     <button onClick={() => {
                       setShowPopup(true);
                       setInventoryData({
@@ -827,21 +831,22 @@ const ProductDetails = () => {
                       <LuArrowUpRight className="mr-2" /> Add To List
                     </button>
 
-                  ) :
-                    (
-                      <button onClick={() => {
-                        setShowPopup(true);
-                        setInventoryData({
-                          productId: productDetails.id,
-                          id: productDetails.id,
-                          variant: variantDetails,
-                          isVarientExists: productDetails?.isVarientExists,
-                        });
-                        setIsEdit(true)
-                      }} className="bg-black text-white px-20 rounded-md py-3 text-xl flex items-center justify-center sm:w-autofont-semibold">
-                        <LuArrowUpRight className="mr-2" />  Edit List
-                      </button>
-                    )}
+                  )}
+                  {canUpdate && type !== "notmy"(
+                    <button onClick={() => {
+                      setShowPopup(true);
+                      setInventoryData({
+                        productId: productDetails.id,
+                        id: productDetails.id,
+                        variant: variantDetails,
+                        isVarientExists: productDetails?.isVarientExists,
+                      });
+                      setIsEdit(true)
+                    }} className="bg-black text-white px-20 rounded-md py-3 text-xl flex items-center justify-center sm:w-autofont-semibold">
+                      <LuArrowUpRight className="mr-2" />  Edit List
+                    </button>
+                  )
+                  }
 
 
                   {/* Info Box */}
@@ -868,7 +873,7 @@ const ProductDetails = () => {
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-h-[70vh] overflow-y-auto pr-1">
                     {inventoryData.variant?.map((variant, idx) => {
-                   
+
                       const imageUrls = variant?.variant?.image
                         ? variant.variant.image.split(",").map((img) => img.trim()).filter(Boolean)
                         : variant?.image
@@ -1166,7 +1171,7 @@ const ProductDetails = () => {
                                  group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:pointer-events-auto
                                  transition-all duration-300"
                     >
-                      {activeTab === "notmy" && (
+                      {canCreate && activeTab === "notmy" && (
                         <button
                           onClick={() => {
                             setShowPopup(true);
@@ -1186,7 +1191,7 @@ const ProductDetails = () => {
                         </button>
                       )}
 
-                      {activeTab === "my" && (
+                     {canUpdate && activeTab === "my"(
                         <button
                           onClick={() => {
                             setShowPopup(true);

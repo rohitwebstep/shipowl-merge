@@ -64,7 +64,7 @@ export default function ManageNdrPage() {
                     </button>
                     <button
                       onClick={() => handleAction(index, 'Cancelled')}
-                      className="px-3 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600"
+                      className="px-3 my-2 md:my-0 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600"
                     >
                       Cancel
                     </button>

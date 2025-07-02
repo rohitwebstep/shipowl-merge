@@ -463,7 +463,26 @@ export default function Warehouse() {
       setLoading(false);
     }
   };
- 
+
+  const shouldCheckPermissions = isAdminStaff && extractedPermissions.length > 0;
+
+  const hasPermission = (action) =>
+    !shouldCheckPermissions ||
+    extractedPermissions.some(
+      (perm) =>
+        perm.module === "Warehouse" &&
+        perm.action === action &&
+        perm.status === true
+    );
+
+  const canViewTrashed = hasPermission("Trash Listing");
+  const canAdd = hasPermission("Create");
+  const canDelete = hasPermission("Permanent Delete");
+  const canEdit = hasPermission("Update");
+  const canSoftDelete = hasPermission("Soft Delete");
+  const canRestore = hasPermission("Restore");
+
+
   return (
     <>
       <div>
@@ -474,25 +493,27 @@ export default function Warehouse() {
         ) : (
           <>
             <div className="flex justify-start gap-5 items-end mb-5">
-        <div className="md:w-4/12">
-                  <select  name='supplier' className={`text-[#718EBF] border w-full rounded-md p-3 mt-2 font-bold border-[#DFEAF2]'
+              <div className="md:w-4/12">
+                <select name='supplier' className={`text-[#718EBF] border w-full rounded-md p-3 mt-2 font-bold border-[#DFEAF2]'
                     }`}>
-                    <option>Select Supplier</option>
-                    {suppliers?.map((item, index) => {
-                      return (
-                        <option key={index} value={item.id}>{item.name}</option>
-                      )
-                    })}
-                  </select>
-        </div>
-        <button className='bg-[#4285F4] text-white rounded-md p-3 px-8'><Link href="/admin/supplier/warehouse/create">Add New</Link></button>
+                  <option>Select Supplier</option>
+                  {suppliers?.map((item, index) => {
+                    return (
+                      <option key={index} value={item.id}>{item.name}</option>
+                    )
+                  })}
+                </select>
+              </div>
+              {canAdd && (
+                <button className='bg-[#4285F4] text-white rounded-md p-3 px-8'><Link href="/admin/supplier/warehouse/create">Add New</Link></button>
+              )}
 
-      </div>
+            </div>
             <div className="bg-white rounded-3xl p-5">
               <div className="flex flex-wrap justify-between items-center mb-4">
-              <div className='flex items-baseline-last gap-3'>
+                <div className='flex items-baseline-last gap-3'>
                   <h2 className="text-2xl font-bold text-[#2B3674]">Warehouse</h2>
-              </div>
+                </div>
                 <div className="flex gap-3  flex-wrap items-center">
                   <button
                     onClick={() => setIsPopupOpen((prev) => !prev)}
@@ -510,7 +531,7 @@ export default function Warehouse() {
                     )}
                   </button>
                   <div className="flex justify-end gap-2">
-                    <button
+                    {canViewTrashed && <button
                       className={`p-3 text-white rounded-md ${isTrashed ? 'bg-green-500' : 'bg-red-500'}`}
                       onClick={async () => {
                         if (isTrashed) {
@@ -523,13 +544,13 @@ export default function Warehouse() {
                       }}
                     >
                       {isTrashed ? "Warehouse Listing (Simple)" : "Trashed Warehouse"}
-                    </button>
+                    </button>}
                   </div>
                 </div>
               </div>
               {WarehouseData.length > 0 ? (
                 <div className="overflow-x-auto relative main-outer-wrapper w-full">
-                        <table className="md:w-full w-auto display main-tables" id="warehouseTable">
+                  <table className="md:w-full w-auto display main-tables" id="warehouseTable">
                     <thead>
                       <tr className="border-b text-[#A3AED0] border-[#E9EDF7]">
                         <th className="p-2 whitespace-nowrap px-5 text-left uppercase">Warehouse Name</th>
@@ -618,13 +639,13 @@ export default function Warehouse() {
                             <div className="flex justify-center gap-2">
                               {isTrashed ? (
                                 <>
-                                  <MdRestoreFromTrash onClick={() => handleRestore(item)} className="cursor-pointer text-3xl text-green-500" />
-                                  <AiOutlineDelete onClick={() => handlePermanentDelete(item)} className="cursor-pointer text-3xl" />
+                                  {canRestore && <MdRestoreFromTrash onClick={() => handleRestore(item)} className="cursor-pointer text-3xl text-green-500" />}
+                                  {canDelete && <AiOutlineDelete onClick={() => handlePermanentDelete(item)} className="cursor-pointer text-3xl" />}
                                 </>
                               ) : (
                                 <>
-                                  <MdModeEdit onClick={() => handleEditItem(item)} className="cursor-pointer text-3xl" />
-                                  <AiOutlineDelete onClick={() => handleDelete(item)} className="cursor-pointer text-3xl" />
+                                  {canEdit && <MdModeEdit onClick={() => handleEditItem(item)} className="cursor-pointer text-3xl" />}
+                                  {canSoftDelete && <AiOutlineDelete onClick={() => handleDelete(item)} className="cursor-pointer text-3xl" />}
                                 </>
                               )}
                             </div>

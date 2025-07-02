@@ -111,22 +111,20 @@ export default function List() {
 
     const shouldCheckPermissions = isAdminStaff && extractedPermissions.length > 0;
 
-    const canViewTrashed = shouldCheckPermissions
-        ? extractedPermissions.some(
+    const hasPermission = (action) =>
+        !shouldCheckPermissions ||
+        extractedPermissions.some(
             (perm) =>
-                perm.module === "Brand" &&
-                perm.action === "Trash Listing" &&
-                perm.status === true
-        )
-        : true;
-    const canAdd = shouldCheckPermissions
-        ? extractedPermissions.some(
-            (perm) =>
-                perm.module === "Brand" &&
-                perm.action === "Create" &&
-                perm.status === true
-        )
-        : true;
+                perm.module === "Brand" && perm.action === action && perm.status === true
+        );
+
+    const canViewTrashed = hasPermission("Trash Listing");
+    const canAdd = hasPermission("Create");
+    const canDelete = hasPermission("Permanent Delete");
+    const canEdit = hasPermission("Update");
+    const canSoftDelete = hasPermission("Soft Delete");
+    const canRestore = hasPermission("Restore");
+
 
     return (
         <div className="w-full">
@@ -195,38 +193,7 @@ export default function List() {
                                 </thead>
                                 <tbody>
                                     {brandData.map((item) => {
-                                        const canDelete = shouldCheckPermissions
-                                            ? extractedPermissions.some(
-                                                (perm) =>
-                                                    perm.module === "Brand" &&
-                                                    perm.action === "Permanent Delete" &&
-                                                    perm.status === true
-                                            )
-                                            : true;
-                                        const canEdit = shouldCheckPermissions
-                                            ? extractedPermissions.some(
-                                                (perm) =>
-                                                    perm.module === "Brand" &&
-                                                    perm.action === "Update" &&
-                                                    perm.status === true
-                                            )
-                                            : true;
-                                        const canSoftDelete = shouldCheckPermissions
-                                            ? extractedPermissions.some(
-                                                (perm) =>
-                                                    perm.module === "Brand" &&
-                                                    perm.action === "Soft Delete" &&
-                                                    perm.status === true
-                                            )
-                                            : true;
-                                        const canRestore = shouldCheckPermissions
-                                            ? extractedPermissions.some(
-                                                (perm) =>
-                                                    perm.module === "Brand" &&
-                                                    perm.action === "Restore" &&
-                                                    perm.status === true
-                                            )
-                                            : true;
+
                                         return (
                                             <tr key={item.id} className="bg-transparent border-b border-[#E9EDF7] text-[#2B3674] font-semibold">
                                                 <td className="p-2 bg-transparent whitespace-nowrap border-0 pe-5">

@@ -33,7 +33,7 @@ export default function ProductList() {
         try {
             setLoading(true);
             const response = await fetch(
-                `/api/product/request/my`,
+                `/api/dropshipper/product/request/my`,
                 {
                     method: "GET",
                     headers: {
@@ -367,7 +367,7 @@ export default function ProductList() {
                 </div>
             ) : (
                 <>
-                    <div className="">
+                    <div className="py-5">
                         <div className="flex flex-wrap md:justify-end gap-3 justify-center mb-6">
                             <button className="bg-[#05CD99] text-white lg:px-8 p-4 py-2 rounded-md">Export</button>
 

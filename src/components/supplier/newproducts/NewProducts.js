@@ -208,7 +208,7 @@ export default function NewProducts() {
       setLoading(false);
     }
   };
-  const canCreate = hasPermission("Product", "Create");
+  const canCreate = hasPermission("Product", "Add to List");
 
   return (
     <>

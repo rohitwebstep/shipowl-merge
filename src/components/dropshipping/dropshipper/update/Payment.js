@@ -253,7 +253,7 @@ const Payment = () => {
     <div className="bg-white lg:p-10 p-3 rounded-tl-none rounded-tr-none rounded-2xl">
       <div>
         <h3 className="font-semibold text-[#FF702C] py-5 underline text-sm">KYC Details</h3>
-        <div className="grid lg:grid-cols-3 gap-4 mt-2">
+        <div className="grid lg:grid-cols-3 gap-4 mt-2 overflow-auto w-full">
           {[
             { name: 'gstNumber', label: 'GST Number' },
             { name: 'panCardHolderName', label: 'Name on PAN Card' },
@@ -277,7 +277,7 @@ const Payment = () => {
 
           {/* File Uploads */}
           {['panCardImage', 'aadharCardImage', 'gstDocument'].map((name) => (
-            <div key={name} className="mb-6">
+            <div key={name} className="mb-6 w-full overflow-auto">
               <label className="block text-[#232323] font-bold mb-1 capitalize">
                 {name.replace(/([A-Z])/g, ' $1')} Upload
               </label>
@@ -290,48 +290,47 @@ const Payment = () => {
               />
 
               {formData[name]?.length > 0 && (
-                <Swiper
-                  key={name}
-                  modules={[Navigation]}
-                  slidesPerView={2}
-                  loop={formData[name].split(',').length > 1}
-                  navigation
-                  className="mySwiper w-full mt-3"
-                >
-                  {formData[name].split(',').map((img, index) => (
-                    <SwiperSlide key={index} className="relative">
-                      <button
-                        type="button"
-                        className="absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center z-10"
-                        onClick={() => {
-                          Swal.fire({
-                            title: 'Are you sure?',
-                            text: `Do you want to delete this image?`,
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#d33',
-                            cancelButtonColor: '#3085d6',
-                            confirmButtonText: 'Yes, delete it!',
-                          }).then((result) => {
-                            if (result.isConfirmed) {
-                              handleImageDelete(index, name);
-                            }
-                          });
-                        }}
-                      >
-                        ✕
-                      </button>
-                      <Image
-                        src={fetchImages(img)}
-                        alt={`Image ${index + 1}`}
-                        width={500}
-                        height={500}
-                        className="me-3 p-2 object-cover rounded"
-                      />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
+                <div className="w-full mt-3 overflow-x-auto">
+                  <div className="flex gap-3">
+                    {formData[name].split(',').map((img, index) => (
+                      <div key={index} className="relative min-w-[120px]">
+                        {/* Delete button */}
+                        <button
+                          type="button"
+                          className="absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center z-10"
+                          onClick={() => {
+                            Swal.fire({
+                              title: 'Are you sure?',
+                              text: `Do you want to delete this image?`,
+                              icon: 'warning',
+                              showCancelButton: true,
+                              confirmButtonColor: '#d33',
+                              cancelButtonColor: '#3085d6',
+                              confirmButtonText: 'Yes, delete it!',
+                            }).then((result) => {
+                              if (result.isConfirmed) {
+                                handleImageDelete(index, name);
+                              }
+                            });
+                          }}
+                        >
+                          ✕
+                        </button>
+
+                        {/* Image */}
+                        <Image
+                          src={fetchImages(img)}
+                          alt={`Image ${index + 1}`}
+                          width={120}
+                          height={120}
+                          className="object-cover rounded border p-1"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
               )}
+
             </div>
           ))}
 

@@ -310,89 +310,108 @@ export default function AddShopifyStore() {
         );
     }
     return (
-        <section className="">
-            <div className="grid grid-cols-2 gap-3">
-                <div className="bg-white rounded-2xl p-5">
-                    <h2 className='text-2xl font-bold pb-4'>Add New Store </h2>
-                    {canCreate ? (
+        <>
+            <section className="">
+                <div className="grid md:grid-cols-2 gap-3">
+                    <div className="bg-white rounded-2xl w-full p-5">
+                        <h2 className='text-2xl font-bold pb-4'>Add New Store </h2>
+                        {canCreate ? (
 
-                        <form onSubmit={handleSubmit}>
-                            <div className=" ">
-                                <div>
-                                    <label htmlFor="name" className="font-bold block text-[#232323]">
-                                        Shop Name <span className='text-red-500 text-lg'>*</span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="shop"
-                                        value={formData?.shop || ''}
-                                        id="shop"
-                                        onChange={handleChange}
-                                        className={`text-[#718EBF] border w-full border-[#DFEAF2] rounded-md p-3 mt-2 font-bold  ${validationErrors.name ? "border-red-500" : "border-[#E0E5F2]"
-                                            } `} />
-                                    {validationErrors.shop && (
-                                        <p className="text-red-500 text-sm mt-1">{validationErrors.shop}</p>
-                                    )}
+                            <form onSubmit={handleSubmit}>
+                                <div className=" ">
+                                    <div>
+                                        <label htmlFor="name" className="font-bold block text-[#232323]">
+                                            Shop Name <span className='text-red-500 text-lg'>*</span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="shop"
+                                            value={formData?.shop || ''}
+                                            id="shop"
+                                            onChange={handleChange}
+                                            className={`text-[#718EBF] border w-full border-[#DFEAF2] rounded-md p-3 mt-2 font-bold  ${validationErrors.name ? "border-red-500" : "border-[#E0E5F2]"
+                                                } `} />
+                                        {validationErrors.shop && (
+                                            <p className="text-red-500 text-sm mt-1">{validationErrors.shop}</p>
+                                        )}
+                                    </div>
                                 </div>
+
+                                <div className="flex flex-wrap gap-3 mt-5">
+                                    <button type="submit" className="bg-orange-500 text-white md:px-15 rounded-md p-3">
+                                        {loading ? 'Connecting...' : 'Connect'}
+                                    </button>
+                                    <button type="button" className="bg-gray-500 text-white md:px-15 rounded-md p-3" onClick={() => router.back()}>
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        ) : (
+                            <p className='capitalize'>You have not permission to perform this action </p>
+                        )}
+                    </div>
+                    <div className="bg-white rounded-2xl overflow-auto w-full p-5">
+                        <h2 className='text-2xl font-bold pb-4'>Store List</h2>
+                        {shopifyStores.length > 0 ? (
+                            <div className="w-full overflow-x-auto">
+                                <table className="w-max md:w-full border border-[#E0E5F2] text-sm">
+                                    <thead className="border border-[#E0E5F2]">
+                                        <tr>
+                                            <th className="border border-[#E0E5F2] text-left px-2 py-1">SR</th>
+                                            <th className="border border-[#E0E5F2] text-left px-2 py-1">Name</th>
+                                            <th className="border border-[#E0E5F2] text-left px-2 py-1">Logo</th>
+                                            <th className="border border-[#E0E5F2] px-2 py-1">Domain</th>
+                                            <th className="border border-[#E0E5F2] text-left px-2 py-1">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {shopifyStores.map((item, index) => (
+                                            <tr key={item.id} className="border border-[#E0E5F2]">
+                                                <td className="border border-[#E0E5F2] px-2 py-1 capitalize">{index + 1}</td>
+                                                <td className="border border-[#E0E5F2] px-2 py-1 whitespace-nowrap capitalize">
+                                                    {item.name || 'NIL'}
+                                                </td>
+                                                <td className="border border-[#E0E5F2] px-2 py-1 capitalize">
+                                                    <Image
+                                                        src={fetchImages(item.logo)}
+                                                        alt={item.name}
+                                                        height={40}
+                                                        width={40}
+                                                    />
+                                                </td>
+                                                <td className="border border-[#E0E5F2] px-2 py-1 text-center">
+                                                    {item.domain || item.shop}
+                                                </td>
+                                                <td className="border border-[#E0E5F2] px-2 py-1 text-center">
+                                                    {canEdit ? (
+                                                        <button
+                                                            onClick={() => {
+                                                                setModalOpen(true);
+                                                                setSelectedShop(item);
+                                                            }}
+                                                            className="bg-green-500 p-2 rounded-md text-white"
+                                                        >
+                                                            Edit Shop
+                                                        </button>
+                                                    ) : (
+                                                        <p className="capitalize">You have no permission to edit store</p>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
+                        ) : (
+                            <p className="text-center">No Data Available</p>
+                        )}
 
-                            <div className="flex flex-wrap gap-3 mt-5">
-                                <button type="submit" className="bg-orange-500 text-white px-15 rounded-md p-3">
-                                    {loading ? 'Connecting...' : 'Connect'}
-                                </button>
-                                <button type="button" className="bg-gray-500 text-white px-15 rounded-md p-3" onClick={() => router.back()}>
-                                    Cancel
-                                </button>
-                            </div>
-                        </form>
-                    ) : (
-                        <p className='capitalize'>You have not permission to perform this action </p>
-                    )}
+                    </div>
                 </div>
-                <div className="bg-white rounded-2xl p-5">
-                    <h2 className='text-2xl font-bold pb-4'>Store List</h2>
-                    {shopifyStores.length > 0 ? (
-                        <table className="w-full border border-[#E0E5F2]  text-sm">
-                            <thead className="border border-[#E0E5F2]">
-                                <tr>
-                                    <th className=" border border-[#E0E5F2] text-left px-2 py-1">SR</th>
-                                    <th className=" border border-[#E0E5F2] text-left px-2 py-1">Name</th>
-                                    <th className=" border border-[#E0E5F2] text-left px-2 py-1">Logo</th>
-                                    <th className=" border border-[#E0E5F2] px-2 py-1">Domain</th>
-                                    <th className=" border border-[#E0E5F2] text-left px-2 py-1">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {shopifyStores.map((item, index) => (
-                                    <tr key={item.id} className="border border-[#E0E5F2]">
-                                        <td className=" border border-[#E0E5F2] px-2 py-1 capitalize">{index + 1}</td>
-                                        <td className=" border border-[#E0E5F2] px-2 py-1 capitalize">{item.name || 'NIL'}</td>
-                                        <td className=" border border-[#E0E5F2] px-2 py-1 capitalize">
-                                            <Image src={fetchImages(item.logo)} alt={item.name} height={40} width={40} />
-                                        </td>
-                                        <td className=" border border-[#E0E5F2] px-2 py-1 text-center">{item.domain || item.shop}</td>
-                                        <td className=" border border-[#E0E5F2] px-2 py-1 text-center">
-                                            {canEdit ? (
-                                                <button onClick={() => {
-                                                    setModalOpen(true), setSelectedShop(item)
-                                                }}
-                                                    className='bg-green-500 p-2 rounded-md text-white'>Edit Shop</button>
-                                            ) : (
-                                                <p className='capitalize'>You have No permission to edit store</p>
-                                            )}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
 
-
-                        </table>
-                    ) : (<p className='text-center'>No Data Available</p>)
-                    }
-                </div>
-            </div>
+            </section>
             {modalOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center">
+                <div className="fixed inset-0 p-4 bg-[#0000007a] bg-opacity-40 z-50 flex items-center justify-center">
                     <div className="bg-white rounded-md p-6 w-full max-w-md shadow-lg">
                         <h2 className="text-xl font-semibold mb-4">Edit Shopify Store</h2>
 
@@ -437,7 +456,6 @@ export default function AddShopifyStore() {
                     </div>
                 </div>
             )}
-
-        </section>
+        </>
     );
 }

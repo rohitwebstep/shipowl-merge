@@ -95,6 +95,22 @@ export default function List() {
             </div>
         );
     }
+
+    const hasPermission = (action) =>
+        !shouldCheckPermissions ||
+        extractedPermissions.some(
+            (perm) =>
+                perm.module === "Company" &&
+                perm.action === action &&
+                perm.status === true
+        );
+
+    const canViewTrashed = hasPermission("Trash Listing");
+    const canAdd = hasPermission("Create");
+    const canDelete = hasPermission("Permanent Delete");
+    const canEdit = hasPermission("Update");
+    const canSoftDelete = hasPermission("Soft Delete");
+    const canRestore = hasPermission("Restore");
     return (
         <>
 
@@ -104,13 +120,17 @@ export default function List() {
                     <div className="flex gap-3  flex-wrap items-center">
 
                         <div className="flex justify-start gap-5 items-end">
-                            <button
-                                className={`p-3 text-white rounded-md ${isTrashed ? "bg-green-500" : "bg-red-500"}`}
-                                onClick={handleToggleTrash}
-                            >
-                                {isTrashed ? "Company Listing (Simple)" : "Trashed Company"}
-                            </button>
-                            <button className='bg-[#4285F4] text-white rounded-md p-3 px-8'><Link href="/admin/courier/create">Add New</Link></button>
+                            {
+                                canViewTrashed && <button
+                                    className={`p-3 text-white rounded-md ${isTrashed ? "bg-green-500" : "bg-red-500"}`}
+                                    onClick={handleToggleTrash}
+                                >
+                                    {isTrashed ? "Company Listing (Simple)" : "Trashed Company"}
+                                </button>
+                            }
+                            {canAdd && (<button className='bg-[#4285F4] text-white rounded-md p-3 px-8'><Link href="/admin/courier/create">Add New</Link></button>
+                            )}
+
                         </div>
                         <button
                             onClick={() => setIsPopupOpen((prev) => !prev)}
@@ -183,13 +203,13 @@ export default function List() {
 
                                             <div className="flex gap-2"> {isTrashed ? (
                                                 <>
-                                                    <MdRestoreFromTrash onClick={() => handleRestore(item.id)} className="cursor-pointer text-3xl text-green-500" />
-                                                    <AiOutlineDelete onClick={() => handleDestroy(item.id)} className="cursor-pointer text-3xl" />
+                                                    {canRestore && <MdRestoreFromTrash onClick={() => handleRestore(item.id)} className="cursor-pointer text-3xl text-green-500" />}
+                                                    {canDelete && <AiOutlineDelete onClick={() => handleDestroy(item.id)} className="cursor-pointer text-3xl" />}
                                                 </>
                                             ) : (
                                                 <>
-                                                    <MdModeEdit onClick={() => router.push(`/admin/courier/update?id=${item.id}`)} className="cursor-pointer text-3xl" />
-                                                    <AiOutlineDelete onClick={() => handleSoftDelete(item.id)} className="cursor-pointer text-3xl" />
+                                                    {canEdit && <MdModeEdit onClick={() => router.push(`/admin/courier/update?id=${item.id}`)} className="cursor-pointer text-3xl" />}
+                                                    {canSoftDelete && <AiOutlineDelete onClick={() => handleSoftDelete(item.id)} className="cursor-pointer text-3xl" />}
                                                 </>
                                             )}</div>
 

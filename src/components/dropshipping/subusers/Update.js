@@ -130,16 +130,28 @@ export default function Update() {
         ? prev.permissions.map(String)
         : (prev.permissions || '').split(',').filter(Boolean);
 
-      const updatedPermissions = currentPermissions.includes(permId.toString())
-        ? currentPermissions.filter((p) => p !== permId.toString())
-        : [...currentPermissions, permId.toString()];
+      // Toggle permission
+      const toggledPermissions = currentPermissions.includes(String(permId))
+        ? currentPermissions.filter((p) => p !== String(permId))
+        : [...currentPermissions, String(permId)];
+
+      // Get allowed permissions from groupedPermissions["Dropshipper"]
+      const allowedPermissionIds = Object.values(groupedPermissions?.["Dropshipper"] || {})
+        .flat()
+        .map((p) => String(p.id));
+
+      // Only keep toggled permissions that are allowed
+      const filteredPermissions = toggledPermissions.filter((id) =>
+        allowedPermissionIds.includes(id)
+      );
 
       return {
         ...prev,
-        permissions: updatedPermissions.join(','),
+        permissions: filteredPermissions.join(','),
       };
     });
   };
+
   const validate = () => {
     const newErrors = {};
     const {
@@ -168,6 +180,22 @@ export default function Update() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
+
+    if (formData.permissions) {
+      const allowedPermissionIds = Object.values(groupedPermissions?.["Dropshipper"] || {})
+        .flat()
+        .map((p) => String(p.id));
+
+      const currentPermissions = Array.isArray(formData.permissions)
+        ? formData.permissions.map(String)
+        : String(formData.permissions).split(',').filter(Boolean);
+
+      const filteredPermissions = currentPermissions.filter((id) =>
+        allowedPermissionIds.includes(id)
+      );
+
+      formData.permissions = filteredPermissions.join(',');
+    }
 
     setLoading(true);
     const dropshipperData = JSON.parse(localStorage.getItem("shippingData"));
@@ -203,9 +231,10 @@ export default function Update() {
       });
 
       const result = await res.json();
-      if (!res.ok) throw new Error(result.message || "Failed to Update dropshipper");
+      if (!res.ok) throw new Error(result.message || result.error || "Failed to Update dropshipper");
 
-      Swal.fire("Success", "dropshipper Updated Successfuly!", "success");
+      Swal.fire("Success", "Dropshipper updated successfully!", "success");
+
       // Reset form
       setFormData({
         name: "",
@@ -218,13 +247,15 @@ export default function Update() {
         permanentCountry: "",
         permissions: [],
       });
-      router.push('/dropshipping/sub-user/list')
+
+      router.push('/dropshipping/sub-user/list');
     } catch (err) {
       Swal.fire("Error", err.message, "error");
     } finally {
       setLoading(false);
     }
   };
+
 
 
   const fetchProtected = useCallback(async (url, setter, key, setLoading) => {
@@ -359,7 +390,7 @@ export default function Update() {
         )}
         {errors.profilePicture && <p className="text-red-500 text-sm">{errors.profilePicture}</p>}
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="md:grid grid-cols-2 gap-4">
         {formFields.map(({ label, name, type, required }) => (
           <div key={name}>
             <label className="block text-[#232323] font-bold mb-1">
@@ -380,25 +411,25 @@ export default function Update() {
         {/* Move the Status dropdown outside the loop */}
 
       </div>
-        <div className="">
-          <label className="block text-[#232323] font-bold mb-1">
-            Status
-          </label>
-          <select
-            name="status"
-            value={formData.status || ''}
-            onChange={handleChange}
-            className={`w-full p-3 border rounded-lg font-bold border-[#DFEAF2] text-[#718EBF]
+      <div className="">
+        <label className="block text-[#232323] font-bold mb-1">
+          Status
+        </label>
+        <select
+          name="status"
+          value={formData.status || ''}
+          onChange={handleChange}
+          className={`w-full p-3 border rounded-lg font-bold border-[#DFEAF2] text-[#718EBF]
                   }`}          >
-            <option value="">Select Status</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-          </select>
-        </div>
+          <option value="">Select Status</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
 
 
 
-      <div className="grid grid-cols-3 gap-4 mt-3">
+      <div className="md:grid lg:grid-cols-3 md:grid-cols-2 gap-4 grid-cols-1 mt-3">
         {["permanentCountry", "permanentState", "permanentCity"].map((field) => (
           <div key={field} className="relative">
             <label className="block text-[#232323] font-bold mb-1 capitalize">

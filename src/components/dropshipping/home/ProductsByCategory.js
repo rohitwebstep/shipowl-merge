@@ -30,11 +30,11 @@ function ProductsByCategory() {
     id: '',
     variant: [],
     isVarientExists: '',
-    shopifyApp: '',
+    shopifyStore: '',
   });
 
   const handleVariantChange = (id, field, value) => {
-    // If field is global (e.g., shopifyApp), update it at root level
+    // If field is global (e.g., shopifyStore), update it at root level
     if (id == null) {
       setInventoryData((prevData) => ({
         ...prevData,
@@ -171,7 +171,7 @@ function ProductsByCategory() {
 
 
       form.append('supplierProductId', inventoryData.supplierProductId);
-      form.append('shopifyApp', inventoryData.shopifyApp);
+      form.append('shopifyStore', inventoryData.shopifyStore);
       form.append('variants', JSON.stringify(simplifiedVariants));
 
 
@@ -212,7 +212,7 @@ function ProductsByCategory() {
             variant: [],
             id: '',
             model: 'Selfship',
-            shopifyApp: ''
+            shopifyStore: ''
           });
           setShowPopup(false);
           fetchProduct('my');
@@ -430,7 +430,7 @@ function ProductsByCategory() {
                           id: product.id,
                           variant: product.variants,
                           isVarientExists: product?.product?.isVarientExists,
-                          shopifyApp: "",
+                          shopifyStore: "",
                           model: 'Selfship',
                         });
                       }}
@@ -496,10 +496,10 @@ function ProductsByCategory() {
 
                     <select
                       className="border border-[#E0E2E7] p-2 rounded-md"
-                      name="shopifyApp"
-                      id="shopifyApp"
-                      onChange={(e) => handleVariantChange(null, 'shopifyApp', e.target.value)}
-                      value={inventoryData.shopifyApp || ''}
+                      name="shopifyStore"
+                      id="shopifyStore"
+                      onChange={(e) => handleVariantChange(null, 'shopifyStore', e.target.value)}
+                      value={inventoryData.shopifyStore || ''}
                     >
                       <option value="">Select Store</option>
                       {shopifyStores.map((item, index) => (

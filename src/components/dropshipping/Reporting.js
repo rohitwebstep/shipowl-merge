@@ -190,41 +190,50 @@ function Reporting() {
                         <h2 className="text-xl font-bold pt-5 text-center">Orders Details</h2>
                         <div className="overflow-x-auto p-4 mt-5 bg-white rounded-xl shadow-[0_2px_8px_0_rgba(0,0,0,0.1)] border border-gray-200">
 
-                            <table className="min-w-full ">
-                                <thead className="uppercase text-gray-700">
-                                    <tr className=" border-b border-[#DFEAF2]">
-                                        <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap text-gray-700">Order #</th>
-                                        <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap text-gray-700">Status</th>
-                                        <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap text-gray-700">Customer</th>
-                                        <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap text-gray-700">Total (INR)</th>
-                                        <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap text-gray-700">Tax</th>
-                                        <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap text-gray-700">Payment Transaction Id</th>
-                                        <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap text-gray-700">Payment Status</th>
-                                        <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap text-gray-700">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y  bg-white">
-                                    {orders.map((order) => (
-                                        <tr key={order.id} className=" border-b border-[#DFEAF2]">
-                                            <td className="px-4 py-2 text-sm whitespace-nowrap text-gray-800">{order.orderNumber}</td>
-                                            <td className="px-4 py-2 text-sm whitespace-nowrap text-yellow-600 capitalize">{order.status}</td>
-                                            <td className="px-4 py-2 text-sm whitespace-nowrap text-gray-800">{order.shippingName}</td>
-                                            <td className="px-4 py-2 text-sm whitespace-nowrap text-gray-800">₹{order.totalAmount}</td>
-                                            <td className="px-4 py-2 text-sm whitespace-nowrap text-gray-800">₹{order.tax}</td>
-                                            <td className="px-4 py-2 text-sm whitespace-nowrap text-gray-800 text-center">{order.payment?.transactionId}</td>
-                                            <td className="px-4 py-2 text-sm whitespace-nowrap text-gray-800 text-center">{order.payment?.status}</td>
-                                            <td className="px-4 py-2 text-sm whitespace-nowrap text-center">
-                                                <button
-                                                    onClick={() => handleViewVariants(order.items)}
-                                                    className="px-3 py-1 text-sm bg-orange-500 text-white rounded hover:bg-orange-600"
-                                                >
-                                                    View Variants
-                                                </button>
-                                            </td>
+                            {orders.length > 0 ? (
+                                <table className="min-w-full">
+                                    <thead className="uppercase text-gray-700">
+                                        <tr className="border-b border-[#DFEAF2]">
+                                            <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap">Order #</th>
+                                            <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap">Status</th>
+                                            <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap">Customer</th>
+                                            <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap">Total (INR)</th>
+                                            <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap">Tax</th>
+                                            <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap">Payment Transaction Id</th>
+                                            <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap">Payment Status</th>
+                                            <th className="px-4 py-2 text-left text-sm font-semibold whitespace-nowrap">Actions</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody className="divide-y bg-white">
+                                        {orders.map((order) => (
+                                            <tr key={order.id} className="border-b border-[#DFEAF2]">
+                                                <td className="px-4 py-2 text-sm whitespace-nowrap text-gray-800">{order.orderNumber}</td>
+                                                <td className="px-4 py-2 text-sm whitespace-nowrap text-yellow-600 capitalize">{order.status}</td>
+                                                <td className="px-4 py-2 text-sm whitespace-nowrap text-gray-800">{order.shippingName}</td>
+                                                <td className="px-4 py-2 text-sm whitespace-nowrap text-gray-800">₹{order.totalAmount}</td>
+                                                <td className="px-4 py-2 text-sm whitespace-nowrap text-gray-800">₹{order.tax}</td>
+                                                <td className="px-4 py-2 text-sm whitespace-nowrap text-gray-800 text-center">
+                                                    {order.payment?.transactionId}
+                                                </td>
+                                                <td className="px-4 py-2 text-sm whitespace-nowrap text-gray-800 text-center">
+                                                    {order.payment?.status}
+                                                </td>
+                                                <td className="px-4 py-2 text-sm whitespace-nowrap text-center">
+                                                    <button
+                                                        onClick={() => handleViewVariants(order.items)}
+                                                        className="px-3 py-1 text-sm bg-orange-500 text-white rounded hover:bg-orange-600"
+                                                    >
+                                                        View Variants
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            ) : (
+                                <p className="text-center text-gray-500 py-4">No orders found.</p>
+                            )}
+
 
 
                             {/* Model */}

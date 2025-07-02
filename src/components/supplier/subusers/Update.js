@@ -127,13 +127,24 @@ export default function Update() {
         ? prev.permissions.map(String)
         : (prev.permissions || '').split(',').filter(Boolean);
 
-      const updatedPermissions = currentPermissions.includes(permId.toString())
-        ? currentPermissions.filter((p) => p !== permId.toString())
-        : [...currentPermissions, permId.toString()];
+      // Toggle permission
+      const toggledPermissions = currentPermissions.includes(String(permId))
+        ? currentPermissions.filter((p) => p !== String(permId))
+        : [...currentPermissions, String(permId)];
+
+      // Get allowed permissions from groupedPermissions["Supplier"]
+      const allowedPermissionIds = Object.values(groupedPermissions?.["Supplier"] || {})
+        .flat()
+        .map((p) => String(p.id));
+
+      // Only keep toggled permissions that are allowed
+      const filteredPermissions = toggledPermissions.filter((id) =>
+        allowedPermissionIds.includes(id)
+      );
 
       return {
         ...prev,
-        permissions: updatedPermissions.join(','),
+        permissions: filteredPermissions.join(','),
       };
     });
   };
@@ -164,68 +175,84 @@ export default function Update() {
   };
 
   // Inside handleSubmit function
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!validate()) return;
 
-    setLoading(true);
-    const supplierData = JSON.parse(localStorage.getItem("shippingData"));
-    const token = supplierData?.security?.token;
+  const supplierData = JSON.parse(localStorage.getItem("shippingData"));
+  const token = supplierData?.security?.token;
 
-    const data = new FormData();
+  // ✅ Step 1: Clean permissions (copying formData to avoid mutation)
+  const cleanedFormData = { ...formData };
 
-    // Append all form fields
-    Object.entries(formData).forEach(([key, value]) => {
-      if (value !== null && value !== undefined && value !== '') {
-        // Handle File or Blob directly
-        if (value instanceof File || value instanceof Blob) {
-          data.append(key, value);
-        }
-        // Handle array or object (e.g., permissions)
-        else if (Array.isArray(value) || typeof value === 'object') {
-          data.append(key, JSON.stringify(value));
-        }
-        // Handle primitive values (string, number, boolean)
-        else {
-          data.append(key, value);
-        }
+  if (cleanedFormData.permissions) {
+    const allowedPermissionIds = Object.values(groupedPermissions?.["Supplier"] || {})
+      .flat()
+      .map((p) => String(p.id));
+
+    const currentPermissions = Array.isArray(cleanedFormData.permissions)
+      ? cleanedFormData.permissions.map(String)
+      : String(cleanedFormData.permissions).split(',').filter(Boolean);
+
+    const filteredPermissions = currentPermissions.filter((id) =>
+      allowedPermissionIds.includes(id)
+    );
+
+    cleanedFormData.permissions = filteredPermissions.join(',');
+  }
+
+  setLoading(true);
+  const data = new FormData();
+
+  // ✅ Step 2: Append fields to FormData
+  Object.entries(cleanedFormData).forEach(([key, value]) => {
+    if (value !== null && value !== undefined && value !== '') {
+      if (value instanceof File || value instanceof Blob) {
+        data.append(key, value);
+      } else if (Array.isArray(value) || typeof value === 'object') {
+        data.append(key, JSON.stringify(value));
+      } else {
+        data.append(key, value);
       }
+    }
+  });
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/supplier/staff/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: data,
     });
 
+    const result = await res.json();
+    if (!res.ok) throw new Error(result.message || "Failed to Update supplier");
 
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}api/supplier/staff/${id}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: data,
-      });
+    Swal.fire("Success", "Supplier updated successfully!", "success");
 
-      const result = await res.json();
-      if (!res.ok) throw new Error(result.message || "Failed to Update supplier");
+    // ✅ Step 3: Reset form
+    setFormData({
+      name: "",
+      email: "",
+      status: "",
+      profilePicture: null,
+      phoneNumber: "",
+      permanentAddress: "",
+      permanentCity: "",
+      permanentState: "",
+      permanentCountry: "",
+      permissions: [],
+    });
 
-      Swal.fire("Success", "supplier Updated Successfuly!", "success");
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        status: "",
-        profilePicture: null,
-        phoneNumber: "",
-        permanentAddress: "",
-        permanentCity: "",
-        permanentState: "",
-        permanentCountry: "",
-        permissions: [],
-      });
-      router.push('/supplier/sub-user/list')
-    } catch (err) {
-      Swal.fire("Error", err.message, "error");
-    } finally {
-      setLoading(false);
-    }
-  };
+    router.push('/supplier/sub-user/list');
+  } catch (err) {
+    Swal.fire("Error", err.message, "error");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
 
   const fetchProtected = useCallback(async (url, setter, key, setLoading) => {
@@ -358,7 +385,7 @@ export default function Update() {
         )}
         {errors.profilePicture && <p className="text-red-500 text-sm">{errors.profilePicture}</p>}
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="md:grid grid-cols-2 gap-4">
         {formFields.map(({ label, name, type, required }) => (
           <div key={name}>
             <label className="block text-[#232323] font-bold mb-1">
@@ -397,7 +424,7 @@ export default function Update() {
 
 
 
-      <div className="grid grid-cols-3 gap-4 mt-3">
+      <div className="md:grid lg:grid-cols-3 md:grid-cols-2 gap-4 grid-cols-1 mt-3">
         {["permanentCountry", "permanentState", "permanentCity"].map((field) => (
           <div key={field} className="relative">
             <label className="block text-[#232323] font-bold mb-1 capitalize">

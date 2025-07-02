@@ -25,10 +25,10 @@ export default function Allroducts() {
         id: '',
         variant: [],
         isVarientExists: '',
-        shopifyApp: '',
+        shopifyStore: '',
     });
     const handleVariantChange = (id, field, value) => {
-        // If field is global (e.g., shopifyApp), update it at root level
+        // If field is global (e.g., shopifyStore), update it at root level
         if (id == null) {
             setInventoryData((prevData) => ({
                 ...prevData,
@@ -92,7 +92,7 @@ export default function Allroducts() {
             }));
 
             form.append('supplierProductId', inventoryData.supplierProductId);
-            form.append('shopifyApp', inventoryData.shopifyApp);
+            form.append('shopifyStore', inventoryData.shopifyStore);
             form.append('variants', JSON.stringify(simplifiedVariants));
 
 
@@ -132,7 +132,7 @@ export default function Allroducts() {
                         productId: "",
                         variant: [],
                         id: '',
-                        shopifyApp: ''
+                        shopifyStore: ''
                     });
                     setShowPopup(false);
                     fetchProducts();
@@ -311,7 +311,7 @@ export default function Allroducts() {
                                                     id: product.id,
                                                     variant: product.variants,
                                                     isVarientExists: product?.product?.isVarientExists,
-                                                    shopifyApp: "",
+                                                    shopifyStore: "",
                                                 });
                                             }}
                                             className="w-full py-2 px-4 text-white rounded-md text-sm  bg-[#2B3674] hover:bg-[#1f285a] transition-colors duration-200"
@@ -351,12 +351,12 @@ export default function Allroducts() {
                                     <div className="mb-2">
                                         <select
                                             className="w-full mt-1 border border-[#E0E2E7] shadow p-2 rounded-md"
-                                            name="shopifyApp"
-                                            id="shopifyApp"
+                                            name="shopifyStore"
+                                            id="shopifyStore"
                                             onChange={(e) =>
-                                                handleVariantChange(null, 'shopifyApp', e.target.value)
+                                                handleVariantChange(null, 'shopifyStore', e.target.value)
                                             }
-                                            value={inventoryData.shopifyApp || ''}
+                                            value={inventoryData.shopifyStore || ''}
                                         >
                                             <option value="">Select Store</option>
                                             {shopifyStores.map((item, index) => (
