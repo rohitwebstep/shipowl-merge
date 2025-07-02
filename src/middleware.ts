@@ -1,6 +1,7 @@
 // src/middleware.ts
 import { NextRequest, NextResponse } from "next/server";
 import { adminAuthMiddleware } from "./middlewares/adminAuth";
+import { logMessage } from "./utils/commonUtils";
 
 type SkippableRoute = string | { route: string; methods?: string[] };
 
@@ -50,8 +51,8 @@ export function middleware(req: NextRequest) {
     res.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
     // Log request method and URL (for debugging)
-    console.log(`req.method: ${req.method}`);
-    console.log(`req.url: ${req.url}`);
+    logMessage(`log`, `req.method:`, req.method);
+    logMessage(`log`, `req.url:`, req.url);
 
     // Handle preflight OPTIONS requests quickly
     if (req.method === "OPTIONS") {
@@ -181,7 +182,7 @@ export function middleware(req: NextRequest) {
         // ✅ Finally, protect the route
         if (routeMatches(pathname, protection.routes as string[])) {
             if (protection.role && protection.applicableRoles) {
-                console.log(`req.url: matched protected route for role ${protection.role}`);
+                logMessage(`log`, `req.url: matched protected route for role`, protection.role);
                 return adminAuthMiddleware(req, protection.role, protection.applicableRoles);
             }
             break;

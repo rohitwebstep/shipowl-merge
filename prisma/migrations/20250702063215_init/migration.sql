@@ -828,6 +828,7 @@ CREATE TABLE `supplierProductVariant` (
 CREATE TABLE `dropshipperProduct` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `shopifyProductId` VARCHAR(191) NULL,
+    `shopifyStoreId` INTEGER NOT NULL,
     `dropshipperId` INTEGER NOT NULL,
     `supplierId` INTEGER NOT NULL,
     `supplierProductId` INTEGER NOT NULL,
@@ -1180,6 +1181,9 @@ ALTER TABLE `dropshipperProduct` ADD CONSTRAINT `dropshipperProduct_productId_fk
 
 -- AddForeignKey
 ALTER TABLE `dropshipperProduct` ADD CONSTRAINT `dropshipperProduct_supplierProductId_fkey` FOREIGN KEY (`supplierProductId`) REFERENCES `supplierProduct`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `dropshipperProduct` ADD CONSTRAINT `dropshipperProduct_shopifyStoreId_fkey` FOREIGN KEY (`shopifyStoreId`) REFERENCES `shopifyStore`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `dropshipperProductVariant` ADD CONSTRAINT `admin_dropshipper_product_variant_fkey` FOREIGN KEY (`dropshipperId`) REFERENCES `admin`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

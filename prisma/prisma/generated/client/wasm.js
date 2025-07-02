@@ -765,6 +765,7 @@ exports.Prisma.SupplierProductVariantScalarFieldEnum = {
 exports.Prisma.DropshipperProductScalarFieldEnum = {
   id: 'id',
   shopifyProductId: 'shopifyProductId',
+  shopifyStoreId: 'shopifyStoreId',
   dropshipperId: 'dropshipperId',
   supplierId: 'supplierId',
   supplierProductId: 'supplierProductId',

@@ -102,14 +102,17 @@ export async function GET(req: NextRequest) {
       ? await getProductsByFiltersAndStatus(type, filters, mainDropshipperId, status)
       : await getProductsByStatus(type, mainDropshipperId, status);
 
-    const shopifyAppsResult = await getShopifyStoresByDropshipperId(mainDropshipperId);
+    const products = productsResult.products;
+
+    console.log(`products - `, products);
+    const shopifyStoresResult = await getShopifyStoresByDropshipperId(mainDropshipperId);
 
     const appConfigResult = await getAppConfig();
     const appConfig = appConfigResult.appConfig;
     const shippingCost = appConfig ? appConfig.shippingCost || 0 : 0;
 
     return NextResponse.json(
-      { status: true, products: productsResult?.products, shopifyStores: shopifyAppsResult?.shopifyStores || [], type, shippingCost },
+      { status: true, products, shopifyStores: shopifyStoresResult?.shopifyStores || [], type, shippingCost },
       { status: 200 }
     );
   } catch (error) {
@@ -249,91 +252,75 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const shopifyAppId = extractNumber('shopifyApp');
-    let shopifyApp;
+    const shopifyStoreId = extractNumber('shopifyStore');
+    let shopifyStore;
 
-    if (shopifyAppId && !isNaN(shopifyAppId)) {
-      const shopifyAppResult = await getShopifyStoreByIdForDropshipper(shopifyAppId, mainDropshipperId);
-      if (!shopifyAppResult.status) {
+    if (shopifyStoreId && !isNaN(shopifyStoreId)) {
+      const shopifyStoreResult = await getShopifyStoreByIdForDropshipper(shopifyStoreId, mainDropshipperId);
+      if (!shopifyStoreResult.status) {
         return NextResponse.json(
-          { status: false, message: shopifyAppResult.message },
+          { status: false, message: shopifyStoreResult.message },
           { status: 400 }
         );
       }
-      shopifyApp = shopifyAppResult.shopifyStore;
+      shopifyStore = shopifyStoreResult.shopifyStore;
     } else {
-      const shopifyAppsResult = await getShopifyStoresByDropshipperId(mainDropshipperId);
+      const shopifyStoresResult = await getShopifyStoresByDropshipperId(mainDropshipperId);
 
       return NextResponse.json(
         {
           status: false,
           message: 'Missing or invalid Shopify store ID. Using all stores instead.',
-          shopifyStores: shopifyAppsResult.shopifyStores || [],
+          shopifyStores: shopifyStoresResult.shopifyStores || [],
         },
         { status: 400 }
       );
     }
 
-    if (!shopifyApp) {
+    if (!shopifyStore) {
       return NextResponse.json(
         { status: false, message: 'Shopify store data is unavailable. Please verify the input.' },
         { status: 400 }
       );
     }
 
-    const productPayload = {
-      supplierProductId,
-      dropshipperId: mainDropshipperId,
-      variants: parsedVariants,
-      createdBy: mainDropshipperId,
-      createdByRole: dropshipperRole,
-    };
+    // if (productCreateResult?.status) {
+    const shopDomain = shopifyStore.shop;
+    const accessToken = shopifyStore.accessToken;
+    const SHOPIFY_API_VERSION = process.env.SHOPIFY_API_VERSION;
+    const APP_HOST = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
-    logMessage('info', 'Creating product with payload:', productPayload);
+    try {
 
-    const productCreateResult = await createDropshipperProduct(
-      mainDropshipperId,
-      String(dropshipperRole),
-      productPayload
-    );
+      const shopifyImages = [
+        mainProduct.package_weight_image,
+        mainProduct.package_length_image,
+        mainProduct.package_width_image,
+        mainProduct.package_height_image
+      ]
+        .filter(src => typeof src === 'string' && src.trim() !== '')
+        .map(src => ({ src: APP_HOST + src }));
 
-    if (productCreateResult?.status) {
-      const shopDomain = shopifyApp.shop;
-      const accessToken = shopifyApp.accessToken;
-      const SHOPIFY_API_VERSION = process.env.SHOPIFY_API_VERSION;
-      const APP_HOST = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+      const shopifyProductPayload = {
+        product: {
+          title: mainProduct?.name,
+          body_html: mainProduct?.description,
+          images: shopifyImages,
+          variants: parsedVariants.map(v => ({
+            price: v.price.toFixed(2),
+            option1: `Variant ${v.variantId}`,
+          }))
+        }
+      };
 
-      try {
+      console.log('shopifyProductPayload - ', shopifyProductPayload);
+      console.log('shopifyProductPayload.product.images - ', shopifyProductPayload.product.images);
+      console.log('shopifyProductPayload.product.variants - ', shopifyProductPayload.product.variants);
 
-        const shopifyImages = [
-          mainProduct.package_weight_image,
-          mainProduct.package_length_image,
-          mainProduct.package_width_image,
-          mainProduct.package_height_image
-        ]
-          .filter(src => typeof src === 'string' && src.trim() !== '')
-          .map(src => ({ src: APP_HOST + src }));
+      const graphqlEndpoint = `https://${shopDomain}/admin/api/${SHOPIFY_API_VERSION}/graphql.json`;
 
-        const shopifyProductPayload = {
-          product: {
-            title: mainProduct?.name,
-            body_html: mainProduct?.description,
-            images: shopifyImages,
-            variants: parsedVariants.map(v => ({
-              price: v.price.toFixed(2),
-              option1: `Variant ${v.variantId}`,
-            }))
-          }
-        };
-
-        console.log('shopifyProductPayload - ', shopifyProductPayload);
-        console.log('shopifyProductPayload.product.images - ', shopifyProductPayload.product.images);
-        console.log('shopifyProductPayload.product.variants - ', shopifyProductPayload.product.variants);
-
-        const graphqlEndpoint = `https://${shopDomain}/admin/api/${SHOPIFY_API_VERSION}/graphql.json`;
-
-        // Step 1: Create Product
-        const productCreateMutation = `
+      // Step 1: Create Product
+      const productCreateMutation = `
                                         mutation productCreate($input: ProductInput!) {
                                           productCreate(input: $input) {
                                             product { id }
@@ -342,40 +329,40 @@ export async function POST(req: NextRequest) {
                                         }
                                       `;
 
-        const productCreateVariables = {
-          input: {
-            title: mainProduct.name,
-            descriptionHtml: mainProduct.description,
-            vendor: 'App Vendor',
-            productType: 'Dropship Product',
-            published: true,
+      const productCreateVariables = {
+        input: {
+          title: mainProduct.name,
+          descriptionHtml: mainProduct.description,
+          vendor: 'App Vendor',
+          productType: 'Dropship Product',
+          published: true,
+        },
+      };
+
+      const createResp = await axios.post(
+        graphqlEndpoint,
+        { query: productCreateMutation, variables: productCreateVariables },
+        {
+          headers: {
+            'X-Shopify-Access-Token': accessToken,
+            'Content-Type': 'application/json',
           },
-        };
-
-        const createResp = await axios.post(
-          graphqlEndpoint,
-          { query: productCreateMutation, variables: productCreateVariables },
-          {
-            headers: {
-              'X-Shopify-Access-Token': accessToken,
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-
-        console.log('[Shopify] Product Create Response:', JSON.stringify(createResp.data, null, 2));
-
-        const productId = createResp.data?.data?.productCreate?.product?.id;
-        const createErrors = createResp.data?.data?.productCreate?.userErrors || [];
-        if (!productId || createErrors.length > 0) {
-          return NextResponse.json(
-            { status: false, message: 'Product creation failed', errors: createErrors },
-            { status: 400 }
-          );
         }
+      );
 
-        // Step 2: Push Variants
-        const variantMutation = `
+      console.log('[Shopify] Product Create Response:', JSON.stringify(createResp.data, null, 2));
+
+      const productId = createResp.data?.data?.productCreate?.product?.id;
+      const createErrors = createResp.data?.data?.productCreate?.userErrors || [];
+      if (!productId || createErrors.length > 0) {
+        return NextResponse.json(
+          { status: false, message: 'Product creation failed', errors: createErrors },
+          { status: 400 }
+        );
+      }
+
+      // Step 2: Push Variants
+      const variantMutation = `
                                 mutation productVariantsBulkCreate($productId: ID!, $strategy: ProductVariantsBulkCreateStrategy, $variants: [ProductVariantsBulkInput!]!) {
                                   productVariantsBulkCreate(productId: $productId, strategy: $strategy, variants: $variants) {
                                     productVariants { id }
@@ -384,26 +371,70 @@ export async function POST(req: NextRequest) {
                                 }
                               `;
 
-        const variantInputs = parsedVariants.map(v => ({
-          price: v.price.toFixed(2),
-          sku: `SKU-${v.variantId}`,
-          option1: `Variant ${v.variantId}`,
-          inventoryItem: {
-            tracked: true,
-          },
-          barcode: null,
-        }));
+      const variantInputs = parsedVariants.map(v => ({
+        price: v.price.toFixed(2),
+        sku: `SKU-${v.variantId}`,
+        option1: `Variant ${v.variantId}`,
+        inventoryItem: {
+          tracked: true,
+        },
+        barcode: null,
+      }));
 
-        const variantResp = await axios.post(
-          graphqlEndpoint,
-          {
-            query: variantMutation,
-            variables: {
-              productId,
-              strategy: 'REMOVE_STANDALONE_VARIANT',
-              variants: variantInputs,
-            },
+      const variantResp = await axios.post(
+        graphqlEndpoint,
+        {
+          query: variantMutation,
+          variables: {
+            productId,
+            strategy: 'REMOVE_STANDALONE_VARIANT',
+            variants: variantInputs,
           },
+        },
+        {
+          headers: {
+            'X-Shopify-Access-Token': accessToken,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log('[Shopify] Variant Create Response:', JSON.stringify(variantResp.data, null, 2));
+
+      const variantErrors = variantResp.data?.data?.productVariantsBulkCreate?.userErrors || [];
+      if (variantErrors.length > 0) {
+        return NextResponse.json(
+          { status: false, message: 'Variant push failed', errors: variantErrors },
+          { status: 400 }
+        );
+      }
+
+      // Step 3: Upload Media (optional)
+      const imageSources = [
+        mainProduct.package_weight_image,
+        mainProduct.package_length_image,
+        mainProduct.package_width_image,
+        mainProduct.package_height_image,
+      ].filter(src => typeof src === 'string' && src.trim() !== '').map(src => APP_HOST + src);
+
+      if (imageSources.length > 0) {
+        const mediaMutation = `
+                                mutation productCreateMedia($productId: ID!, $media: [CreateMediaInput!]!) {
+                                  productCreateMedia(productId: $productId, media: $media) {
+                                    mediaUserErrors { field message }
+                                  }
+                                }
+                              `;
+        const mediaVariables = {
+          productId,
+          media: imageSources.map(url => ({
+            originalSource: url,
+            mediaContentType: 'IMAGE',
+          })),
+        };
+
+        const mediaResp = await axios.post(
+          graphqlEndpoint,
+          { query: mediaMutation, variables: mediaVariables },
           {
             headers: {
               'X-Shopify-Access-Token': accessToken,
@@ -411,84 +442,60 @@ export async function POST(req: NextRequest) {
             },
           }
         );
-        console.log('[Shopify] Variant Create Response:', JSON.stringify(variantResp.data, null, 2));
+        console.log('[Shopify] Media Upload Response:', JSON.stringify(mediaResp.data, null, 2));
 
-        const variantErrors = variantResp.data?.data?.productVariantsBulkCreate?.userErrors || [];
-        if (variantErrors.length > 0) {
-          return NextResponse.json(
-            { status: false, message: 'Variant push failed', errors: variantErrors },
-            { status: 400 }
-          );
+        const mediaErrors = mediaResp.data?.data?.productCreateMedia?.mediaUserErrors || [];
+        if (mediaErrors.length > 0) {
+          console.error('[Media Upload Error]', mediaErrors);
         }
+      }
 
-        // Step 3: Upload Media (optional)
-        const imageSources = [
-          mainProduct.package_weight_image,
-          mainProduct.package_length_image,
-          mainProduct.package_width_image,
-          mainProduct.package_height_image,
-        ].filter(src => typeof src === 'string' && src.trim() !== '').map(src => APP_HOST + src);
+      const productPayload = {
+        supplierProductId,
+        shopifyStoreId: shopifyStore.id,
+        shopifyProductId: productId,
+        dropshipperId: mainDropshipperId,
+        variants: parsedVariants,
+        createdBy: mainDropshipperId,
+        createdByRole: dropshipperRole,
+      };
 
-        if (imageSources.length > 0) {
-          const mediaMutation = `
-                                mutation productCreateMedia($productId: ID!, $media: [CreateMediaInput!]!) {
-                                  productCreateMedia(productId: $productId, media: $media) {
-                                    mediaUserErrors { field message }
-                                  }
-                                }
-                              `;
-          const mediaVariables = {
-            productId,
-            media: imageSources.map(url => ({
-              originalSource: url,
-              mediaContentType: 'IMAGE',
-            })),
-          };
+      logMessage('info', 'Creating product with payload:', productPayload);
 
-          const mediaResp = await axios.post(
-            graphqlEndpoint,
-            { query: mediaMutation, variables: mediaVariables },
-            {
-              headers: {
-                'X-Shopify-Access-Token': accessToken,
-                'Content-Type': 'application/json',
-              },
-            }
-          );
-          console.log('[Shopify] Media Upload Response:', JSON.stringify(mediaResp.data, null, 2));
+      const productCreateResult = await createDropshipperProduct(
+        mainDropshipperId,
+        String(dropshipperRole),
+        productPayload
+      );
 
-          const mediaErrors = mediaResp.data?.data?.productCreateMedia?.mediaUserErrors || [];
-          if (mediaErrors.length > 0) {
-            console.error('[Media Upload Error]', mediaErrors);
-          }
-        }
-
-        return NextResponse.json(
-          { status: true, product: productCreateResult.product, message: 'Product pushed to Shopify' },
-          { status: 200 }
-        );
-      } catch (error) {
-        // Log the error if you have a logger or console
-        console.error('Shopify API error:', error);
-
+      if (!productCreateResult.status) {
         return NextResponse.json(
           {
             status: false,
-            message: 'Failed to create product on Shopify',
-            error: error instanceof Error ? error.message : 'Unknown error'
+            message: productCreateResult?.message || 'Failed to create product',
           },
-          { status: 500 }
+          { status: 400 }
         );
       }
-    } else {
+
+      return NextResponse.json(
+        { status: true, product: productCreateResult.product, message: 'Product pushed to Shopify' },
+        { status: 200 }
+      );
+    } catch (error) {
+      // Log the error if you have a logger or console
+      console.error('Shopify API error:', error);
+
       return NextResponse.json(
         {
           status: false,
-          message: productCreateResult?.message || 'Failed to create product',
+          message: 'Failed to create product on Shopify',
+          error: error instanceof Error ? error.message : 'Unknown error'
         },
-        { status: 400 }
+        { status: 500 }
       );
     }
+
   } catch (err: unknown) {
     const error = err instanceof Error ? err.message : 'Internal Server Error';
     logMessage('error', 'Product Creation Exception:', error);

@@ -1,9 +1,46 @@
 {
   "pages": {
-    "/api/admin/product/[productId]/route": [
+    "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/admin/product/[productId]/route.js"
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
+    "/dropshipping/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/dropshipping/layout.css",
+      "static/chunks/app/dropshipping/layout.js"
+    ],
+    "/dropshipping/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dropshipping/page.js"
+    ],
+    "/api/dropshipper/auth/verify/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/dropshipper/auth/verify/route.js"
+    ],
+    "/api/dropshipper/product/inventory/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/dropshipper/product/inventory/route.js"
+    ],
+    "/api/dropshipper/category/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/dropshipper/category/route.js"
+    ],
+    "/api/dropshipper/product/my-inventory/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/dropshipper/product/my-inventory/route.js"
     ]
   }
 }

@@ -9,6 +9,8 @@ interface Variant {
 
 interface Product {
     supplierProductId: number;
+    shopifyProductId: string;
+    shopifyStoreId: number;
     dropshipperId: number;
     variants: Variant[];
     createdBy?: number | null;
@@ -58,7 +60,7 @@ export async function createDropshipperProduct(
     product: Product
 ) {
     try {
-        const { supplierProductId, variants, createdBy, createdByRole } = product;
+        const { supplierProductId, shopifyProductId, shopifyStoreId, variants, createdBy, createdByRole } = product;
 
         // Step 1: Check if main product exists
         const existingProduct = await prisma.supplierProduct.findUnique({
@@ -92,6 +94,8 @@ export async function createDropshipperProduct(
         const newDropshipperProduct = await prisma.dropshipperProduct.create({
             data: {
                 supplierProductId,
+                shopifyProductId,
+                shopifyStoreId,
                 supplierId: existingProduct.supplierId,
                 productId: existingProduct.productId,
                 dropshipperId,
@@ -296,7 +300,7 @@ export const getProductsByFiltersAndStatus = async (
             const notMyProducts = await prisma.supplierProduct.findMany({
                 where: {
                     ...statusCondition,
-                    id: { notIn: myProductIds.length ? myProductIds : [0] },
+                    // id: { notIn: myProductIds.length ? myProductIds : [0] },
                 },
                 orderBy: { id: "desc" },
                 include: {
@@ -418,6 +422,7 @@ export const getProductsByStatus = async (
                 include: {
                     product: true,
                     dropshipper: true,
+                    shopifyStore: true,
                     variants: {
                         include: {
                             supplierProductVariant: {
@@ -441,7 +446,7 @@ export const getProductsByStatus = async (
             const notMyProducts = await prisma.supplierProduct.findMany({
                 where: {
                     ...statusCondition,
-                    id: { notIn: myProductIds.length ? myProductIds : [0] },
+                    // id: { notIn: myProductIds.length ? myProductIds : [0] },
                 },
                 orderBy: { id: "desc" },
                 include: {

@@ -140,7 +140,9 @@ model shopifyStore {
   deletedAt       DateTime?
   deletedBy       Int?
   deletedByRole   String?
-  admin           admin    @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  dropshipperProducts      dropshipperProduct[] @relation("ShopifyStoreRelation")
+  admin                    admin    @relation(fields: [adminId], references: [id], onDelete: Cascade)
 }
 
 model companyDetail {
@@ -839,7 +841,8 @@ model supplierProductVariant {
 
 model dropshipperProduct {
   id                Int       @id @default(autoincrement())
-  shopifyProductId  String?      
+  shopifyProductId  String?
+  shopifyStoreId    Int
   dropshipperId     Int
   supplierId        Int
   supplierProductId Int
@@ -858,6 +861,7 @@ model dropshipperProduct {
   supplier          admin             @relation("SuppliedProducts", fields: [supplierId], references: [id], onDelete: Cascade)
   product           product           @relation(fields: [productId], references: [id], onDelete: Cascade)
   supplierProduct   supplierProduct   @relation("SupplierProductRelation", fields: [supplierProductId], references: [id], onDelete: Cascade)
+  shopifyStore      shopifyStore      @relation("ShopifyStoreRelation", fields: [shopifyStoreId], references: [id], onDelete: Cascade)
   variants          dropshipperProductVariant[]
   orderItems                      orderItem[]
   rtoInventories  rtoInventory[]   @relation("ProductToRtoInventory")

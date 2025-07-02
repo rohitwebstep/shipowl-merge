@@ -198,7 +198,7 @@ export async function POST(req: NextRequest) {
             { status: 200 }
         );
     } catch (error) {
-        console.error('❌ Password change error:', error);
+        logMessage(`error`, `Password change error:`, error);
         return NextResponse.json(
             {
                 status: false,
