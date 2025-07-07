@@ -11,20 +11,26 @@ const Home = () => {
     const router = useRouter();
 
     useEffect(() => {
-        const connectShop = async () => {
-            const shop = localStorage.getItem("shop");
+        if (typeof window === 'undefined') return;
 
-            if (shop) {
-                const dropshipperData = JSON.parse(localStorage.getItem("shippingData"));
+        const onPageLoad = () => {
+            const connectShop = async () => {
+                const shop = localStorage.getItem("shop");
+                const shippingData = localStorage.getItem("shippingData");
+
+                if (!shop || !shippingData) return;
+
+                const dropshipperData = JSON.parse(shippingData);
+
                 if (dropshipperData?.project?.active_panel !== "dropshipper") {
                     localStorage.removeItem("shippingData");
-                    router.push("/dropshipping/auth/login");
+                    router.replace("/dropshipping/auth/login");
                     return;
                 }
 
                 const token = dropshipperData?.security?.token;
                 if (!token) {
-                    router.push("/dropshipping/auth/login");
+                    router.replace("/dropshipping/auth/login");
                     return;
                 }
 
@@ -42,20 +48,32 @@ const Home = () => {
 
                     const result = await response.json();
 
-                    if (!response.ok) {
-                        router.push("/dropshipping/shopify/failed");
+                    if (!response.ok || !result.installUrl) {
+                        router.replace("/dropshipping/shopify/failed");
                     } else {
-                        router.push(result.installUrl);
+                        router.replace(result.installUrl);
                     }
                 } catch (error) {
-                    console.error("Error:", error);
-                    router.push("/dropshipping/shopify/failed");
+                    console.error("Error connecting shop:", error);
+                    router.replace("/dropshipping/shopify/failed");
                 }
-            }
+            };
+
+            verifyDropShipperAuth();
+            connectShop();
         };
 
-        verifyDropShipperAuth();
-        connectShop();
+        // If already loaded, fire immediately
+        if (document.readyState === "complete") {
+            onPageLoad();
+        } else {
+            // Otherwise, wait for full page load
+            window.addEventListener("load", onPageLoad);
+        }
+
+        return () => {
+            window.removeEventListener("load", onPageLoad);
+        };
     }, [verifyDropShipperAuth, router]);
 
     return (
